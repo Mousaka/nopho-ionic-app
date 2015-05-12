@@ -1,19 +1,31 @@
 <ion-view view-title="firstpage">
-  <ion-content class="fillPage" padding="true" scroll="false">
+  <ion-content class="centerVertically" padding="true" scroll="false">
+  
+<div class="col">
+<div class="row">    
+      <label class="centertext">
+       <h4>{{workMessage}}</h4>
+     </label>
+   </div>
 
-  <label class="centertext">
-  	<h4>{{workMessage}}</h4>
-  </label>
-  <div class="centertext">
-  	<timer autostart="false" interval="1000" countdown="1800">
-  		<h3>{{minutes}}:{{sseconds}}</timer></h3>
-  	</timer> 
-	</div>  
 
-<div class="centertext centerVertically">
-<button class="ion-clock button circle {{buttonStyle}}" ng-click="startTimer()">
-  {{buttonText}}
- </button>
+ <div class="row">
+    <div class="centertext">
+     <timer autostart="false" interval="1000" countdown="1800">
+      <h3>{{minutes}}:{{sseconds}}</timer></h3>
+    </timer> 
+  </div> 
+</div>
+
+
+
+<div class="row">
+    <div class="centertext">
+      <button class="ion-clock button circle {{buttonStyle}}" ng-click="startTimer()">
+        {{buttonText}}
+      </button>
+    </div>
+  </div>
 </div>
 
   </ion-content>
