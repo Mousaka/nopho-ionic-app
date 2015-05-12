@@ -22,8 +22,16 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
 
 .centertext { text-align: center;}
 
+.centerVertically{
+	vertical-align: middle;
+}
+
 .circle {
 	min-height: 150px;
 	min-width: 	150px;
 	border-radius: 75px;
+}
+
+.fillPage{
+	height: 100%;
 }

@@ -16,3 +16,4 @@ plugins
 *.DS_Store
 *.keystore
 *.sw*
+www/css/ionic.app.*
