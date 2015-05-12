@@ -1,18 +1,20 @@
 <ion-view view-title="firstpage">
   <ion-content padding="true">
 
-  <label class="welcometext">
+  <label class="centertext">
   	<h4>{{workMessage}}</h4>
   </label>
-  <div class="welcometext">
+  <div class="centertext">
   	<timer autostart="false" interval="1000" countdown="1800">
-  		<h3>{{minutes}} minute{{minutesS}}, {{seconds}} second{{secondsS}}.</timer></h3>
+  		<h3>{{minutes}}:{{seconds}}</timer></h3>
   	</timer> 
 	</div>  
 
-<button class="ion-clock button button-block button-positive" ng-style="style" ng-click="startTimer()">
+<div class="centertext">
+<button class="ion-clock button circle {{buttonStyle}}" ng-click="startTimer()">
   {{buttonText}}
  </button>
+</div>
 
   </ion-content>
 </ion-view>

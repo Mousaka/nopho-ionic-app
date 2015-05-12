@@ -5,17 +5,15 @@ angular.module('starter.controllers', [])
 	$scope.timerRunning = false;
 	$scope.workMessage = "Time to start working!";
 	$scope.buttonText = "Start session";
+	$scope.buttonStyle = "button-positive"
+
 	$scope.startTimer = function() {
 		console.log("start"); 
 		$scope.$broadcast('timer-start');
 		$scope.timerRunning = true;
 		$scope.workMessage = "Keep working for";
 		$scope.buttonText = "Session active";
-
-		$scope.style = {
-			color: 'red'
-		};
-
+		$scope.buttonStyle = "button-assertive";
 	};
 
 

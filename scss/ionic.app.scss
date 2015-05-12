@@ -20,3 +20,10 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
 // Include all of Ionic
 @import "www/lib/ionic/scss/ionic";
 
+.centertext { text-align: center;}
+
+.circle {
+	min-height: 150px;
+	min-width: 	150px;
+	border-radius: 75px;
+}
