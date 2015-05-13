@@ -5,17 +5,40 @@
 // the 2nd parameter is an array of 'requires'
 angular.module('starter', ['ionic', 'timer', 'starter.controllers'])
 
-.run(function($ionicPlatform) {
+.run(function($ionicPlatform, $rootScope) {
+
+
   $ionicPlatform.ready(function() {
+    //Adding pause and resume listeners
+    document.addEventListener("resume", onResume, false);
+    document.addEventListener("pause", onPause, false);
+    document.addEventListener("homeEvent", onHome, false);
+
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
-    if(window.cordova && window.cordova.plugins.Keyboard) {
-      cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
-    }
-    if(window.StatusBar) {
-      StatusBar.styleDefault();
-    }
-  });
+  if(window.cordova && window.cordova.plugins.Keyboard) {
+    cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
+  }
+  if(window.StatusBar) {
+    StatusBar.styleDefault();
+  }
+});
+
+  function onResume() {
+   $rootScope.$broadcast('cordovaResumeEvent');
+   console.log('On Resume');
+ }
+
+ function onPause() {
+ // $rootScope.$broadcast('cordovaPauseEvent');
+  console.log('On Pause');
+}
+
+function onHome() {
+  $rootScope.$broadcast('cordovaPauseEvent');
+  console.log('On home iii so close');
+}
+
 })
 
 
@@ -29,16 +52,16 @@ angular.module('starter', ['ionic', 'timer', 'starter.controllers'])
 
   .state('index', {
     url: '/',
-        templateUrl: 'templates/firstpage.html',
-        controller: 'FirstpageController'
+    templateUrl: 'templates/firstpage.html',
+    controller: 'FirstpageController'
   })
 
-    .state('score', {
+  .state('score', {
     url: '/score',
-        templateUrl: 'templates/score.html',
-        controller: 'ScoreController'
+    templateUrl: 'templates/score.html',
+    controller: 'ScoreController'
   });
 
-   $urlRouterProvider.otherwise('/');
+  $urlRouterProvider.otherwise('/');
 
 });

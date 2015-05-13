@@ -2,13 +2,11 @@
 # http://git-scm.com/docs/gitignore
 
 node_modules/
-platforms/
 plugins/
 .tmp
 .sass-cache
 <%= appPath %>/bower_components
 coverage
-platforms
 plugins
 *.swp
 *.swo
@@ -17,3 +15,5 @@ plugins
 *.keystore
 *.sw*
 www/css/ionic.app.*
+platform/*
+!platforms/android/src/com/ionicframework/nophoapp347342/MainActivity.java
