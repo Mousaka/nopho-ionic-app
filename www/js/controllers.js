@@ -6,9 +6,7 @@ angular.module('starter.controllers', [])
 	$scope.timeInSec = 30 * 60;
 	$scope.workMessage = "Time to start working!";
 	$scope.buttonText = "Start session";
-	$scope.buttonStyle = "button-positive"
-	$scope.slider = $('#slider').CircularSlider();
-	//$scope.slider.setRadius(400);
+	$scope.buttonStyle = "button-positive";
 
 //called when timer is started (from clicking activity button)
 $scope.startTimer = function() {
