@@ -7,7 +7,8 @@ angular.module('starter.controllers', [])
 	$scope.workMessage = "Time to start working!";
 	$scope.buttonText = "Start session";
 	$scope.buttonStyle = "button-positive"
-
+	$scope.slider = $('#slider').CircularSlider();
+	//$scope.slider.setRadius(400);
 
 //called when timer is started (from clicking activity button)
 $scope.startTimer = function() {
@@ -60,6 +61,7 @@ $scope.$on('cordovaResumeEvent', function(event, data){
 	console.log("cought resume event");
 });
 
+//This event is sent on onUserLeaveHint event from Java part
 $scope.$on('cordovaPauseEvent', function(event, data){
 	console.log("!! Cought homeEvent event");
 	$scope.manualStopTimer();
