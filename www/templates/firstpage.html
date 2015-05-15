@@ -7,7 +7,7 @@
 
 
 <div class="centertext">
- <timer autostart="false" interval="1000" countdown="4">
+  <timer autostart="false" interval="1000" countdown="4">
   <h3>{{minutes}}:{{sseconds}}</h3>
 </timer> 
 </div> 
@@ -18,7 +18,7 @@
   </button>
 </div>
 
-<div class="centertext">
+<div class="centertext" ng-hide="true">
   <circular-slider
   class='my-slider'
   shape="{{shape}}"
