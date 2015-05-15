@@ -46,7 +46,7 @@ $scope.activityButtonClicked = function(){
 //resets clock time
 $scope.resetClock = function() {
 	if ((!$scope.timerRunning))
-		$scope.$broadcast('timer-reset');
+		$scope.$broadcast('timer-set-countdown-seconds', $scope.value);
 };
 
 //called when time has run out
@@ -57,8 +57,9 @@ $scope.$on('timer-stopped', function (event, data){
 		$scope.buttonStyle = "button-balanced";
 		$scope.workMessage = "Congratulations, you made it :)";
 $scope.buttonText = "Start again";
+$scope.$apply();
 }
-//$scope.$apply();
+
 });
 
 $scope.$on('cordovaResumeEvent', function(event, data){
@@ -76,6 +77,7 @@ $scope.onSlide = function(value){
 	console.log("det här value; " + value);
 	$scope.$broadcast('timer-set-countdown-seconds', value);
 	$scope.countdown = value;
+	$scope.value = value;
 }
 
 $scope.$watch('countdown', function(){
