@@ -7,6 +7,9 @@ angular.module('starter.controllers', [])
 	$scope.workMessage = "Time to start working!";
 	$scope.buttonText = "Start session";
 	$scope.buttonStyle = "button-positive";
+	$scope.shape = "Half Circle";
+	$scope.count = 0;
+	$scope.value = 0;
 
 //called when timer is started (from clicking activity button)
 $scope.startTimer = function() {
@@ -28,7 +31,7 @@ $scope.manualStopTimer = function (){
 	$scope.buttonStyle = "button-assertive";
 };
 
-//When the activity button i clicked this checks if theres time left
+//When the activity button i clicked this checks if there is time left
 $scope.activityButtonClicked = function(){
 	if ($scope.timerRunning) {
 		$scope.manualStopTimer();
@@ -52,7 +55,7 @@ $scope.$on('timer-stopped', function (event, data){
 		$scope.workMessage = "Congratulations, you made it :)";
 $scope.buttonText = "Start again";
 }
-$scope.$apply();
+//$scope.$apply();
 });
 
 $scope.$on('cordovaResumeEvent', function(event, data){
@@ -66,9 +69,23 @@ $scope.$on('cordovaPauseEvent', function(event, data){
 	$scope.$apply();
 });
 
+$scope.onSlide = function(value){
+	console.log("det här value; " + value);
+	$scope.$broadcast('timer-set-countdown-seconds', value);
+	$scope.countdown = value;
+}
+
+$scope.$watch('countdown', function(){
+	console.log("det här count; " + $scope.countdown);
+
+});
+
+
 $scope.$on('homeEvent', function(event, data){
 
 });
+
+
 })
 
 .controller('ScoreController', function($scope) {
