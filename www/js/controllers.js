@@ -75,14 +75,14 @@ $scope.$on('cordovaPauseEvent', function(event, data){
 });
 
 $scope.onSlide = function(value){
-	console.log("det här value; " + value);
-	$scope.$broadcast('timer-set-countdown-seconds', value);
-	$scope.countdown = value;
+	//console.log("det här value; " + value);
+	$scope.$broadcast('timer-set-countdown-seconds', value * 60);
+	$scope.countdown = value * 60;
 	$scope.value = value;
 }
 
 $scope.$watch('countdown', function(){
-	console.log("det här count; " + $scope.countdown);
+	//console.log("det här count; " + $scope.countdown);
 
 });
 
