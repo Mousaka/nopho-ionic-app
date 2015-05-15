@@ -1,6 +1,7 @@
 angular.module('starter.controllers', [])
 
 .controller('FirstpageController', function($scope, $timeout) {
+
 	console.log("We");
 	$scope.timerRunning = false;
 	$scope.timeInSec = 30 * 60;

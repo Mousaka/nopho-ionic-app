@@ -15,5 +15,11 @@ plugins
 *.keystore
 *.sw*
 www/css/ionic.app.*
-platform/*
-!platforms/android/src/com/ionicframework/nophoapp347342/MainActivity.java
+!/platforms
+/platforms/*
+!/platforms/android/src/com/ionicframework/nophoapp347342/MainActivity.java
+
+!/www/lib
+/www/lib/*
+!/www/lib/*.js
+!/www/lib/*.css

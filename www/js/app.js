@@ -6,9 +6,10 @@
 angular.module('starter', ['ionic', 'timer', 'angular.circular-slider', 'starter.controllers'])
 
 .run(function($ionicPlatform, $rootScope) {
-
-
   $ionicPlatform.ready(function() {
+    //makes the app go fullscreen
+    ionic.Platform.fullScreen();
+
     //Adding pause and resume listeners
     document.addEventListener("resume", onResume, false);
     document.addEventListener("pause", onPause, false);
@@ -32,7 +33,7 @@ angular.module('starter', ['ionic', 'timer', 'angular.circular-slider', 'starter
 
  function onPause() {
  // $rootScope.$broadcast('cordovaPauseEvent');
-  console.log('On Pause');
+ console.log('On Pause');
 }
 
 function onHome() {
@@ -41,7 +42,6 @@ function onHome() {
 }
 
 })
-
 
 .config(function($stateProvider, $urlRouterProvider) {
 
