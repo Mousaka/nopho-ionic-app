@@ -53,6 +53,7 @@ $scope.resetClock = function() {
 $scope.$on('timer-stopped', function (event, data){
 
 	$scope.timerRunning = false;
+	$scope.isHidden = false;
 	if (data.seconds===0){
 		$scope.buttonStyle = "button-balanced";
 		$scope.workMessage = "Congratulations, you made it :)";

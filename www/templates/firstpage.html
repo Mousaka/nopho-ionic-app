@@ -5,19 +5,6 @@
 	<h4>{{workMessage}}</h4>
 </div>
 
-
-<div class="centertext">
-	<timer autostart="false" interval="1000" countdown="4">
-		<h3>{{minutes}}:{{sseconds}}</h3>
-	</timer> 
-</div> 
-
-<div class="centertext">
-	<button class="ion-clock button circle {{buttonStyle}}" ng-click="activityButtonClicked()">
-		{{buttonText}}
-	</button>
-</div>
-
 <dib ng-model="isHidden">
 	<div class="centertext" ng-hide="isHidden">
 		<circular-slider
@@ -30,11 +17,17 @@
 		min="min"
 		max="200"
 		value="value">
-
-
-		{{value}}
+		<timer autostart="false" interval="1000" countdown="4">
+			{{minutes}}:{{sseconds}}
+		</timer> 
 	</circular-slider>
 </div>
+</div>
+
+<div class="centertext">
+	<button class="ion-clock button circle {{buttonStyle}}" ng-click="activityButtonClicked()">
+		{{buttonText}}
+	</button>
 </div>
 
 </ion-content>
