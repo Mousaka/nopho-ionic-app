@@ -11,7 +11,7 @@ angular.module('starter.controllers', [])
 	$scope.shape = "Half Circle";
 	$scope.count = 0;
 	$scope.value = 0;
-
+	$scope.isHidden = false;
 //called when timer is started (from clicking activity button)
 $scope.startTimer = function() {
 	console.log("start"); 
@@ -21,6 +21,7 @@ $scope.startTimer = function() {
 	$scope.workMessage = "Keep working for";
 	$scope.buttonText = "Session active";
 	$scope.buttonStyle = "button-energized";
+	$scope.isHidden = true;
 };
 
 //called when the timer is stopped manually, i.e session failed
@@ -30,6 +31,7 @@ $scope.manualStopTimer = function (){
 	$scope.workMessage = "You failed your session!";
 	$scope.buttonText = "Start again";
 	$scope.buttonStyle = "button-assertive";
+	$scope.isHidden = false;
 };
 
 //When the activity button i clicked this checks if there is time left

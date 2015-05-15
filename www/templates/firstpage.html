@@ -18,7 +18,8 @@
   </button>
 </div>
 
-<div class="centertext">
+<dib ng-model="isHidden">
+<div class="centertext" ng-hide="isHidden">
   <circular-slider
   class='my-slider'
   shape="{{shape}}"
@@ -33,6 +34,7 @@
 
   {{value}}
 </circular-slider>
+</div>
 </div>
 
 </ion-content>
