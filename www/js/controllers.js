@@ -15,7 +15,7 @@ angular.module('starter.controllers', [])
 	$scope.isDisabled = false;
 //called when timer is started (from clicking activity button)
 $scope.startTimer = function() {
-	$scope.loadFail();
+	alert(JSON.stringify($localstorage.getData()));
 	console.log("start"); 
 	$scope.resetClock();
 	$scope.$broadcast('timer-start');
@@ -62,6 +62,7 @@ $scope.$on('timer-stopped', function (event, data){
 		$scope.workMessage = "Congratulations, you made it :)";
 $scope.buttonText = "Start again";
 $scope.$apply();
+$localstorage.succIncr();
 }
 
 });
@@ -94,16 +95,16 @@ $scope.$on('homeEvent', function(event, data){
 
 });
 
-  $scope.saveFail = function(){
-  	data = parseInt(window.localStorage.getItem("failSessions"));
-  	data = data + 1;
-    window.localStorage.setItem("failSessions", data);
-  }
+$scope.saveFail = function(){
+	data = parseInt(window.localStorage.getItem("failSessions"));
+	data = data + 1;
+	window.localStorage.setItem("failSessions", data);
+}
 
-  $scope.loadFail = function() {
-    alert(window.localStorage.getItem("userData"));
-  }
-  
+$scope.loadFail = function() {
+	alert(window.localStorage.getItem("userData"));
+}
+
 
 })
 
