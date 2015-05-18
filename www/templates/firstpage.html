@@ -5,8 +5,7 @@
 	<h4>{{workMessage}}</h4>
 </div>
 
-<div ng-model="isHidden">
-	<div class="centertext" ng-hide="isHidden" ng-click=>
+	<div class="centertext" ng-click=>
 		<circular-slider
 		class='my-slider'
 		shape="{{shape}}"
@@ -14,15 +13,15 @@
 		animate='true'
 		on-slide='onSlide(value)'
 		on-slide-end='onSlideEnd(value)'
-		min="min"
-		max="200"
+		min="2"
+		max="24"
 		value="value">
-		<timer autostart="false" interval="1000" countdown="4">
+		<timer autostart="false" interval="1000" countdown="1800">
 			{{minutes}}:{{sseconds}}
 		</timer> 
 	</circular-slider>
 </div>
-</div>
+
 
 <div class="centertext">
 	<button class="ion-clock button circle {{buttonStyle}}" ng-click="activityButtonClicked()">

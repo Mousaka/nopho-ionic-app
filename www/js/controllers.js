@@ -9,8 +9,8 @@ angular.module('starter.controllers', [])
 	$scope.buttonText = "Start session";
 	$scope.buttonStyle = "button-positive";
 	$scope.shape = "Half Circle";
-	$scope.count = 0;
-	$scope.value = 0;
+	$scope.value = 6;
+	$scope.countdown = $scope.value * 5 * 60;
 	$scope.isHidden = false;
 //called when timer is started (from clicking activity button)
 $scope.startTimer = function() {
@@ -46,7 +46,7 @@ $scope.activityButtonClicked = function(){
 //resets clock time
 $scope.resetClock = function() {
 	if ((!$scope.timerRunning))
-		$scope.$broadcast('timer-set-countdown-seconds', $scope.value);
+		$scope.$broadcast('timer-set-countdown-seconds', $scope.countdown);
 };
 
 //called when time has run out
@@ -75,9 +75,9 @@ $scope.$on('cordovaPauseEvent', function(event, data){
 });
 
 $scope.onSlide = function(value){
-	//console.log("det här value; " + value);
-	$scope.$broadcast('timer-set-countdown-seconds', value * 60);
-	$scope.countdown = value * 60;
+	console.log("det här value; " + value);
+	$scope.countdown = value * 60 * 5;
+	$scope.$broadcast('timer-set-countdown-seconds', $scope.countdown);
 	$scope.value = value;
 }
 
