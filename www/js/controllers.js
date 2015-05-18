@@ -1,6 +1,6 @@
 angular.module('starter.controllers', [])
 
-.controller('FirstpageController', function($scope, $timeout) {
+.controller('FirstpageController', function($scope, $timeout, $localstorage) {
 
 	console.log("We");
 	$scope.timerRunning = false;
@@ -28,7 +28,7 @@ $scope.startTimer = function() {
 
 //called when the timer is stopped manually, i.e session failed
 $scope.manualStopTimer = function (){
-	$scope.saveFail();
+	$localstorage.failIncr();
 	$scope.$broadcast('timer-stop');
 	$scope.timerRunning = false;
 	$scope.workMessage = "You failed your session!";
@@ -101,7 +101,7 @@ $scope.$on('homeEvent', function(event, data){
   }
 
   $scope.loadFail = function() {
-    alert(window.localStorage.getItem("failSessions"));
+    alert(window.localStorage.getItem("userData"));
   }
   
 
