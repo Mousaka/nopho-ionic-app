@@ -8,6 +8,9 @@
 	<div class="centertext" ng-click=>
 		<circular-slider
 		class='my-slider'
+		borderWidth='borderWidth'
+		innerCircleRatio='0.8'
+		disabled="isDisabled"
 		shape="{{shape}}"
 		touch="true"
 		animate='true'
@@ -16,7 +19,7 @@
 		min="2"
 		max="24"
 		value="value">
-		<timer autostart="false" interval="1000" countdown="1800">
+		<timer autostart="false" interval="1000" max-time-unit="'minute'" countdown="1800">
 			{{minutes}}:{{sseconds}}
 		</timer> 
 	</circular-slider>

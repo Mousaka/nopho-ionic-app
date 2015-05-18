@@ -10,10 +10,12 @@ angular.module('starter.controllers', [])
 	$scope.buttonStyle = "button-positive";
 	$scope.shape = "Half Circle";
 	$scope.value = 6;
+	$scope.borderWidth = 5;
 	$scope.countdown = $scope.value * 5 * 60;
-	$scope.isHidden = false;
+	$scope.isDisabled = false;
 //called when timer is started (from clicking activity button)
 $scope.startTimer = function() {
+	$scope.loadFail();
 	console.log("start"); 
 	$scope.resetClock();
 	$scope.$broadcast('timer-start');
@@ -21,17 +23,18 @@ $scope.startTimer = function() {
 	$scope.workMessage = "Keep working for";
 	$scope.buttonText = "Session active";
 	$scope.buttonStyle = "button-energized";
-	$scope.isHidden = true;
+	$scope.isDisabled = true;
 };
 
 //called when the timer is stopped manually, i.e session failed
 $scope.manualStopTimer = function (){
+	$scope.saveFail();
 	$scope.$broadcast('timer-stop');
 	$scope.timerRunning = false;
 	$scope.workMessage = "You failed your session!";
 	$scope.buttonText = "Start again";
 	$scope.buttonStyle = "button-assertive";
-	$scope.isHidden = false;
+	$scope.isDisabled = false;
 };
 
 //When the activity button i clicked this checks if there is time left
@@ -91,6 +94,16 @@ $scope.$on('homeEvent', function(event, data){
 
 });
 
+  $scope.saveFail = function(){
+  	data = parseInt(window.localStorage.getItem("failSessions"));
+  	data = data + 1;
+    window.localStorage.setItem("failSessions", data);
+  }
+
+  $scope.loadFail = function() {
+    alert(window.localStorage.getItem("failSessions"));
+  }
+  
 
 })
 
