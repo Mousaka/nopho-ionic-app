@@ -2,7 +2,7 @@
 # http://git-scm.com/docs/gitignore
 
 node_modules/
-plugins/
+/plugins/*/
 .tmp
 .sass-cache
 <%= appPath %>/bower_components

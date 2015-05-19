@@ -8,8 +8,7 @@ var nophoApp = angular.module('starter', ['ionic', 'timer', 'angular.circular-sl
 .run(function($ionicPlatform, $rootScope) {
   $ionicPlatform.ready(function() {
     //makes the app go fullscreen
-    ionic.Platform.fullScreen();
-
+    StatusBar.hide();
     //Adding pause and resume listeners
     document.addEventListener("resume", onResume, false);
     document.addEventListener("pause", onPause, false);
