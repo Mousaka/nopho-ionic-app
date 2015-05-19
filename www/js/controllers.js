@@ -1,7 +1,7 @@
 angular.module('starter.controllers', [])
 
 .controller('FirstpageController', function($scope, $timeout, $localstorage) {
-
+	//$localstorage.clearData();
 	console.log("We");
 	$scope.timerRunning = false;
 	$scope.timeInSec = 30 * 60;
@@ -9,7 +9,7 @@ angular.module('starter.controllers', [])
 	$scope.buttonText = "Start session";
 	$scope.buttonStyle = "button-positive";
 	$scope.shape = "Half Circle";
-	$scope.value = 6;
+	$scope.value = 2;
 	$scope.borderWidth = 5;
 	$scope.countdown = $scope.value * 5 * 60;
 	$scope.isDisabled = false;
@@ -56,13 +56,12 @@ $scope.resetClock = function() {
 $scope.$on('timer-stopped', function (event, data){
 
 	$scope.timerRunning = false;
-	$scope.isHidden = false;
 	if (data.seconds===0){
 		$scope.buttonStyle = "button-balanced";
 		$scope.workMessage = "Congratulations, you made it :)";
-$scope.buttonText = "Start again";
-$scope.$apply();
-$localstorage.succIncr();
+		$scope.buttonText = "Start again";
+		$scope.$apply();
+		$localstorage.succIncr();
 }
 
 });
@@ -84,12 +83,6 @@ $scope.onSlide = function(value){
 	$scope.$broadcast('timer-set-countdown-seconds', $scope.countdown);
 	$scope.value = value;
 }
-
-$scope.$watch('countdown', function(){
-	//console.log("det här count; " + $scope.countdown);
-
-});
-
 
 $scope.$on('homeEvent', function(event, data){
 

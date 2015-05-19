@@ -1,8 +1,8 @@
 angular.module('starter.dataService', [])
-.factory('$localstorage', ['$window', function($window) {
-	$key = 'userData';
-  $defaultJSON = '{"failCount": 0, "succCount": 0}';
 
+.factory('$localstorage', ['$window', '$filter', function($window, $filter) {
+	$key = 'userData';
+  $defaultJSON = '{"fails": [], "succeeds": []}';
   $getObject = function() {
     return JSON.parse($window.localStorage[$key] || $defaultJSON);
   };
@@ -20,16 +20,17 @@ angular.module('starter.dataService', [])
     },
     failIncr: function() {
       data = $getObject();
-      data['failCount'] = data['failCount'] + 1;
+      timestamp = $filter('date')(new Date(),'yyyy-MM-dd HH:mm:ss');
+      data['fails'].push(timestamp);
       $setObject(data);
     },
     getData: function(){
       return $getObject();
     },
-
     succIncr: function() {
       data = $getObject();
-      data['succCount'] = data['succCount'] + 1;
+      timestamp = $filter('date')(new Date(),'yyyy-MM-dd HH:mm:ss');
+      data['succeeds'].push(timestamp);
       $setObject(data);
     }
   }
