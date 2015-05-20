@@ -3,15 +3,21 @@ angular.module('starter.controllers', [])
 .controller('FirstpageController', function($scope, $timeout, $localstorage) {
 	//$localstorage.clearData();
 	console.log("We");
+	$testMode = true;
+	$timeScale = 60;
+
+	if($testMode){
+		$timeScale =
+		 1;
+	}
 	$scope.timerRunning = false;
-	$scope.timeInSec = 30 * 60;
 	$scope.workMessage = "Time to start working!";
 	$scope.buttonText = "Start session";
 	$scope.buttonStyle = "button-positive";
 	$scope.shape = "Half Circle";
 	$scope.value = 2;
 	$scope.borderWidth = 5;
-	$scope.countdown = $scope.value * 5 * 60;
+	$scope.countdown = $scope.value * 5 * $timeScale;
 	$scope.isDisabled = false;
 //called when timer is started (from clicking activity button)
 $scope.startTimer = function() {
@@ -57,11 +63,11 @@ $scope.$on('timer-stopped', function (event, data){
 
 	$scope.timerRunning = false;
 	if (data.seconds===0){
-		console.log("Made it once");
 		$scope.buttonStyle = "button-balanced";
 		$scope.workMessage = "Congratulations, you made it :)";
 		$scope.buttonText = "Start again";
 		$scope.$apply();
+		console.log("Made it once");
 		$localstorage.succIncr();
 }
 
@@ -80,7 +86,7 @@ $scope.$on('cordovaPauseEvent', function(event, data){
 
 $scope.onSlide = function(value){
 	console.log("det här value; " + value);
-	$scope.countdown = value * 60 * 5;
+	$scope.countdown = value * $timeScale * 5;
 	$scope.$broadcast('timer-set-countdown-seconds', $scope.countdown);
 	$scope.value = value;
 }
