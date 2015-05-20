@@ -30,7 +30,6 @@ angular.module('starter.dataService', [])
     succIncr: function() {
       data = $getObject();
       timestamp = $filter('date')(new Date(),'yyyy-MM-dd HH:mm:ss');
-      console.log("Storing stamp: "+timestamp);
       data['succeeds'].push(timestamp);
       $setObject(data);
     }
