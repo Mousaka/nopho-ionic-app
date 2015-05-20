@@ -1,7 +1,7 @@
 angular.module('starter.controllers', [])
 
 .controller('FirstpageController', function($scope, $timeout, $localstorage) {
-	//$localstorage.clearData();
+	$localstorage.clearData();
 	$testMode = true;
 	$timeScale = 60;
 	$madeItOnce = false;
@@ -64,7 +64,6 @@ $scope.$on('timer-stopped', function (event, data){
 	$scope.timerRunning = false;
 	if (data.seconds===0 && !$madeItOnce){
 		$madeItOnce = true;
-		console.log("Made it once");
 		$scope.buttonStyle = "button-balanced";
 		$scope.workMessage = "Congratulations, you made it :)";
 		$scope.buttonText = "Start again";
@@ -79,31 +78,33 @@ $scope.$on('cordovaResumeEvent', function(event, data){
 });
 
 //This event is sent on onUserLeaveHint event from Java part
-$scope.$on('cordovaPauseEvent', function(event, data){
-	console.log("!! Cought homeEvent event");
+$scope.$on('home-event', function(event, data){
+	console.log("!! Cought home event");
 	$scope.manualStopTimer();
 	$scope.$apply();
+});
+
+$scope.$on('cordovaPauseEvent', function(event, data){
+	console.log("Pause event cought");
+	alert("Pause Event caought");
+	//$scope.$apply();
 });
 
 $scope.onSlide = function(value){
 	$scope.countdown = value * $timeScale * 5;
 	$scope.$broadcast('timer-set-countdown-seconds', $scope.countdown);
 	$scope.value = value;
-}
-
-$scope.$on('homeEvent', function(event, data){
-
-});
+};
 
 $scope.saveFail = function(){
 	data = parseInt(window.localStorage.getItem("failSessions"));
 	data = data + 1;
 	window.localStorage.setItem("failSessions", data);
-}
+};
 
 $scope.loadFail = function() {
 	alert(window.localStorage.getItem("userData"));
-}
+};
 
 
 })

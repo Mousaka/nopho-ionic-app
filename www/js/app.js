@@ -12,7 +12,7 @@ var nophoApp = angular.module('starter', ['ionic', 'timer', 'angular.circular-sl
     //Adding pause and resume listeners
     document.addEventListener("resume", onResume, false);
     document.addEventListener("pause", onPause, false);
-    document.addEventListener("homeEvent", onHome, false);
+    document.addEventListener("home", onHome, false);
 
     //ionicPlatform.fullScreen(true);
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
@@ -31,12 +31,12 @@ var nophoApp = angular.module('starter', ['ionic', 'timer', 'angular.circular-sl
  }
 
  function onPause() {
- // $rootScope.$broadcast('cordovaPauseEvent');
+  $rootScope.$broadcast('cordovaPauseEvent');
  console.log('On Pause');
 }
 
 function onHome() {
-  $rootScope.$broadcast('cordovaPauseEvent');
+  $rootScope.$broadcast('home-event');
   console.log('On home iii so close');
 }
 

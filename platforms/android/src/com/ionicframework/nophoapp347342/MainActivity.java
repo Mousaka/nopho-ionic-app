@@ -38,7 +38,7 @@ public class MainActivity extends CordovaActivity
         System.out.println("IN java: onUserLeaveHint");
         //This should make session fail
         super.onUserLeaveHint();
-        this.loadUrl("javascript:cordova.fireDocumentEvent('homeEvent');");
+        this.loadUrl("javascript:cordova.fireDocumentEvent('home');");
        // new OfflineAsyncTask(BaseActivity.this).execute();
     }
 }
