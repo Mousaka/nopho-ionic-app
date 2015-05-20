@@ -9,7 +9,7 @@ angular.module('starter.controllers', [])
 	$scope.buttonText = "Start session";
 	$scope.buttonStyle = "button-positive";
 	$scope.shape = "Half Circle";
-	$scope.value = 6;
+	$scope.value = 2;
 	$scope.borderWidth = 5;
 	$scope.countdown = $scope.value * 5 * 60;
 	$scope.isDisabled = false;
@@ -57,6 +57,7 @@ $scope.$on('timer-stopped', function (event, data){
 
 	$scope.timerRunning = false;
 	if (data.seconds===0){
+		console.log("Made it once");
 		$scope.buttonStyle = "button-balanced";
 		$scope.workMessage = "Congratulations, you made it :)";
 		$scope.buttonText = "Start again";
