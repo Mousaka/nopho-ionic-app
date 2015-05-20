@@ -5,7 +5,7 @@
 // the 2nd parameter is an array of 'requires'
 var nophoApp = angular.module('starter', ['ionic', 'timer', 'angular.circular-slider', 'starter.dataService', 'starter.controllers'])
 
-.run(function($ionicPlatform, $rootScope) {
+.run(function($ionicPlatform, $rootScope, $localstorage) {
   $ionicPlatform.ready(function() {
     //makes the app go fullscreen
     StatusBar.hide();
@@ -13,6 +13,20 @@ var nophoApp = angular.module('starter', ['ionic', 'timer', 'angular.circular-sl
     document.addEventListener("resume", onResume, false);
     document.addEventListener("pause", onPause, false);
     document.addEventListener("homeEvent", onHome, false);
+
+    $ionicPlatform.onHardwareBackButton(function(){
+      navigator.notification.confirm("Closing the app will fail your current session!",
+        function(buttonIndex){
+         if (buttonIndex === 1 || 0){
+          $localstorage.failIncr();
+          navigator.app.exitApp();
+        }
+      },
+      'Warning',
+      ['Close anyway, Cancel']
+      );
+});
+
 
     //ionicPlatform.fullScreen(true);
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
@@ -25,12 +39,12 @@ var nophoApp = angular.module('starter', ['ionic', 'timer', 'angular.circular-sl
   }
 });
 
-  function onResume() {
-   $rootScope.$broadcast('cordovaResumeEvent');
-   console.log('On Resume');
- }
+function onResume() {
+ $rootScope.$broadcast('cordovaResumeEvent');
+ console.log('On Resume');
+}
 
- function onPause() {
+function onPause() {
  // $rootScope.$broadcast('cordovaPauseEvent');
  console.log('On Pause');
 }
@@ -38,6 +52,10 @@ var nophoApp = angular.module('starter', ['ionic', 'timer', 'angular.circular-sl
 function onHome() {
   $rootScope.$broadcast('cordovaPauseEvent');
   console.log('On home iii so close');
+}
+
+function alertDismissed() {
+  $localstorage.failIncr();
 }
 
 })
