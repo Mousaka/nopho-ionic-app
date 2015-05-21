@@ -1,7 +1,7 @@
 angular.module('starter.controllers', [])
 
 .controller('FirstpageController', function($scope, $timeout, $localstorage) {
-	$localstorage.clearData();
+	//$localstorage.clearData();
 	$testMode = true;
 	$timeScale = 60;
 	$madeItOnce = false;
@@ -75,6 +75,8 @@ $scope.$on('timer-stopped', function (event, data){
 
 $scope.$on('cordovaResumeEvent', function(event, data){
 	console.log("cought resume event");
+	$scope.random = Math.random();
+	$scope.apply();
 });
 
 //This event is sent on onUserLeaveHint event from Java part
@@ -86,7 +88,7 @@ $scope.$on('home-event', function(event, data){
 
 $scope.$on('cordovaPauseEvent', function(event, data){
 	console.log("Pause event cought");
-	alert("Pause Event caought");
+//	alert("Pause Event caought");
 	//$scope.$apply();
 });
 

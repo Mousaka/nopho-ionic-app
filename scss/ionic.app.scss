@@ -35,6 +35,19 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
     width:100%;
 }
 
+/*
+.bar-header and .bar customizations to make header transparent and withouh border
+*/
+.bar-header {
+    border: 0px !important;
+    border-bottom-color: transparent !important;
+    background-image: none;
+    border-bottom: none;
+}
+
+.bar {
+    background-size: 100% 0px;
+}
 .circle {
     margin-top: 50px;
 	border-radius: 20px;

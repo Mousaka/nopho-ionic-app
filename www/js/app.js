@@ -5,7 +5,7 @@
 // the 2nd parameter is an array of 'requires'
 var nophoApp = angular.module('starter', ['ionic', 'timer', 'angular.circular-slider', 'starter.dataService', 'starter.controllers'])
 
-.run(function($ionicPlatform, $rootScope, $localstorage) {
+.run(function($ionicPlatform, $ionicHistory, $ionicPopup, $rootScope, $localstorage) {
   $ionicPlatform.ready(function() {
     //makes the app go fullscreen
     StatusBar.hide();
@@ -14,6 +14,7 @@ var nophoApp = angular.module('starter', ['ionic', 'timer', 'angular.circular-sl
     document.addEventListener("pause", onPause, false);
     document.addEventListener("home", onHome, false);
 
+/*
     $ionicPlatform.onHardwareBackButton(function(){
       navigator.notification.confirm("Closing the app will fail your current session!",
         function(buttonIndex){
@@ -25,18 +26,47 @@ var nophoApp = angular.module('starter', ['ionic', 'timer', 'angular.circular-sl
       'Warning',
       ['Close anyway, Cancel']
       );
-});
+    });
+*/
 
+$ionicPlatform.registerBackButtonAction(function(e) {
+  e.preventDefault();
+  function showConfirm() {
+    $ionicPopup.confirm({
+      title: '<strong>Confirm</strong>',
+      subTitle: '<p>Closing the app will fail your current session!</p>',
+      okText: 'Ok',
+      okType: 'button-positive',
+      cancelText: 'Cancel'
+    }).then(function(res) {
+      if (res) {
+        $rootScope.$broadcast('home-event');
+          ionic.Platform.exitApp();
+        
+      } else {
+                    // Don't close
+                  }
+                });
+  }
 
-    //ionicPlatform.fullScreen(true);
-    // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
-    // for form inputs)
-  if(window.cordova && window.cordova.plugins.Keyboard) {
-    cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
-  }
-  if(window.StatusBar) {
-    StatusBar.styleDefault();
-  }
+        // Is there a page to go back to?
+        if ($ionicHistory.backView()) {
+
+          $ionicHistory.goBack(-1);
+        } else {
+
+            // This is the last page: Show confirmation popup
+            showConfirm();
+            return false;
+          }
+        }, 101);
+
+if(window.cordova && window.cordova.plugins.Keyboard) {
+  cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
+}
+if(window.StatusBar) {
+  StatusBar.styleDefault();
+}
 });
 
 function onResume() {
@@ -44,9 +74,9 @@ function onResume() {
  console.log('On Resume');
 }
 
- function onPause() {
+function onPause() {
   $rootScope.$broadcast('cordovaPauseEvent');
-
+}
 
 function onHome() {
   $rootScope.$broadcast('home-event');
