@@ -20,6 +20,8 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
 // Include all of Ionic
 @import "www/lib/ionic/scss/ionic";
 
+$headings-font-weight: 900;
+$headings-line-height: 2;
 .centertext { text-align: center;}
 
 
@@ -45,10 +47,23 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
     border-bottom: none;
 }
 
+.bar-subfooter {
+    height: 50px;
+}
+
+.align-bottom {
+    vertical-align: bottom;
+}
+
+.bar-subheader {
+    margin-top: 30px;
+    height: 50px;
+}
+
 .bar {
     background-size: 100% 0px;
 }
 .circle {
-    margin-top: 50px;
 	border-radius: 20px;
 }
+
