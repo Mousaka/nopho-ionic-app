@@ -34,7 +34,7 @@ $ionicPlatform.registerBackButtonAction(function(e) {
   function showConfirm() {
     $ionicPopup.confirm({
       title: '<strong>Confirm</strong>',
-      subTitle: '<p>Closing the app will fail your current session!</p>',
+      subTitle: '<p>Closing the app will fail any active session!</p>',
       okText: 'Ok',
       okType: 'button-positive',
       cancelText: 'Cancel'
@@ -42,7 +42,6 @@ $ionicPlatform.registerBackButtonAction(function(e) {
       if (res) {
         $rootScope.$broadcast('home-event');
           ionic.Platform.exitApp();
-        
       } else {
                     // Don't close
                   }

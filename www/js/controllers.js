@@ -7,7 +7,7 @@ angular.module('starter.controllers', [])
 	$madeItOnce = false;
 	if($testMode){
 		$timeScale =
-		 1;
+		1;
 	}
 	$scope.timerRunning = false;
 	$scope.workMessage = "Time to start working!";
@@ -66,9 +66,9 @@ $scope.$on('timer-stopped', function (event, data){
 		$madeItOnce = true;
 		$scope.buttonStyle = "button-balanced";
 		$scope.workMessage = "Congratulations, you made it :)";
-		$scope.buttonText = "Start again";
-		$localstorage.succIncr();
-		$scope.$apply();
+$scope.buttonText = "Start again";
+$localstorage.succIncr();
+$scope.$apply();
 }
 
 });
@@ -82,8 +82,10 @@ $scope.$on('cordovaResumeEvent', function(event, data){
 //This event is sent on onUserLeaveHint event from Java part
 $scope.$on('home-event', function(event, data){
 	console.log("!! Cought home event");
-	$scope.manualStopTimer();
-	$scope.$apply();
+	if($scope.timerRunning){
+		$scope.manualStopTimer();
+		$scope.$apply();
+	}
 });
 
 $scope.$on('cordovaPauseEvent', function(event, data){
