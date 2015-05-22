@@ -25,6 +25,7 @@ $scope.startTimer = function() {
 	console.log("start"); 
 	$scope.resetClock();
 	$scope.$broadcast('timer-start');
+	$localstorage.storeStartTime();
 	$scope.timerRunning = true;
 	$scope.workMessage = "Keep working for";
 	$scope.buttonText = "Session active";
@@ -63,6 +64,7 @@ $scope.$on('timer-stopped', function (event, data){
 
 	$scope.timerRunning = false;
 	if (data.seconds===0 && !$madeItOnce){
+		$scope.isDisabled = false;
 		$madeItOnce = true;
 		$scope.buttonStyle = "button-balanced";
 		$scope.workMessage = "Congratulations, you made it :)";
@@ -76,7 +78,14 @@ $scope.$apply();
 $scope.$on('cordovaResumeEvent', function(event, data){
 	console.log("cought resume event");
 	$scope.random = Math.random();
-	$scope.apply();
+	if($scope.timerRunning){
+		$time = $scope.countdown - $localstorage.getTimeDiff();
+		if($time <= 0){
+			$time = 0;
+		}
+		$scope.$broadcast('timer-set-countdown-seconds', $time);
+	}
+	//$scope.$apply();
 });
 
 //This event is sent on onUserLeaveHint event from Java part
@@ -90,8 +99,6 @@ $scope.$on('home-event', function(event, data){
 
 $scope.$on('cordovaPauseEvent', function(event, data){
 	console.log("Pause event cought");
-//	alert("Pause Event caought");
-	//$scope.$apply();
 });
 
 $scope.onSlide = function(value){
