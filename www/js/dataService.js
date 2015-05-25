@@ -3,7 +3,7 @@ angular.module('starter.dataService', [])
 .factory('$localstorage', ['$window', '$filter', function($window, $filter) {
 	$key = 'userData';
   $timeStartedKey = 'startTime';
-  $defaultJSON = '{"fails": [], "succeeds": []}';
+  $defaultJSON = '{"results": []}';
   $getObject = function(key) {
     return JSON.parse($window.localStorage[key] || $defaultJSON);
   };
@@ -14,8 +14,8 @@ angular.module('starter.dataService', [])
   };
 
   $getStartTime = function(){
-      return $getObject($timeStartedKey);
-    };
+    return $getObject($timeStartedKey);
+  };
 
   return {
     storeStartTime: function(){
@@ -36,20 +36,23 @@ angular.module('starter.dataService', [])
     clearData: function() {
     	$window.localStorage.clear();
     },
-    failIncr: function() {
+    resultIncr: function(timeGoal) {
+      console.log("resultIncr");
+      date = new Date();
       data = $getObject($key);
-      timestamp = $filter('date')(new Date(),'yyyy-MM-dd HH:mm:ss');
-      data['fails'].push(timestamp);
+      timestamp = $filter('date')(date,'yyyy-MM-dd HH:mm:ss');
+      startTime = $getStartTime();
+      failTime = date.getTime();
+      timePassed = failTime - startTime;
+      timePassed = Math.round(timePassed / 1000);
+      success = (timePassed >= timeGoal);
+      data['results'].push({"startTime" : startTime, "timeGoal" : timeGoal, "timePassed" : timePassed, "success" : success});
       $setObject($key, data);
     },
+
     getData: function(){
       return $getObject($key);
     },
-    succIncr: function() {
-      data = $getObject($key);
-      timestamp = $filter('date')(new Date(),'yyyy-MM-dd HH:mm:ss');
-      data['succeeds'].push(timestamp);
-      $setObject($key, data);
-    }
+
   }
 }]);

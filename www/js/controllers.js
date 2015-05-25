@@ -1,8 +1,8 @@
 angular.module('starter.controllers', [])
 
 .controller('FirstpageController', function($scope, $timeout, $localstorage) {
-	//$localstorage.clearData();
-	$testMode = false;
+	$localstorage.clearData();
+	$testMode = true;
 	$timeScale = 60;
 	$madeItOnce = false;
 	if($testMode){
@@ -22,57 +22,68 @@ angular.module('starter.controllers', [])
 $scope.startTimer = function() {
 	$madeItOnce = false;
 	alert(JSON.stringify($localstorage.getData()));
-	console.log("start"); 
+	console.log("startTimer"); 
 	$scope.resetClock();
 	$scope.$broadcast('timer-start');
 	$localstorage.storeStartTime();
 	$scope.timerRunning = true;
-	$scope.workMessage = "Keep working for";
-	$scope.buttonText = "Session active";
-	$scope.buttonStyle = "button-energized";
+	$scope.workMessage = "Session active! Keep working for";
+	$scope.buttonText = "Give up?";
+	$scope.buttonStyle = "button-assertive";
 	$scope.isDisabled = true;
+	
 };
 
 //called when the timer is stopped manually, i.e session failed
 $scope.manualStopTimer = function (){
-	$localstorage.failIncr();
+	console.log("manualStop");
+
+	$localstorage.resultIncr($scope.countdown);
 	$scope.$broadcast('timer-stop');
 	$scope.timerRunning = false;
 	$scope.workMessage = "You failed your session!";
-	$scope.buttonText = "Start again";
-	$scope.buttonStyle = "button-assertive";
-	$scope.isDisabled = false;
+	$scope.buttonText = "Reset timer";
+	$scope.buttonStyle = "button-energized";
+	
 };
 
 //When the activity button i clicked this checks if there is time left
 $scope.activityButtonClicked = function(){
 	if ($scope.timerRunning) {
 		$scope.manualStopTimer();
+	}else if ($scope.buttonText == "Reset timer"){
+		$scope.resetClock();
+		$scope.buttonText = "Start again";
+		$scope.buttonStyle = "button-positive";
+		$scope.isDisabled = false;
 	}else{
 		$scope.startTimer();
 	}
 };
 
+broadcastTimerSet = function(time){
+	$scope.$broadcast('timer-set-countdown-seconds', time);
+};
+
 //resets clock time
 $scope.resetClock = function() {
 	if ((!$scope.timerRunning))
-		$scope.$broadcast('timer-set-countdown-seconds', $scope.countdown);
+		broadcastTimerSet($scope.countdown);
 };
 
 //called when time has run out
 $scope.$on('timer-stopped', function (event, data){
-
-	$scope.timerRunning = false;
-	if (data.seconds===0 && !$madeItOnce){
-		$scope.isDisabled = false;
+	console.log("timer stopped, before if");
+	if (data.seconds==0 && data.minutes==0 && !$madeItOnce){
+		console.log("timer stopped, in if");
 		$madeItOnce = true;
-		$scope.buttonStyle = "button-balanced";
-		$scope.workMessage = "Congratulations, you made it :)";
-$scope.buttonText = "Start again";
-$localstorage.succIncr();
-$scope.$apply();
-}
-
+		$scope.workMessage = "Well done! You made it :)";
+		$scope.buttonText = "Reset timer";
+		$scope.buttonStyle = "button-energized";
+		$localstorage.resultIncr($scope.countdown);
+		$scope.$apply();
+	}
+	$scope.timerRunning = false;
 });
 
 $scope.$on('cordovaResumeEvent', function(event, data){
@@ -83,7 +94,7 @@ $scope.$on('cordovaResumeEvent', function(event, data){
 		if($time <= 0){
 			$time = 0;
 		}
-		$scope.$broadcast('timer-set-countdown-seconds', $time);
+		broadcastTimerSet($time);
 	}
 	//$scope.$apply();
 });
@@ -103,7 +114,7 @@ $scope.$on('cordovaPauseEvent', function(event, data){
 
 $scope.onSlide = function(value){
 	$scope.countdown = value * $timeScale * 5;
-	$scope.$broadcast('timer-set-countdown-seconds', $scope.countdown);
+	broadcastTimerSet($scope.countdown);
 	$scope.value = value;
 };
 
@@ -116,7 +127,6 @@ $scope.saveFail = function(){
 $scope.loadFail = function() {
 	alert(window.localStorage.getItem("userData"));
 };
-
 
 })
 

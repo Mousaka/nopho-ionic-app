@@ -79,7 +79,6 @@ function onPause() {
 
 function onHome() {
   $rootScope.$broadcast('home-event');
-  console.log('On home iii so close');
 }
 
 function alertDismissed() {
