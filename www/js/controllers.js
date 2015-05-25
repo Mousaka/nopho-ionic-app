@@ -1,10 +1,11 @@
-angular.module('starter.controllers', [])
+angular.module('starter.controllers', ['ngSanitize', 'ngCsv'])
 
 .controller('FirstpageController', function($scope, $timeout, $localstorage) {
 	//$localstorage.clearData();
 	$testMode = false;
 	$timeScale = 60;
 	$madeItOnce = false;
+	$scope.data = [{a: 1, b:2}, {a:3, b:4}];
 	if($testMode){
 		$timeScale =
 		1;
@@ -18,10 +19,11 @@ angular.module('starter.controllers', [])
 	$scope.borderWidth = 5;
 	$scope.countdown = $scope.value * 5 * $timeScale;
 	$scope.isDisabled = false;
+
 //called when timer is started (from clicking activity button)
 $scope.startTimer = function() {
 	$madeItOnce = false;
-	alert(JSON.stringify($localstorage.getData()));
+	alert(JSON.stringify($localstorage.getData('userData')));
 	console.log("start"); 
 	$scope.resetClock();
 	$scope.$broadcast('timer-start');
@@ -107,17 +109,9 @@ $scope.onSlide = function(value){
 	$scope.value = value;
 };
 
-$scope.saveFail = function(){
-	data = parseInt(window.localStorage.getItem("failSessions"));
-	data = data + 1;
-	window.localStorage.setItem("failSessions", data);
-};
-
 $scope.loadFail = function() {
 	alert(window.localStorage.getItem("userData"));
 };
-
-
 })
 
 .controller('ScoreController', function($scope) {

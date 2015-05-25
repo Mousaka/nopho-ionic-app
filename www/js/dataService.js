@@ -42,8 +42,9 @@ angular.module('starter.dataService', [])
       data['fails'].push(timestamp);
       $setObject($key, data);
     },
-    getData: function(){
-      return $getObject($key);
+    getData: function(key){
+      console.log("gettin dataaa");
+      return $getObject(key);
     },
     succIncr: function() {
       data = $getObject($key);
