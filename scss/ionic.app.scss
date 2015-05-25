@@ -46,7 +46,8 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
 }
 
 .bar-subfooter {
-    height: 60px;
+    height: 55px;
+    padding: 0px;
 }
 
 .align-bottom {
@@ -59,13 +60,13 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
 }
 
 .bar .button{
-    min-height: 40px;
+    min-height: 50px;
 }
 
 .bar {
     background-size: 100% 0px;
 }
 .circle {
-	border-radius: 20px;
+	border-radius: 25px;
 }
 
