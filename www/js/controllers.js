@@ -2,7 +2,7 @@ angular.module('starter.controllers', [])
 
 .controller('FirstpageController', function($scope, $timeout, $localstorage) {
 	//$localstorage.clearData();
-	$testMode = true;
+	$testMode = false;
 	$timeScale = 60;
 	$madeItOnce = false;
 	if($testMode){
@@ -13,7 +13,7 @@ angular.module('starter.controllers', [])
 	$scope.workMessage = "Time to start working!";
 	$scope.buttonText = "Start session";
 	$scope.buttonStyle = "button-positive";
-	$scope.shape = "Half Circle";
+	$scope.shape = "Circle";
 	$scope.value = 2;
 	$scope.borderWidth = 5;
 	$scope.countdown = $scope.value * 5 * $timeScale;
