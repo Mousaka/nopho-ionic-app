@@ -46,12 +46,17 @@ angular.module('starter.dataService', [])
       timePassed = failTime - startTime;
       timePassed = Math.round(timePassed / 1000);
       success = (timePassed >= timeGoal);
-      data['results'].push({"startTime" : startTime, "timeGoal" : timeGoal, "timePassed" : timePassed, "success" : success});
+      data['results'].push({"startTime": timestamp, "timeGoal" : timeGoal/60, "timePassed" : Math.round(timePassed/60), "success" : success});
       $setObject($key, data);
     },
     getData: function(key){
       console.log("gettin dataaa");
       return $getObject(key);
+    },
+        getDataArray: function(){
+      console.log("gettin array");
+      data = $getObject($key);
+      return data['results'];
     },
 
   }
