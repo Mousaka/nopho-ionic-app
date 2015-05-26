@@ -1,6 +1,6 @@
 angular.module('starter.controllers', [])
 
-.controller('FirstpageController', function($scope, $timeout, $localstorage) {
+.controller('FirstpageController', function($scope, $timeout, $localstorage, $cordovaFile) {
 	$localstorage.clearData();
 	$testMode = false;
 	$timeScale = 60;
