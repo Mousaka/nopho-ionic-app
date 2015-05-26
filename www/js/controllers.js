@@ -1,6 +1,12 @@
 angular.module('starter.controllers', [])
 
-.controller('FirstpageController', function($scope, $timeout, $localstorage, $cordovaFile) {
+.controller('FirstpageController', function($ionicActionSheet, $ionicPlatform, $scope, $timeout, $localstorage, $cordovaFile) {
+	$ionicPlatform.ready(function() {
+		function onMenuKeyDown() {
+			$scope.showActionSheet();
+		};
+	})
+
 	$localstorage.clearData();
 	$testMode = false;
 	$timeScale = 60;
@@ -60,6 +66,7 @@ $scope.activityButtonClicked = function(){
 		$scope.isDisabled = false;
 	}else{
 		$scope.startTimer();
+		$scope.showActionSheet();
 	}
 };
 
@@ -80,13 +87,36 @@ $scope.$on('timer-stopped', function (event, data){
 		console.log("timer stopped, in if");
 		$madeItOnce = true;
 		$scope.workMessage = "Well done! You made it :)";
-		$scope.buttonText = "Reset timer";
-		$scope.buttonStyle = "button-energized";
-		$localstorage.resultIncr($scope.countdown);
-		$scope.$apply();
-	}
-	$scope.timerRunning = false;
+$scope.buttonText = "Reset timer";
+$scope.buttonStyle = "button-energized";
+$localstorage.resultIncr($scope.countdown);
+$scope.$apply();
+}
+$scope.timerRunning = false;
 });
+
+$scope.showActionSheet = function() {
+	var hideSheet = $ionicActionSheet.show({
+		buttons: [
+		{ text: 'Export session data' },
+		{ text: 'Get some help' }
+		],
+		//destructiveText: 'Delete',
+		titleText: 'NoPho menu',
+		cancelText: 'Cancel',
+	//	cancel: function() {
+          // add cancel code..
+    //  },
+      buttonClicked: function(index) {	//den tar in vilken knapp som tryckts, 
+      	if (index==0)					//översta knappen är 0, sen 1 osv
+      		$scope.getCSV();			//Göra om till switch ist för if?
+      	else if(index==1)
+      		$scope.getHelp();
+
+      	return true;  				//true om rutan ska försvinna vid klick, annars false
+      }
+  });
+}
 
 $scope.$on('cordovaResumeEvent', function(event, data){
 	console.log("cought resume event");
@@ -136,34 +166,34 @@ $scope.getCSV = function () {
 	$scope.items = ["A", "List", "Of", "Items"];
 });
 
-    function DownloadJSON2CSV(objArray)
-    {
-        var array = typeof objArray != 'object' ? JSON.parse(objArray) : objArray;
-        var str = '';
-        
-        for (var i = 0; i < array.length; i++) {
-            var line = '';
-            for (var index in array[i]) {
-                if(line != '') line += ','
-                    
-                    line += array[i][index];
-            }
-            
-            str += line + '\r\n';
-        }
+function DownloadJSON2CSV(objArray)
+{
+	var array = typeof objArray != 'object' ? JSON.parse(objArray) : objArray;
+	var str = '';
 
-        if (navigator.appName != 'Microsoft Internet Explorer')
-        {
-            window.open('data:text/csv;charset=utf-8,' + escape(str));
-        }
-        else
-        {
-            var popup = window.open('','csv','');
-            popup.document.body.innerHTML = '<pre>' + str + '</pre>';
-        }           
-    }
+	for (var i = 0; i < array.length; i++) {
+		var line = '';
+		for (var index in array[i]) {
+			if(line != '') line += ','
 
-    function JSONToCSVConvertor(JSONData, ReportTitle, ShowLabel) {
+				line += array[i][index];
+		}
+
+		str += line + '\r\n';
+	}
+
+	if (navigator.appName != 'Microsoft Internet Explorer')
+	{
+		window.open('data:text/csv;charset=utf-8,' + escape(str));
+	}
+	else
+	{
+		var popup = window.open('','csv','');
+		popup.document.body.innerHTML = '<pre>' + str + '</pre>';
+	}           
+}
+
+function JSONToCSVConvertor(JSONData, ReportTitle, ShowLabel) {
     //If JSONData is not an object then JSON.parse will parse the JSON string in an Object
     var arrData = typeof JSONData != 'object' ? JSON.parse(JSONData) : JSONData;
     
@@ -174,11 +204,11 @@ $scope.getCSV = function () {
 
     //This condition will generate the Label/Header
     if (ShowLabel) {
-        var row = "";
-        
+    	var row = "";
+
         //This loop will extract the label from 1st index of on array
         for (var index in arrData[0]) {
-            
+
             //Now convert each value to string and comma-seprated
             row += index + ',';
         }
@@ -191,11 +221,11 @@ $scope.getCSV = function () {
     
     //1st loop is to extract each row
     for (var i = 0; i < arrData.length; i++) {
-        var row = "";
-        
+    	var row = "";
+
         //2nd loop will extract each column and convert it in string comma-seprated
         for (var index in arrData[i]) {
-            row += '"' + arrData[i][index] + '",';
+        	row += '"' + arrData[i][index] + '",';
         }
 
         row.slice(0, row.length - 1);
@@ -205,8 +235,8 @@ $scope.getCSV = function () {
     }
 
     if (CSV == '') {        
-        alert("Invalid data");
-        return;
+    	alert("Invalid data");
+    	return;
     }   
     
     //Generate a file name
