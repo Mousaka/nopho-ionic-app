@@ -5,7 +5,7 @@
 // the 2nd parameter is an array of 'requires'
 var nophoApp = angular.module('starter', ['ionic', 'ngCordova', 'timer', 'angular.circular-slider', 'starter.dataService', 'starter.controllers'])
 
-.run(function($ionicPlatform, $ionicHistory, $ionicPopup, $rootScope, $localstorage) {
+.run(function($ionicPlatform, $ionicHistory, $ionicPopup, $rootScope, $localstorage, $cordovaSocialSharing) {
   $ionicPlatform.ready(function() {
     //makes the app go fullscreen
     StatusBar.hide();
@@ -13,6 +13,15 @@ var nophoApp = angular.module('starter', ['ionic', 'ngCordova', 'timer', 'angula
     document.addEventListener("resume", onResume, false);
     document.addEventListener("pause", onPause, false);
     document.addEventListener("home", onHome, false);
+
+
+  $cordovaSocialSharing
+    .canShareViaEmail()
+    .then(function(result) {
+      // Yes we can
+    }, function(err) {
+      alert("Can't send user data by email!");  
+    });
 
 /*
     $ionicPlatform.onHardwareBackButton(function(){

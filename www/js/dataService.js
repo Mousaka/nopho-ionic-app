@@ -1,6 +1,6 @@
 angular.module('starter.dataService', [])
 
-.factory('$localstorage', ['$window', '$filter', function($window, $filter) {
+.factory('$localstorage', ['$window', '$filter', '$cordovaSocialSharing', '$ionicPlatform', function($window, $filter, $cordovaSocialSharing, $ionicPlatform) {
 	$key = 'userData';
   $timeStartedKey = 'startTime';
   $defaultJSON = '{"results": []}';
@@ -53,11 +53,57 @@ angular.module('starter.dataService', [])
       console.log("gettin dataaa");
       return $getObject(key);
     },
-        getDataArray: function(){
+    getDataArray: function(){
       console.log("gettin array");
       data = $getObject($key);
       return data['results'];
     },
 
+    sendDataByMail: function(){
+      $ionicPlatform.ready(function() {
+        console.log("MAIL time!!");
+        file =$getObject($key);
+        message = json2csv(file['results']);
+        console.log("message: " + message);
+        $cordovaSocialSharing
+        .shareViaEmail(message, "My nopho data", ["kristian.lundstrom@gmail.com"], [], [], [])
+        .then(function(result) {
+          }, function(err) {
+            alert("Email failed!");
+        });
+      });
+
+    }
+
   }
 }]);
+
+    function json2csv(objArray)
+    {
+        console.log("OBjarray: "+ objArray.toString());
+        var array = typeof objArray != 'object' ? JSON.parse(objArray) : objArray;
+        var str = '';
+        
+        for (var i = 0; i < array.length; i++) {
+            var line = '';
+            for (var index in array[i]) {
+                if(line != '') line += ','
+                    
+                    line += array[i][index];
+            }
+            
+            str += line + '\r\n';
+        }
+        return ""+str;
+/*
+        if (navigator.appName != 'Microsoft Internet Explorer')
+        {
+            window.open('data:text/csv;charset=utf-8,' + escape(str));
+        }
+        else
+        {
+            var popup = window.open('','csv','');
+            popup.document.body.innerHTML = '<pre>' + str + '</pre>';
+        }   
+        */        
+    }
