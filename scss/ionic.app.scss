@@ -20,10 +20,11 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
 // Include all of Ionic
 @import "www/lib/ionic/scss/ionic";
 
-.centertext { text-align: center;}
+.centertext { 
+    text-align: center;
+}
 
-
-.center {
+.center2 {
     top: 50%;
     -webkit-transform: translateY(-50%);
     -moz-transform: translateY(-50%);

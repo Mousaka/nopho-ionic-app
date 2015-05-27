@@ -1,11 +1,6 @@
 angular.module('starter.controllers', [])
 
 .controller('FirstpageController', function($ionicActionSheet, $ionicPlatform, $scope, $timeout, $localstorage, $cordovaFile) {
-	$ionicPlatform.ready(function() {
-		function onMenuKeyDown() {
-			$scope.showActionSheet();
-		};
-	})
 
 	$localstorage.clearData();
 	$testMode = false;
@@ -66,7 +61,6 @@ $scope.activityButtonClicked = function(){
 		$scope.isDisabled = false;
 	}else{
 		$scope.startTimer();
-		$scope.showActionSheet();
 	}
 };
 
@@ -99,9 +93,8 @@ $scope.showActionSheet = function() {
 	var hideSheet = $ionicActionSheet.show({
 		buttons: [
 		{ text: 'Export session data' },
-		{ text: 'Get some help' }
+	//	{ text: 'Get some help' }
 		],
-		//destructiveText: 'Delete',
 		titleText: 'NoPho menu',
 		cancelText: 'Cancel',
 	//	cancel: function() {
@@ -109,7 +102,7 @@ $scope.showActionSheet = function() {
     //  },
       buttonClicked: function(index) {	//den tar in vilken knapp som tryckts, 
       	if (index==0)					//översta knappen är 0, sen 1 osv
-      		$scope.getCSV();			//Göra om till switch ist för if?
+      		$scope.sendDataByMail();
       	else if(index==1)
       		$scope.getHelp();
 
@@ -154,7 +147,7 @@ $scope.loadFail = function() {
 	alert(window.localStorage.getItem("userData"));
 };
 
-$scope.getCSV = function () {
+$scope.sendDataByMail = function () {
 	$localstorage.sendDataByMail();
 };
 })

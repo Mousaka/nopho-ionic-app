@@ -2,9 +2,9 @@
 <ion-header-bar align-title="center" class="bar-subheader bar-transparent">
 <h1 class="title">{{workMessage}}</h1>
 </ion-header-bar>
-<ion-content class="center" padding="true" scroll="false">
+<ion-content scroll="false">
 
-<div class="centertext">
+<div class="center2 centertext">
 	<circular-slider
 	class='my-slider'
 	borderWidth='borderWidth'
@@ -36,8 +36,8 @@
 </div>
 </ion-footer-bar>
 <ion-footer-bar align-title="center" class="bar-transparent">
-<div class = "title">
-	    <button class="ion-clock button {{buttonStyle}}" ng-click="showActionSheet()">Android menu buttton</button>
-</div>
+<div class= "buttons"	>
+	    <button class="button button-icon icon ion-gear-a" ng-click="showActionSheet()"></button>
+	</div>
 </ion-footer-bar>
 </ion-view>
