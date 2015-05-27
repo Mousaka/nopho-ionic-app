@@ -1,6 +1,12 @@
 angular.module('starter.controllers', [])
 
-.controller('FirstpageController', function($scope, $timeout, $localstorage, $cordovaFile) {
+.controller('FirstpageController', function($ionicActionSheet, $ionicPlatform, $scope, $timeout, $localstorage, $cordovaFile) {
+	$ionicPlatform.ready(function() {
+		function onMenuKeyDown() {
+			$scope.showActionSheet();
+		};
+	})
+
 	$localstorage.clearData();
 	$testMode = false;
 	$timeScale = 60;
@@ -60,6 +66,7 @@ $scope.activityButtonClicked = function(){
 		$scope.isDisabled = false;
 	}else{
 		$scope.startTimer();
+		$scope.showActionSheet();
 	}
 };
 
@@ -80,13 +87,36 @@ $scope.$on('timer-stopped', function (event, data){
 		console.log("timer stopped, in if");
 		$madeItOnce = true;
 		$scope.workMessage = "Well done! You made it :)";
-		$scope.buttonText = "Reset timer";
-		$scope.buttonStyle = "button-energized";
-		$localstorage.resultIncr($scope.countdown);
-		$scope.$apply();
-	}
-	$scope.timerRunning = false;
+$scope.buttonText = "Reset timer";
+$scope.buttonStyle = "button-energized";
+$localstorage.resultIncr($scope.countdown);
+$scope.$apply();
+}
+$scope.timerRunning = false;
 });
+
+$scope.showActionSheet = function() {
+	var hideSheet = $ionicActionSheet.show({
+		buttons: [
+		{ text: 'Export session data' },
+		{ text: 'Get some help' }
+		],
+		//destructiveText: 'Delete',
+		titleText: 'NoPho menu',
+		cancelText: 'Cancel',
+	//	cancel: function() {
+          // add cancel code..
+    //  },
+      buttonClicked: function(index) {	//den tar in vilken knapp som tryckts, 
+      	if (index==0)					//översta knappen är 0, sen 1 osv
+      		$scope.getCSV();			//Göra om till switch ist för if?
+      	else if(index==1)
+      		$scope.getHelp();
+
+      	return true;  				//true om rutan ska försvinna vid klick, annars false
+      }
+  });
+}
 
 $scope.$on('cordovaResumeEvent', function(event, data){
 	console.log("cought resume event");
