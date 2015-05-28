@@ -2,6 +2,11 @@ angular.module('starter.controllers', [])
 
 .controller('FirstpageController', function($ionicActionSheet, $ionicPlatform, $scope, $timeout, $localstorage, $cordovaFile) {
 
+	$points= 0;
+	$level = 1;
+	$succSessionsInRow = 0;
+	$totalSuccSessions = 0;
+	$lastSessionStatus = false;
 	$localstorage.clearData();
 	$testMode = false;
 	$timeScale = 60;
@@ -47,6 +52,7 @@ $scope.manualStopTimer = function (){
 	$scope.workMessage = "You failed your session!";
 	$scope.buttonText = "Reset timer";
 	$scope.buttonStyle = "button-energized";
+	$scope.lastSessionStatus = false;
 	
 };
 
@@ -84,10 +90,81 @@ $scope.$on('timer-stopped', function (event, data){
 $scope.buttonText = "Reset timer";
 $scope.buttonStyle = "button-energized";
 $localstorage.resultIncr($scope.countdown);
+$scope.lastSessionStatus = true;
+$scope.givePoints();
 $scope.$apply();
 }
 $scope.timerRunning = false;
 });
+
+/*$scope.givePoints = function($scope.countdown){		//anropas när man lyckas
+// Nästlad switch, först på level 1,2,3,4,5 - inuti den på $scope countdown = 10-29,30-59,60-89,90-120
+//	addera poäng därefter, beroende på level och klarad tid
+
+	$scope.totalSuccSessions ++;
+
+	if($scope.lastSessionStatus = true;)
+		$scope.sessionsInRow ++;
+
+		
+
+	if ($scope.sessionsInRow == 3) {
+		$scope.points +10;
+		$sessRowMsg(3);
+	}else if ($scope.sessionsInRow == 5) {
+		$scope.points +30;
+		$sessRowMsg(5);
+		$scope.sessionsInRow = 0;
+	}
+}
+
+app.filter('levelCheck', function () {
+	return function (item) {
+		$scope.level = 0;
+
+		if ($scope.points >=0 && <51)
+			$scope.level = 1;
+		else if ($scope.points >=51 && <100)
+			$scope.level = 2;
+		else if ($scope.points >=100 && <150)
+			$scope.level = 3;
+		else if ($scope.points >=150 && <250)
+			$scope.level = 4;
+		else if ($scope.points >=250)
+			$scope.level = 5;
+
+		return $scope.level;
+	};
+});
+
+app.filter('pointsIntervalAchieved', function () {
+	return function (item) {
+		$scope.pointsInterval = 0;
+
+		if ($scope.points >=20 && <50)
+			$scope.pointsInterval = 20;
+		else if ($scope.points >=50 && <100)
+			$scope.pointsInterval = 50;
+		else if ($scope.points >=100 && <150)
+			$scope.pointsInterval = 100;
+		else if ($scope.points >=150 && <250)
+			$scope.pointsInterval = 150;
+		else if ($scope.points >=250 && <300)
+			$$scope.pointsInterval = 250;
+		else if ($scope.points >=300 && 350<)
+			$scope.pointsInterval = 300;
+		else if ($scope.points >=350 && <400)
+			$scope.pointsInterval = 350;
+		else if ($scope.points >=400)
+			$scope.pointsInterval = 400;
+
+		return $scope.pointsInterval;
+
+		//Fungerar inte eftersom vi måste veta om användare precis tagit sig över poänggränsen
+		//Så att detta inte sker varje gång
+	};
+});
+*/
 
 $scope.showActionSheet = function() {
 	var hideSheet = $ionicActionSheet.show({
