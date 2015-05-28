@@ -47,7 +47,6 @@ $scope.manualStopTimer = function (){
 	$scope.workMessage = "You failed your session!";
 	$scope.buttonText = "Reset timer";
 	$scope.buttonStyle = "button-energized";
-	
 };
 
 //When the activity button i clicked this checks if there is time left
