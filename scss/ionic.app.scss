@@ -51,10 +51,18 @@ Would be better to change footer and headers by changing variables instead of ov
 $bar-footer-height:               $bar-height !default;
 $bar-subheader-height:            $bar-height !default;
 $bar-subfooter-height:            $bar-height !default;
+
+$bar-padding-portrait:            5px !default;
+
+bar-subfooter-height: 55px;
 */
 .bar-subfooter {
     height: 55px;
     padding: 0px;
+}
+
+.has-subfooter{
+    bottom: 100px;
 }
 
 .align-bottom {
