@@ -66,7 +66,7 @@ angular.module('starter.dataService', [])
         message = json2csv(file['results']);
         console.log("message: " + message);
         $cordovaSocialSharing
-        .shareViaEmail(message, "My nopho data", ["kristian.lundstrom@gmail.com"], [], [], [])
+        .shareViaEmail(message, "My nopho data", ["krlu2271@student.su.se"], [], [], [])
         .then(function(result) {
           }, function(err) {
             alert("Email failed!");

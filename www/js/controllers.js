@@ -16,7 +16,7 @@ angular.module('starter.controllers', [])
 	$scope.buttonText = "Start session";
 	$scope.buttonStyle = "button-positive";
 	$scope.shape = "Circle";
-	$scope.value = 2;
+	$scope.value = 6;
 	$scope.borderWidth = 5;
 	$scope.countdown = $scope.value * 5 * $timeScale;
 	$scope.isDisabled = false;
@@ -24,7 +24,7 @@ angular.module('starter.controllers', [])
 //called when timer is started (from clicking activity button)
 $scope.startTimer = function() {
 	$madeItOnce = false;
-	alert(JSON.stringify($localstorage.getData('userData')));
+	//alert(JSON.stringify($localstorage.getData('userData')));
 	console.log("start"); 
 	$scope.resetClock();
 	$scope.$broadcast('timer-start');
