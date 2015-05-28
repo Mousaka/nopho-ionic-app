@@ -46,6 +46,12 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
     border-bottom: none;
 }
 
+/*
+Would be better to change footer and headers by changing variables instead of overriding classes here with these:
+$bar-footer-height:               $bar-height !default;
+$bar-subheader-height:            $bar-height !default;
+$bar-subfooter-height:            $bar-height !default;
+*/
 .bar-subfooter {
     height: 55px;
     padding: 0px;
