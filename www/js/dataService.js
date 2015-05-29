@@ -2,8 +2,10 @@ angular.module('starter.dataService', [])
 
 .factory('$localstorage', ['$window', '$filter', '$cordovaSocialSharing', '$ionicPlatform', function($window, $filter, $cordovaSocialSharing, $ionicPlatform) {
 	$key = 'userData';
+  $scoreKey = 'score';
   $timeStartedKey = 'startTime';
-  $defaultJSON = '{"results": []}';
+  $defaultJSON = '{"results": [], "score": {"points": 0, "level": 1, "combo": 0, "achievements": []}}';
+
   $getObject = function(key) {
     return JSON.parse($window.localStorage[key] || $defaultJSON);
   };
@@ -17,7 +19,38 @@ angular.module('starter.dataService', [])
     return $getObject($timeStartedKey);
   };
 
+  $getScore = function(){
+    data = $getObject($key);
+    return data[$scoreKey];
+  };
+
+  $setScore = function(newScore){
+    data = $getObject($key);
+    data[$scoreKey] = newScore;
+    $setObject($key, data);
+  };
+
+
   return {
+
+    updatePointsLevelCombo: function(time){
+      data = $getScore();
+        newPoints = time + Math.round((time*(time/10))/100)*10 + data['combo'] * 10;
+        console.log("Score data: " + JSON.stringify(data));
+        console.log("Points added: " + newPoints);
+        data['points'] += newPoints;
+        data['combo']++;
+        data['level'] = $filter('levelCheck')(newPoints);
+        $setScore(data);
+        console.log("Level stored: " + $filter('levelCheck')(newPoints));
+    },
+
+    addAchievement: function(newAchievement){
+      score = $getScore();
+      score['achievements'].push(newAchievement);
+      setScore(score);
+    },
+
     storeStartTime: function(){
       date = new Date();
       $setObject($timeStartedKey, date.getTime());

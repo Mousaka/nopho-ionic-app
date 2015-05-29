@@ -2,25 +2,25 @@ angular.module('starter.controllers', [])
 
 .controller('FirstpageController', function($ionicActionSheet, $ionicPlatform, $scope, $timeout, $localstorage, $cordovaFile) {
 
-	$scope.points= 100;
+	$scope.points= 0;
 	$succSessionsInRow = 0;
 	$totalSuccSessions = 0;
 	$lastSessionStatus = false;
 	$localstorage.clearData();
-	$testMode = false;
+	$testMode = true;
 	$timeScale = 60;
 	$madeItOnce = false;
-	$scope.data = [{a: 1, b:2}, {a:3, b:4}];
+	$scope.value = 6;
 	if($testMode){
-		$timeScale =
-		1;
+		$timeScale =1;
+		$scope.value = 2;
 	}
 	$scope.timerRunning = false;
 	$scope.workMessage = "Time to start working!";
 	$scope.buttonText = "Start session";
 	$scope.buttonStyle = "button-positive";
 	$scope.shape = "Circle";
-	$scope.value = 6;
+	
 	$scope.borderWidth = 5;
 	$scope.countdown = $scope.value * 5 * $timeScale;
 	$scope.isDisabled = false;
@@ -28,7 +28,7 @@ angular.module('starter.controllers', [])
 //called when timer is started (from clicking activity button)
 $scope.startTimer = function() {
 	$madeItOnce = false;
-	//alert(JSON.stringify($localstorage.getData('userData')));
+	$testMode ? alert(JSON.stringify($localstorage.getData('userData'))) : "";
 	console.log("start"); 
 	$scope.resetClock();
 	$scope.$broadcast('timer-start');
@@ -86,34 +86,25 @@ $scope.$on('timer-stopped', function (event, data){
 		console.log("timer stopped, in if");
 		$madeItOnce = true;
 		$scope.workMessage = "Well done! You made it :)";
-$scope.buttonText = "Reset timer";
-$scope.buttonStyle = "button-energized";
-$localstorage.resultIncr($scope.countdown);
-$scope.lastSessionStatus = true;
-$scope.givePoints();
-$scope.$apply();
-}
-$scope.timerRunning = false;
+		$scope.buttonText = "Reset timer";
+		$scope.buttonStyle = "button-energized";
+		$localstorage.resultIncr($scope.countdown);
+		$scope.lastSessionStatus = true;
+		givePoints($scope.countdown);
+		$scope.$apply();
+	}
+	$scope.timerRunning = false;
 });
 
-$scope.givePoints = function(timeGoal){		//anropas när man lyckas
-// Nästlad switch, först på level 1,2,3,4,5 - inuti den på $scope countdown = 10-29,30-59,60-89,90-120
-//	addera poäng därefter, beroende på level och klarad tid
-
-	$scope.totalSuccSessions ++;
-
-	if($scope.lastSessionStatus = true)
-		$scope.sessionsInRow ++;
-
-
-	if ($scope.sessionsInRow == 3) {
-		$scope.points +10;
-		$sessRowMsg(3);
-	}else if ($scope.sessionsInRow == 5) {
-		$scope.points +30;
-		$sessRowMsg(5);
-		$scope.sessionsInRow = 0;
+givePoints = function(timeGoal){
+	if($testMode){
+		time = timeGoal;
+	}else{
+		time = timeGoal/60;
 	}
+	console.log("Time to updatePointsLevelCombo:-> " + time);
+	$localstorage.updatePointsLevelCombo(time);
+	
 };
 
 
