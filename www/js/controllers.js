@@ -2,7 +2,7 @@ angular.module('starter.controllers', [])
 
 .controller('FirstpageController', function($ionicActionSheet, $ionicPlatform, $scope, $timeout, $localstorage, $cordovaFile) {
 
-	$scope.points= 100;
+	$scope.points= 0;
 	$succSessionsInRow = 0;
 	$totalSuccSessions = 0;
 	$lastSessionStatus = false;

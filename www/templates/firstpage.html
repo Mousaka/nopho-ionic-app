@@ -1,15 +1,22 @@
 <ion-view view-title="firstpage">
+
+<ion-header-bar align-title="center" class="bar-transparent">
+<div class= "buttons" >
+	<a class="button button-icon icon ion-trophy" ui-sref="score"></a>
+</div>
+
+    <div class="pull-right">
+	Points: {{points}}<br>
+	Level: {{points|levelCheck}} <br>	
+</div>
+
+
+</ion-header-bar>
+
 <ion-header-bar align-title="center" class="bar-subheader bar-transparent">
 <h1 class="title">{{workMessage}}</h1>
 </ion-header-bar>
 <ion-content class="has-subheader has-subfooter" scroll="false">
-
-<div class="col col-center">
-	Points: {{points}}<br>
-	Level: {{points|levelCheck}} <br>
-	Succeded sessions in row: 1<br>
-	Total succeded sessions: 4 
-</div>
 
 <div class="center2 centertext">
 	<circular-slider
