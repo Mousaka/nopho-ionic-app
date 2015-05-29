@@ -2,8 +2,7 @@ angular.module('starter.controllers', [])
 
 .controller('FirstpageController', function($ionicActionSheet, $ionicPlatform, $scope, $timeout, $localstorage, $cordovaFile) {
 
-	$points= 331;
-	$level = 1;
+	$scope.points= 100;
 	$succSessionsInRow = 0;
 	$totalSuccSessions = 0;
 	$lastSessionStatus = false;
@@ -180,7 +179,3 @@ $scope.sendDataByMail = function () {
 	$localstorage.sendDataByMail();
 };
 })
-
-.controller('ScoreController', function($scope) {
-	$scope.items = ["A", "List", "Of", "Items"];
-});

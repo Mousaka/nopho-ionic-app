@@ -3,7 +3,8 @@
 // angular.module is a global place for creating, registering and retrieving Angular modules
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
-var nophoApp = angular.module('starter', ['ionic', 'ngCordova', 'timer', 'angular.circular-slider', 'starter.dataService', 'starter.controllers', 'starter.filters'])
+var nophoApp = angular.module('starter', ['ionic', 'ngCordova', 'timer', 'angular.circular-slider',
+  'starter.dataService', 'starter.controllers', 'starter.score.controller', 'starter.filters'])
 
 .run(function($ionicPlatform, $ionicHistory, $ionicPopup, $rootScope, $localstorage, $cordovaSocialSharing) {
   $ionicPlatform.ready(function() {
@@ -113,7 +114,7 @@ function alertDismissed() {
   .state('score', {
     url: '/score',
     templateUrl: 'templates/score.html',
-    controller: 'ScoreController'
+    controller: 'ScorePageController as sp'
   });
 
   $urlRouterProvider.otherwise('/');

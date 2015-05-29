@@ -2,7 +2,7 @@ angular.module('starter.filters', [])
 
 .filter('levelCheck', function () {
 	return function (points) {
-
+		level = 0;
 		if (points >=0 && points <51)
 			level = 1;
 		else if (points >=51 && points <100)
