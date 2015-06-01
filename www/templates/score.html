@@ -1,13 +1,20 @@
-<ion-view view-title="score">
+<ion-view view-title="Scoreboard">
+
+<ion-header-bar align-title="center" class="bar-transparent">
+<div class= "buttons" >
+	<a class="button" ui-sref="index">Back</a>
+</div>
+</ion-header-bar>
 <ion-content>
+
 <div class="centertext">
 	<h1>Score {{sp.number}}</h1>
 	<h1>Level {{sp.level}}</h1>
 	<h1>Succeded sessions in row: 1</h1>
 	<h1>Total succeded sessions: 4 </h1>
-	
 </div>
-<a class="button" ui-sref="index">Back</a>
+
+<div ang:round:progress data-round-progress-model="roundProgress"></div>
 
 </ion-content>
 </ion-view>

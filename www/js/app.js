@@ -4,7 +4,7 @@
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
 var nophoApp = angular.module('starter', ['ionic', 'ngCordova', 'timer', 'angular.circular-slider',
-  'starter.dataService', 'starter.controllers', 'starter.score.controller', 'starter.filters'])
+  'starter.dataService', 'starter.controllers', 'starter.score.controller', 'starter.filters','angular.directives-round-progress'])
 
 .run(function($ionicPlatform, $ionicHistory, $ionicPopup, $rootScope, $localstorage, $cordovaSocialSharing) {
   $ionicPlatform.ready(function() {

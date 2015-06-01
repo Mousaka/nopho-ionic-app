@@ -8,4 +8,12 @@ function scorePageController($ionicActionSheet, $ionicPlatform, $scope){
 angular.module('starter.score.controller', [])
 .controller('ScorePageController', scorePageController);
 
+     
+
+$scope.roundProgress = {
+  label: 100,
+  percentage: 75
+};
+
+
 })();
