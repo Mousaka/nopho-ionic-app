@@ -1,8 +1,28 @@
 
 angular.module('starter.controllers', [])
 
-.controller('FirstpageController', function($ionicActionSheet, $ionicPlatform, $scope, $timeout, $localstorage, $cordovaFile) {
-	$ionicPlatform.ready(updatePagePoints());
+.controller('FirstpageController', function($ionicActionSheet, $ionicPlatform, $scope, $timeout, $localstorage, $cordovaFile, $cordovaLocalNotification) {
+	$ionicPlatform.ready(function(){
+		updatePagePoints();
+
+		$scope.pushNotification = function(timeGoal){
+			console.log("In pushNotification");
+			now = new Date().getTime(); 
+			timeGoalPoint = new Date(now + timeGoal * 1000);
+			console.log("Notification will scheduled at: " + timeGoalPoint + " cord: " + $cordovaLocalNotification);
+			$cordovaLocalNotification.add({
+				id: 1,
+				title: 'Session completed',
+				text: 'Good job! You successfully completed your session!',
+				at: timeGoalPoint,
+				data: {
+					customProperty: 'custom value'
+				}
+			}).then(function (result) {
+				console.log("Created new pushnotification!");
+			});
+		}
+	});
 
 	$succSessionsInRow = 0;
 	$totalSuccSessions = 0;
@@ -31,6 +51,7 @@ $scope.startTimer = function() {
 	$madeItOnce = false;
 	$testMode ? alert(JSON.stringify($localstorage.getData('userData'))) : "";
 	console.log("start"); 
+	$scope.pushNotification($scope.countdown);
 	$scope.resetClock();
 	$scope.$broadcast('timer-start');
 	$localstorage.storeStartTime();
@@ -96,8 +117,8 @@ $scope.$on('timer-stopped', function (event, data){
 		$scope.buttonText = "Reset timer";
 		$scope.buttonStyle = "button-energized";
 		$scope.$apply();
-}
-$scope.timerRunning = false;
+	}
+	$scope.timerRunning = false;
 });
 
 givePoints = function(timeGoal){
@@ -177,4 +198,9 @@ $scope.loadFail = function() {
 $scope.sendDataByMail = function () {
 	$localstorage.sendDataByMail();
 };
+
+$ionicPlatform.ready(function () {
+
+});
+
 })

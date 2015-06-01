@@ -6,7 +6,7 @@
 var nophoApp = angular.module('starter', ['ionic', 'ngCordova', 'timer', 'angular.circular-slider',
   'starter.dataService', 'starter.controllers', 'starter.score.controller', 'starter.filters','angular.directives-round-progress'])
 
-.run(function($ionicPlatform, $ionicHistory, $ionicPopup, $rootScope, $localstorage, $cordovaSocialSharing) {
+.run(function($ionicPlatform, $ionicHistory, $ionicPopup, $rootScope, $localstorage, $cordovaSocialSharing, $cordovaLocalNotification) {
   $ionicPlatform.ready(function() {
     //makes the app go fullscreen
     StatusBar.hide();
@@ -16,7 +16,7 @@ var nophoApp = angular.module('starter', ['ionic', 'ngCordova', 'timer', 'angula
     document.addEventListener("home", onHome, false);
 
 
-  $cordovaSocialSharing
+    $cordovaSocialSharing
     .canShareViaEmail()
     .then(function(result) {
       // Yes we can
@@ -51,7 +51,7 @@ $ionicPlatform.registerBackButtonAction(function(e) {
     }).then(function(res) {
       if (res) {
         $rootScope.$broadcast('home-event');
-          ionic.Platform.exitApp();
+        ionic.Platform.exitApp();
       } else {
                     // Don't close
                   }
