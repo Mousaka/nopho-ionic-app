@@ -5,23 +5,51 @@ angular.module('starter.controllers', [])
 	$ionicPlatform.ready(function(){
 		updatePagePoints();
 
+		$scope.cancelNotifications = function () {
+			if(ionic.Platform.isAndroid() || ionic.Platform.isIOS())
+				$cordovaLocalNotification.cancelAll();
+			console.log("Cleared PUSH NOTIFICATIONS");
+		};
+
+		$scope.pushFailNotification = function () {
+			if(ionic.Platform.isAndroid() || ionic.Platform.isIOS()){
+				$cordovaLocalNotification.add({
+					id: 2,
+					title: 'Session Failed',
+					text: 'You failed your session! Try again and stay focused.',
+					at: 1000,
+					autoCancel: true,
+					data: {
+						customProperty: 'custom value'
+					}
+				}).then(function (result) {
+					console.log("Created new fail pushnotification!");
+				});
+			}
+		};
+
 		$scope.pushNotification = function(timeGoal){
-			console.log("In pushNotification");
-			now = new Date().getTime(); 
-			timeGoalPoint = new Date(now + timeGoal * 1000);
-			console.log("Notification will scheduled at: " + timeGoalPoint + " cord: " + $cordovaLocalNotification);
-			$cordovaLocalNotification.add({
-				id: 1,
-				title: 'Session completed',
-				text: 'Good job! You successfully completed your session!',
-				at: timeGoalPoint,
-				data: {
-					customProperty: 'custom value'
-				}
-			}).then(function (result) {
-				console.log("Created new pushnotification!");
-			});
+			console.log("About to push notifciation.. android? ios? -> " +  ionic.Platform.isAndroid() + ", " + ionic.Platform.isIOS());
+			if(ionic.Platform.isIOS() || ionic.Platform.isAndroid()){
+				console.log("In pushNotification");
+				now = new Date().getTime(); 
+				timeGoalPoint = new Date(now + 500 + timeGoal * 1000);
+				console.log("Notification will scheduled at: " + timeGoalPoint + " cord: " + $cordovaLocalNotification);
+				$cordovaLocalNotification.add({
+					id: 1,
+					title: 'Session completed',
+					text: 'Good job! You successfully completed your session!',
+					at: timeGoalPoint,
+					autoCancel: true,
+					data: {
+						customProperty: 'custom value'
+					}
+				}).then(function (result) {
+					console.log("Created new pushnotification!");
+				});
+			}
 		}
+		
 	});
 
 	$succSessionsInRow = 0;
@@ -48,6 +76,7 @@ angular.module('starter.controllers', [])
 
 //called when timer is started (from clicking activity button)
 $scope.startTimer = function() {
+	$scope.cancelNotifications();
 	$madeItOnce = false;
 	$testMode ? alert(JSON.stringify($localstorage.getData('userData'))) : "";
 	console.log("start"); 
@@ -66,7 +95,7 @@ $scope.startTimer = function() {
 //called when the timer is stopped manually, i.e session failed
 $scope.manualStopTimer = function (){
 	console.log("manualStop");
-
+	$scope.cancelNotifications();
 	$localstorage.resultIncr($scope.countdown);
 	$scope.$broadcast('timer-stop');
 	$scope.timerRunning = false;
@@ -74,7 +103,7 @@ $scope.manualStopTimer = function (){
 	$scope.buttonText = "Reset timer";
 	$scope.buttonStyle = "button-energized";
 	$scope.lastSessionStatus = false;
-	
+
 };
 
 //When the activity button i clicked this checks if there is time left
@@ -101,9 +130,10 @@ $scope.resetClock = function() {
 		broadcastTimerSet($scope.countdown);
 };
 
+
 //called when time has run out
 $scope.$on('timer-stopped', function (event, data){
-	console.log("timer stopped, before if");
+	//console.log("timer stopped, before if");
 	if (data.seconds==0 && data.minutes==0 && !$madeItOnce){
 		console.log("timer stopped, in if");
 		$madeItOnce = true;
@@ -127,7 +157,7 @@ givePoints = function(timeGoal){
 	}else{
 		time = timeGoal/60;
 	}
-	console.log("Time to updatePointsLevelCombo:-> " + time);
+//	console.log("Time to updatePointsLevelCombo:-> " + time);
 	return $localstorage.updatePointsLevelCombo(time);
 	
 };
@@ -177,6 +207,7 @@ $scope.$on('home-event', function(event, data){
 	console.log("!! Cought home event");
 	if($scope.timerRunning){
 		$scope.manualStopTimer();
+		$scope.pushFailNotification();
 		$scope.$apply();
 	}
 });

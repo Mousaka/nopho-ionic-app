@@ -11,7 +11,7 @@ angular.module('starter.dataService', [])
   };
 
   $setObject = function(key, value) {
-    console.log("Storing " + value + " in " + key);
+ //   console.log("Storing " + value + " in " + key);
     $window.localStorage[key] = JSON.stringify(value);
   };
 
@@ -38,19 +38,19 @@ angular.module('starter.dataService', [])
         comboPoints = data['combo'] * 10;
         newPoints = time + Math.round((time*(time/10))/100)*10;
         totalNewPoints = newPoints + comboPoints;
-        console.log("Score data: " + JSON.stringify(data));
-        console.log("Points added: " + totalNewPoints);
+     //   console.log("Score data: " + JSON.stringify(data));
+     //   console.log("Points added: " + totalNewPoints);
         data['points'] += totalNewPoints;
         data['combo']++;
         data['level'] = $filter('levelCheck')(totalNewPoints);
         $setScore(data);
-        console.log("Level stored: " + $filter('levelCheck')(totalNewPoints));
+       // console.log("Level stored: " + $filter('levelCheck')(totalNewPoints));
         return {points: newPoints, comboPoints: comboPoints};
     },
 
     getPoints: function(){
       data = $getScore();
-      console.log("Score data: "+ JSON.stringify(data));
+     // console.log("Score data: "+ JSON.stringify(data));
       return data['points'];
     },
 
@@ -74,7 +74,7 @@ angular.module('starter.dataService', [])
       startTime = $getStartTime();
       dif = date.getTime()- startTime;
       res = dif / 1000;
-      console.log("timeGoneSincePause: "+res + ", in ms: " + dif);
+  //    console.log("timeGoneSincePause: "+res + ", in ms: " + dif);
       return res || 0;
     },
     get: function(defaultValue) {
