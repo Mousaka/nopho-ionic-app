@@ -45,6 +45,17 @@ angular.module('starter.dataService', [])
         console.log("Level stored: " + $filter('levelCheck')(newPoints));
     },
 
+    getPoints: function(){
+      data = $getScore();
+      console.log("Score data: "+ JSON.stringify(data));
+      return data['points'];
+    },
+
+    getCombo: function(){
+      data = $getScore();
+      return data['combo'] || -1;
+    },
+
     addAchievement: function(newAchievement){
       score = $getScore();
       score['achievements'].push(newAchievement);

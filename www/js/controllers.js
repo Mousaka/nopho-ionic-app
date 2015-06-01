@@ -1,8 +1,9 @@
+
 angular.module('starter.controllers', [])
 
 .controller('FirstpageController', function($ionicActionSheet, $ionicPlatform, $scope, $timeout, $localstorage, $cordovaFile) {
+	$ionicPlatform.ready(updatePagePoints());
 
-	$scope.points= 0;
 	$succSessionsInRow = 0;
 	$totalSuccSessions = 0;
 	$lastSessionStatus = false;
@@ -86,14 +87,15 @@ $scope.$on('timer-stopped', function (event, data){
 		console.log("timer stopped, in if");
 		$madeItOnce = true;
 		$scope.workMessage = "Well done! You made it :)";
-		$scope.buttonText = "Reset timer";
-		$scope.buttonStyle = "button-energized";
-		$localstorage.resultIncr($scope.countdown);
-		$scope.lastSessionStatus = true;
-		givePoints($scope.countdown);
-		$scope.$apply();
-	}
-	$scope.timerRunning = false;
+$scope.buttonText = "Reset timer";
+$scope.buttonStyle = "button-energized";
+$localstorage.resultIncr($scope.countdown);
+$scope.lastSessionStatus = true;
+givePoints($scope.countdown);
+updatePagePoints();
+$scope.$apply();
+}
+$scope.timerRunning = false;
 });
 
 givePoints = function(timeGoal){
@@ -107,15 +109,19 @@ givePoints = function(timeGoal){
 	
 };
 
+function updatePagePoints(){
+	$scope.points= $localstorage.getPoints();
+}
+
 
 $scope.showActionSheet = function() {
 	var hideSheet = $ionicActionSheet.show({
 		buttons: [
 		{ text: 'Export session data' },
 	//	{ text: 'Get some help' }
-		],
-		titleText: 'NoPho menu',
-		cancelText: 'Cancel',
+	],
+	titleText: 'NoPho menu',
+	cancelText: 'Cancel',
 	//	cancel: function() {
           // add cancel code..
     //  },
