@@ -7,12 +7,12 @@ angular.module('starter.controllers', [])
 	$succSessionsInRow = 0;
 	$totalSuccSessions = 0;
 	$lastSessionStatus = false;
-	$localstorage.clearData();
 	$testMode = true;
 	$timeScale = 60;
 	$madeItOnce = false;
 	$scope.value = 6;
 	if($testMode){
+		$localstorage.clearData();
 		$timeScale =1;
 		$scope.value = 2;
 	}
@@ -86,14 +86,16 @@ $scope.$on('timer-stopped', function (event, data){
 	if (data.seconds==0 && data.minutes==0 && !$madeItOnce){
 		console.log("timer stopped, in if");
 		$madeItOnce = true;
-		$scope.workMessage = "Well done! You made it :)";
-$scope.buttonText = "Reset timer";
-$scope.buttonStyle = "button-energized";
-$localstorage.resultIncr($scope.countdown);
-$scope.lastSessionStatus = true;
-givePoints($scope.countdown);
-updatePagePoints();
-$scope.$apply();
+		$localstorage.resultIncr($scope.countdown);
+		$scope.lastSessionStatus = true;
+		newPointsJSON = givePoints($scope.countdown);
+		updatePagePoints();
+		$scope.workMessage = "Well done! You made it! You earned "+newPointsJSON['points'] + " points";
+		if(newPointsJSON['comboPoints']>0)
+			$scope.workMessage += " + " + newPointsJSON['comboPoints'] + " combo points";
+		$scope.buttonText = "Reset timer";
+		$scope.buttonStyle = "button-energized";
+		$scope.$apply();
 }
 $scope.timerRunning = false;
 });
@@ -105,7 +107,7 @@ givePoints = function(timeGoal){
 		time = timeGoal/60;
 	}
 	console.log("Time to updatePointsLevelCombo:-> " + time);
-	$localstorage.updatePointsLevelCombo(time);
+	return $localstorage.updatePointsLevelCombo(time);
 	
 };
 

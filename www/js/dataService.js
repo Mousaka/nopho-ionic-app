@@ -35,14 +35,17 @@ angular.module('starter.dataService', [])
 
     updatePointsLevelCombo: function(time){
       data = $getScore();
-        newPoints = time + Math.round((time*(time/10))/100)*10 + data['combo'] * 10;
+        comboPoints = data['combo'] * 10;
+        newPoints = time + Math.round((time*(time/10))/100)*10;
+        totalNewPoints = newPoints + comboPoints;
         console.log("Score data: " + JSON.stringify(data));
-        console.log("Points added: " + newPoints);
-        data['points'] += newPoints;
+        console.log("Points added: " + totalNewPoints);
+        data['points'] += totalNewPoints;
         data['combo']++;
-        data['level'] = $filter('levelCheck')(newPoints);
+        data['level'] = $filter('levelCheck')(totalNewPoints);
         $setScore(data);
-        console.log("Level stored: " + $filter('levelCheck')(newPoints));
+        console.log("Level stored: " + $filter('levelCheck')(totalNewPoints));
+        return {points: newPoints, comboPoints: comboPoints};
     },
 
     getPoints: function(){
