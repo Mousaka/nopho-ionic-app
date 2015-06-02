@@ -46,6 +46,9 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
     border-bottom: none;
 }
 
+.scoreHeaderBar{
+    height: 60px;
+}
 /*
 Would be better to change footer and headers by changing variables instead of overriding classes here with these:
 $bar-footer-height:               $bar-height !default;
@@ -69,6 +72,10 @@ bar-subfooter-height: 55px;
     vertical-align: bottom;
 }
 
+.has-scoreHeader {
+    top: 85px;
+}
+
 .bar-subheader {
     margin-top: 30px;
     height: 50px;
@@ -84,4 +91,25 @@ bar-subfooter-height: 55px;
 .circle {
 	border-radius: 25px;
 }
+
+.progress-wrapper{
+    position: relative;
+    margin:20px auto;
+    font-size: 85px;
+}
+.progress{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    line-height: 6em;
+    font-size:1em;
+    text-align: center;
+    color: #886aea;
+    font-weight: 100;
+}
+
+.scoreText{
+    font-size: 80px;
+}
+
 

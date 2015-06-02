@@ -1,20 +1,46 @@
 <ion-view view-title="Scoreboard">
 
-<ion-header-bar align-title="center" class="bar-transparent">
-<div class= "buttons" >
-	<a class="button" ui-sref="index">Back</a>
+<ion-header-bar align-title="center" class="bar-transparent scoreHeaderBar">
+<div class= "buttons">
+	<a class="button icon-left ion-chevron-left button-clear button-dark" ui-sref="index">Back</a>
 </div>
+
+<div class="title scoreText"> <h1>Scoreboard</h1></div>
 </ion-header-bar>
-<ion-content>
 
+<ion-content class="has-scoreHeader" scroll="false">
 <div class="centertext">
-	<h1>Score {{sp.number}}</h1>
-	<h1>Level {{sp.level}}</h1>
-	<h1>Succeded sessions in row: 1</h1>
-	<h1>Total succeded sessions: 4 </h1>
+	
+	<h3>Points {{sp.points}}</h3>
+	<h4>Level</h4>
+	<div class="progress-wrapper">
+
+		<div class="progress center2" ng-style="{'font-size': sp.getFontSize()}"> <div class="center2"> {{sp.level}}</div></div>
+		
+		<div
+		round-progress
+		max="sp.max"
+		current="sp.current"
+		color="#45ccce"
+		bgcolor="#eaeaea"
+		radius="65"
+		stroke="15"
+		semi="false"
+		rounded="false"
+		clockwise="true"
+		iterations="75"
+		animation="easeInOutQuart">
+	</div>
 </div>
 
-<div ang:round:progress data-round-progress-model="roundProgress"></div>
+
+<div>
+	<h4>{{sp.points}} points to next level</h4>
+	<h4>Combo's: {{sp.combo}}</h4>
+	<h4>Succeeds: 4 </h4>
+</div>
+
+</div>
 
 </ion-content>
 </ion-view>
