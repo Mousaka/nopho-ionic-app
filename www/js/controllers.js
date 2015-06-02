@@ -1,7 +1,8 @@
 
 angular.module('starter.controllers', [])
 
-.controller('FirstpageController', function($ionicActionSheet, $ionicPlatform, $scope, $timeout, $localstorage, $cordovaFile, $cordovaLocalNotification) {
+.controller('FirstpageController', function($ionicActionSheet, $ionicPlatform, $scope, $timeout, 
+	$localstorage, $cordovaFile, $cordovaLocalNotification, $ionicPopup, $ionicModal) {
 	$ionicPlatform.ready(function(){
 		updatePagePoints();
 
@@ -52,27 +53,43 @@ angular.module('starter.controllers', [])
 		
 	});
 
-	$succSessionsInRow = 0;
-	$totalSuccSessions = 0;
-	$lastSessionStatus = false;
-	$testMode = true;
-	$timeScale = 60;
-	$madeItOnce = false;
-	$scope.value = 6;
-	if($testMode){
-		$localstorage.clearData();
-		$timeScale =1;
-		$scope.value = 2;
-	}
-	$scope.timerRunning = false;
-	$scope.workMessage = "Time to start working!";
-	$scope.buttonText = "Start session";
-	$scope.buttonStyle = "button-positive";
-	$scope.shape = "Circle";
-	
-	$scope.borderWidth = 5;
-	$scope.countdown = $scope.value * 5 * $timeScale;
-	$scope.isDisabled = false;
+$succSessionsInRow = 0;
+$totalSuccSessions = 0;
+$lastSessionStatus = false;
+$testMode = true;
+$timeScale = 60;
+$madeItOnce = false;
+$scope.value = 6;
+if($testMode){
+	$localstorage.clearData();
+	$timeScale =1;
+	$scope.value = 2;
+}
+$scope.timerRunning = false;
+$scope.workMessage = "Time to start working!";
+$scope.buttonText = "Start session";
+$scope.buttonStyle = "button-positive";
+$scope.shape = "Circle";
+
+$scope.borderWidth = 5;
+$scope.countdown = $scope.value * 5 * $timeScale;
+$scope.isDisabled = false;
+
+  $ionicModal.fromTemplateUrl('templates/modal.html', {
+    scope: $scope
+  }).then(function(modal) {
+    $scope.modal = modal;
+  });
+
+$scope.closePopup = function() {
+	console.log("closing popup");
+	$scope.modal.hide();
+};
+
+
+$scope.showPopup = function() {
+	$scope.modal.show();
+};
 
 //called when timer is started (from clicking activity button)
 $scope.startTimer = function() {
@@ -146,6 +163,7 @@ $scope.$on('timer-stopped', function (event, data){
 			$scope.workMessage += " + " + newPointsJSON['comboPoints'] + " combo points";
 		$scope.buttonText = "Reset timer";
 		$scope.buttonStyle = "button-energized";
+		$scope.showPopup();
 		$scope.$apply();
 	}
 	$scope.timerRunning = false;
@@ -158,8 +176,8 @@ givePoints = function(timeGoal){
 		time = timeGoal/60;
 	}
 //	console.log("Time to updatePointsLevelCombo:-> " + time);
-	return $localstorage.updatePointsLevelCombo(time);
-	
+return $localstorage.updatePointsLevelCombo(time);
+
 };
 
 function updatePagePoints(){
