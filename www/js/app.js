@@ -3,13 +3,15 @@
 // angular.module is a global place for creating, registering and retrieving Angular modules
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
-var nophoApp = angular.module('starter', ['ionic', 'ngCordova', 'timer', 'angular.circular-slider',
+var nophoApp = angular.module('starter', ['ionic', 'ngCordova', 'timer', 'angular.circular-slider', 'angular-svg-round-progress',
   'starter.dataService', 'starter.controllers', 'starter.score.controller', 'starter.filters','angular.directives-round-progress'])
 
 .run(function($ionicPlatform, $ionicHistory, $ionicPopup, $rootScope, $localstorage, $cordovaSocialSharing, $cordovaLocalNotification) {
   $ionicPlatform.ready(function() {
     //makes the app go fullscreen
-    StatusBar.hide();
+    //StatusBar.hide();
+    if (ionic.Platform.isAndroid())
+     ionic.Platform.fullScreen();
     //Adding pause and resume listeners
     document.addEventListener("resume", onResume, false);
     document.addEventListener("pause", onPause, false);
