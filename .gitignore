@@ -1,0 +1,26 @@
+pecifies intentionally untracked files to ignore when using Git
+# http://git-scm.com/docs/gitignore
+
+node_modules/
+/plugins/*/
+.tmp
+.sass-cache
+<%= appPath %>/bower_components
+coverage
+plugins
+*.swp
+*.swo
+*.log
+*.DS_Store
+*.keystore
+*.sw*
+www/css/ionic.app.*
+!/platforms
+/platforms/*
+!/platforms/android/src/com/ionicframework/nophoapp347342/MainActivity.java
+
+!/www/lib
+/www/lib/*
+!/www/lib/*.js
+!/www/lib/*.css
+

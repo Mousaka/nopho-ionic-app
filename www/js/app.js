@@ -1,0 +1,121 @@
+// Ionic Starter App
+
+// angular.module is a global place for creating, registering and retrieving Angular modules
+// 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
+// the 2nd parameter is an array of 'requires'
+var nophoApp = angular.module('starter', ['ionic', 'ngCordova', 'timer', 'angular.circular-slider', 'starter.dataService', 'starter.controllers'])
+
+.run(function($ionicPlatform, $ionicHistory, $ionicPopup, $rootScope, $localstorage, $cordovaSocialSharing) {
+  $ionicPlatform.ready(function() {
+    //makes the app go fullscreen
+    StatusBar.hide();
+    //Adding pause and resume listeners
+    document.addEventListener("resume", onResume, false);
+    document.addEventListener("pause", onPause, false);
+    document.addEventListener("home", onHome, false);
+
+
+  $cordovaSocialSharing
+    .canShareViaEmail()
+    .then(function(result) {
+      // Yes we can
+    }, function(err) {
+      alert("Can't send user data by email!");  
+    });
+
+/*
+    $ionicPlatform.onHardwareBackButton(function(){
+      navigator.notification.confirm("Closing the app will fail your current session!",
+        function(buttonIndex){
+         if (buttonIndex === 1 || 0){
+          $localstorage.failIncr();
+          navigator.app.exitApp();
+        }
+      },
+      'Warning',
+      ['Close anyway, Cancel']
+      );
+    });
+*/
+
+$ionicPlatform.registerBackButtonAction(function(e) {
+  e.preventDefault();
+  function showConfirm() {
+    $ionicPopup.confirm({
+      title: '<strong>Confirm</strong>',
+      subTitle: '<p>Closing the app will fail any active session!</p>',
+      okText: 'Ok',
+      okType: 'button-positive',
+      cancelText: 'Cancel'
+    }).then(function(res) {
+      if (res) {
+        $rootScope.$broadcast('home-event');
+          ionic.Platform.exitApp();
+      } else {
+                    // Don't close
+                  }
+                });
+  }
+
+        // Is there a page to go back to?
+        if ($ionicHistory.backView()) {
+
+          $ionicHistory.goBack(-1);
+        } else {
+
+            // This is the last page: Show confirmation popup
+            showConfirm();
+            return false;
+          }
+        }, 101);
+
+if(window.cordova && window.cordova.plugins.Keyboard) {
+  cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
+}
+if(window.StatusBar) {
+  StatusBar.styleDefault();
+}
+});
+
+function onResume() {
+ $rootScope.$broadcast('cordovaResumeEvent');
+ console.log('On Resume');
+}
+
+function onPause() {
+  $rootScope.$broadcast('cordovaPauseEvent');
+}
+
+function onHome() {
+  $rootScope.$broadcast('home-event');
+}
+
+function alertDismissed() {
+  $localstorage.failIncr();
+}
+
+})
+
+.config(function($stateProvider, $urlRouterProvider) {
+
+  // Ionic uses AngularUI Router which uses the concept of states
+  // Learn more here: https://github.com/angular-ui/ui-router
+  // Set up the various states which the app can be in.
+  // Each state's controller can be found in controllers.js
+  $stateProvider
+
+  .state('index', {
+    url: '/',
+    templateUrl: 'templates/firstpage.html',
+    controller: 'FirstpageController'
+  })
+
+  .state('score', {
+    url: '/score',
+    templateUrl: 'templates/score.html',
+    controller: 'ScoreController'
+  });
+
+  $urlRouterProvider.otherwise('/');
+
+});
