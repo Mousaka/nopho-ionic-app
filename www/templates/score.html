@@ -11,7 +11,7 @@
 <ion-content class="has-scoreHeader" scroll="false">
 <div class="centertext">	
 	<h3>Points {{sp.points}}</h3>
-	<h4>Level</h4>
+	<h4>Current level</h4>
 	<div class="progress-wrapper">
 
 		<div class="progress center2" ng-style="{'font-size': sp.getFontSize()}"> <div class="center2"> {{sp.level}}</div></div>
@@ -29,12 +29,11 @@
 		clockwise="true"
 		iterations="75"
 		animation="easeInOutQuart">
-	</div>
+		</div>
 </div>
 
-
 <div>
-	<h4>{{sp.points}} points to next level</h4>
+	<h4>Points to next level: {{sp.points}} </h4>
 	<h4>Combo's: {{sp.combo}}</h4>
 	<h4>Succeeds: 4 </h4>
 </div>

@@ -107,6 +107,7 @@ $scope.startTimer = function() {
 	$scope.buttonText = "Give up?";
 	$scope.buttonStyle = "button-assertive";
 	$scope.isDisabled = true;
+
 	
 };
 
