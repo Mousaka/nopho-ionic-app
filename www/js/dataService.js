@@ -56,7 +56,7 @@ angular.module('starter.dataService', [])
 
     getCombo: function(){
       data = $getScore();
-      return data['combo'] || -1;
+      return data['combo'];
     },
 
     addAchievement: function(newAchievement){
@@ -99,15 +99,15 @@ angular.module('starter.dataService', [])
       $setObject($key, data);
     },
     getSuccessCount: function(){
-      data = getObject($key);
+      data = $getObject($key);
       return data['results']['successCount'];
     },
         getFailCount: function(){
-      data = getObject($key);
+      data = $getObject($key);
       return data['results']['failCount'];
     },
         getSessionCount: function(){
-      data = getObject($key);
+      data = $getObject($key);
       return data['results']['sessionCount'];
     },
     getData: function(key){

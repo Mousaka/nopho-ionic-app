@@ -1,22 +1,61 @@
+
+
 angular.module('starter.filters', [])
 
-.filter('levelCheck', function () {
+.constant("LL", [
+	-1,
+	0,
+	50,
+	100,
+	150,
+	250,
+	])
+
+
+
+.filter('levelCheck', function (LL) {
 	return function (points) {
 		level = 0;
-		if (points >=0 && points <51)
+		if (points >=0 && points <50)
 			level = 1;
-		else if (points >=51 && points <100)
+		else if (points >=LL[2] && points <100)
 			level = 2;
-		else if (points >=100 && points <150)
+		else if (points >=LL[3] && points <150)
 			level = 3;
-		else if (points >=150 && points<250)
+		else if (points >=LL[4] && points<250)
 			level = 4;
-		else if (points >=250)
+		else if (points >=LL[5])
 			level = 5;
 
 		return level;
 	};
-});
+})
+
+.factory('levelService', levelService);
+
+function levelService (LL, $filter){
+	var levelService = {};
+	levelService.pointsToNextLevel = function(points){
+		myLevel = $filter('levelCheck')(points);
+		pointsLeft = LL[myLevel+1] - points;
+		return pointsLeft;
+	};
+
+	levelService.getNextLevelLimit = function(points){
+		myLevel = $filter('levelCheck')(points);
+		pointsNextLimit = LL[myLevel+1] - LL[myLevel];
+		return pointsNextLimit;
+	}
+	levelService.getPointsUpFromStart = function(points){
+		myLevel = $filter('levelCheck')(points);
+		pointsUpFromLimit = points - LL[myLevel];
+		return pointsUpFromLimit;
+	}
+
+	return levelService;
+}
+
+
 
 /*.filter('pointsIntervalAchieved', function () {
 	return function (item) {

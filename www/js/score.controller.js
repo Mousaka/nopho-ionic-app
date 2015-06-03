@@ -1,10 +1,7 @@
 (function () {
 
-	function scorePageController($ionicActionSheet, $ionicPlatform, $scope, $localstorage, $filter){
-		var sp = this;
-		this.max = 500;
-		this.current = 450;
-		
+	function scorePageController($ionicActionSheet, $ionicPlatform, $scope, $localstorage, $filter, levelService){
+		var sp = this;		
 
 		$ionicPlatform.ready(function(){
 			updatePagePoints();
@@ -15,7 +12,11 @@
 			sp.points= $localstorage.getPoints();
 			sp.level= $filter('levelCheck')(sp.points);
 			sp.combo= $localstorage.getCombo();
-			console.log("Antal poäng är " + sp.points);
+			sp.sessionCount= $localstorage.getSessionCount();
+			sp.pointsLeft = levelService.pointsToNextLevel(sp.points);
+			sp.max = levelService.getNextLevelLimit(sp.points);
+			sp.current = levelService.getPointsUpFromStart(sp.points);
+			console.log("current is" + sp.current + "max is " + sp.max);
 		}
 
 		this.getFontSize = function (){
