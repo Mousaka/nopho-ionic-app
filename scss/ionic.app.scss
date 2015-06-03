@@ -17,6 +17,11 @@ $dark:                            #444 !default;
 // The path for our ionicons font files, relative to the built CSS in www/css
 $ionicons-font-path: "../lib/ionic/fonts" !default;
 
+$modal-inset-mode-break-point: 200px;
+$modal-inset-mode-left:  8%;
+$modal-inset-mode-right:  8%;
+$modal-backdrop-bg-active:        #000 !default;
+
 // Include all of Ionic
 @import "www/lib/ionic/scss/ionic";
 
@@ -85,10 +90,12 @@ bar-subfooter-height: 55px;
 	border-radius: 25px;
 }
 
-$modal-inset-mode-break-point: 200px;
-$modal-inset-mode-left:  8%;
-$modal-inset-mode-right:  8%;
-$modal-backdrop-bg-active:        #000 !default;
+.my-icon,
+.my-icon:before{
+  font-size:28px !important;
+}
+
+
 /*
 // Modals
 // -------------------------------
