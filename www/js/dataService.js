@@ -4,7 +4,7 @@ angular.module('starter.dataService', [])
 	$key = 'userData';
   $scoreKey = 'score';
   $timeStartedKey = 'startTime';
-  $defaultJSON = '{"results": [], "score": {"points": 0, "level": 1, "combo": 0, "achievements": []}}';
+  $defaultJSON = '{"results": {"sessionCount": 0, "successCount":0,"failCount": 0, "stamps": []}, "score": {"points": 0, "level": 1, "combo": 0, "achievements": []}}';
 
   $getObject = function(key) {
     return JSON.parse($window.localStorage[key] || $defaultJSON);
@@ -93,8 +93,22 @@ angular.module('starter.dataService', [])
       timePassed = failTime - startTime;
       timePassed = Math.round(timePassed / 1000);
       success = (timePassed >= timeGoal);
-      data['results'].push({"startTime": timestamp, "timeGoal" : timeGoal/60, "timePassed" : Math.round(timePassed/60), "success" : success});
+      data['results']['sessionCount']++;
+      success? data['results']['successCount']++ : data['results']['failCount']++;
+      data['results']['stamps'].push({"startTime": timestamp, "timeGoal" : timeGoal/60, "timePassed" : Math.round(timePassed/60), "success" : success});
       $setObject($key, data);
+    },
+    getSuccessCount: function(){
+      data = getObject($key);
+      return data['results']['successCount'];
+    },
+        getFailCount: function(){
+      data = getObject($key);
+      return data['results']['failCount'];
+    },
+        getSessionCount: function(){
+      data = getObject($key);
+      return data['results']['sessionCount'];
     },
     getData: function(key){
       console.log("gettin dataaa");
@@ -103,14 +117,14 @@ angular.module('starter.dataService', [])
     getDataArray: function(){
       console.log("gettin array");
       data = $getObject($key);
-      return data['results'];
+      return data['results']['stamps'];
     },
 
     sendDataByMail: function(){
       $ionicPlatform.ready(function() {
         console.log("MAIL time!!");
         file =$getObject($key);
-        message = json2csv(file['results']);
+        message = json2csv(file['results']['stamps']);
         console.log("message: " + message);
         $cordovaSocialSharing
         .shareViaEmail(message, "My nopho data", ["krlu2271@student.su.se"], [], [], [])
@@ -142,15 +156,5 @@ angular.module('starter.dataService', [])
             str += line + '\r\n';
         }
         return ""+str;
-/*
-        if (navigator.appName != 'Microsoft Internet Explorer')
-        {
-            window.open('data:text/csv;charset=utf-8,' + escape(str));
-        }
-        else
-        {
-            var popup = window.open('','csv','');
-            popup.document.body.innerHTML = '<pre>' + str + '</pre>';
-        }   
-        */        
+        
     }
