@@ -61,7 +61,7 @@ $timeScale = 60;
 $madeItOnce = false;
 $scope.value = 6;
 if($testMode){
-	//$localstorage.clearData();
+	$localstorage.clearData();
 	$timeScale =1;
 	$scope.value = 2;
 }
