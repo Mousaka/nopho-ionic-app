@@ -70,6 +70,7 @@ $scope.workMessage = "Time to start working!";
 $scope.buttonText = "Start session";
 $scope.buttonStyle = "button-positive";
 $scope.shape = "Circle";
+$scope.comboMessage = "";
 
 $scope.borderWidth = 5;
 $scope.countdown = $scope.value * 5 * $timeScale;
@@ -158,9 +159,9 @@ $scope.$on('timer-stopped', function (event, data){
 		$scope.lastSessionStatus = true;
 		newPointsJSON = givePoints($scope.countdown);
 		updatePagePoints();
-		$scope.workMessage = "Well done! You made it! You earned "+newPointsJSON['points'] + " points";
+		$scope.popupMessage = "You made it! You earned "+newPointsJSON['points'] + " ";
 		if(newPointsJSON['comboPoints']>0)
-			$scope.workMessage += " + " + newPointsJSON['comboPoints'] + " combo points";
+			$scope.comboMessage = newPointsJSON['comboPoints'] + " combo points";
 		$scope.buttonText = "Reset timer";
 		$scope.buttonStyle = "button-energized";
 		$scope.showPopup();
