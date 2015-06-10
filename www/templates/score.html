@@ -29,12 +29,19 @@
 		clockwise="true"
 		iterations="75"
 		animation="easeInOutQuart">
-		</div>
+	</div>
 </div>
 
 <div>
+
 	<h4>Points to next level: {{sp.pointsLeft}} </h4>
-	<h4>Combo's: {{sp.combo}}</h4>
+	<div>
+		<h4>Combo:   
+
+			<i ng-repeat="n in [] | range:sp.combo" class="ion-android-star"> </i> 
+		</h4> 
+	</div>
+
 	<h4>Succeeds: {{sp.sessionCount}} </h4>
 </div>
 
