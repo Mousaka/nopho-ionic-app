@@ -1,11 +1,22 @@
 (function () {
 
+	function rangeFilter(){
+		return function(input, total) {
+			total = parseInt(total);
+			for (var i=0; i<total; i++)
+				input.push(i);
+			console.log("det här är combo variabel " + total);
+			return input;
+		};
+	}
+
 	function scorePageController($ionicActionSheet, $ionicPlatform, $scope, $localstorage, $filter, levelService){
 		var sp = this;		
 
 		$ionicPlatform.ready(function(){
 			updatePagePoints();
 		});
+
 
 		function updatePagePoints(){
 
@@ -27,6 +38,7 @@
 	}
 
 	angular.module('starter.score.controller', [])
-	.controller('ScorePageController', scorePageController);
+	.controller('ScorePageController', scorePageController)
+	.filter('range', rangeFilter);
 
 })();
