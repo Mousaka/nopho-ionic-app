@@ -5,12 +5,12 @@
 	<a class="button icon-left ion-chevron-left button-clear button-dark" ui-sref="index">Back</a>
 </div>
 
-<div class="title scoreText"> <h1>Scoreboard</h1></div>
+<div class="title scoreText"> <h1>Scoreboard</h1> </div>
 </ion-header-bar>
 
-<ion-content class="has-scoreHeader" scroll="false">
+<ion-content class="has-scoreHeader" scroll="false" padding="true">
 <div class="centertext">	
-	<h3>Points {{sp.points}}</h3>
+	<h3> <i class="ion-social-usd purple-icon"> </i> Points {{sp.points}}</h3>
 	<h4>Current level</h4>
 	<div class="progress-wrapper">
 
@@ -33,18 +33,18 @@
 </div>
 
 <div>
-
 	<h4>Points to next level: {{sp.pointsLeft}} </h4>
-	<div>
-		<h4>Combo:   
-
-			<i ng-repeat="n in [] | range:sp.combo" class="ion-android-star"> </i> 
+	<hr class="lineWidth">
+	<div>	
+		<h4>Combo <br>  
+			<i ng-repeat="n in [] | range:sp.combo" class="ion-android-star purple-icon"> </i> 
 		</h4> 
+		<hr class="lineWidth">
 	</div>
-
+	
 	<h4>Succeeds: {{sp.sessionCount}} </h4>
-</div>
 
+</div>
 </div>
 
 </ion-content>
