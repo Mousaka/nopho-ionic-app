@@ -36,12 +36,14 @@ angular.module('starter.dataService', [])
     updatePointsLevelCombo: function(time){
       data = $getScore();
         comboPoints = data['combo'] * 10;
+        console.log("Combopoints: "+comboPoints);
         newPoints = time + Math.round((time*(time/10))/100)*10;
         totalNewPoints = newPoints + comboPoints;
      //   console.log("Score data: " + JSON.stringify(data));
      //   console.log("Points added: " + totalNewPoints);
         data['points'] += totalNewPoints;
-        data['combo']++;
+        if(data['combo']<10)
+          data['combo']++;
         data['level'] = $filter('levelCheck')(totalNewPoints);
         $setScore(data);
        // console.log("Level stored: " + $filter('levelCheck')(totalNewPoints));
@@ -59,10 +61,16 @@ angular.module('starter.dataService', [])
       return data['combo'];
     },
 
+    resetCombo: function(){
+      score = $getScore();
+      score['combo'] = 0;
+      $setScore(score);
+    },
+
     addAchievement: function(newAchievement){
       score = $getScore();
       score['achievements'].push(newAchievement);
-      setScore(score);
+      $setScore(score);
     },
 
     storeStartTime: function(){

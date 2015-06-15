@@ -66,6 +66,7 @@ if($testMode){
 	$scope.value = 2;
 }
 $scope.timerRunning = false;
+$scope.hasNoCombo=true;
 $scope.workMessage = "Time to start working!";
 $scope.buttonText = "Start session";
 $scope.buttonStyle = "button-positive";
@@ -76,20 +77,45 @@ $scope.borderWidth = 5;
 $scope.countdown = $scope.value * 5 * $timeScale;
 $scope.isDisabled = false;
 
-  $ionicModal.fromTemplateUrl('templates/modal.html', {
-    scope: $scope
-  }).then(function(modal) {
-    $scope.modal = modal;
-  });
+$ionicModal.fromTemplateUrl('templates/success.html', {
+	scope: $scope
+}).then(function(succTemplate) {
+	$scope.succTemplate = succTemplate;
+});
 
-$scope.closePopup = function() {
+$ionicModal.fromTemplateUrl('templates/lose.html', {
+	scope: $scope
+}).then(function(loseTemplate) {
+	$scope.loseTemplate = loseTemplate;
+});
+
+
+$scope.closeSuccPopup = function() {
 	console.log("closing popup");
-	$scope.modal.hide();
+	$scope.succTemplate.hide();
 };
 
+  $scope.$on('modal.hidden', function() {
+   	console.log("Modal hidden!!");
+   	$scope.isDisabled = false;
+   	$scope.resetClock();
+   	$scope.workMessage = "Time to start working!";
+	$scope.buttonText = "Start session";
+	$scope.buttonStyle = "button-positive";
+  });
 
-$scope.showPopup = function() {
-	$scope.modal.show();
+
+$scope.closeLosePopup = function() {
+	console.log("closing popup");
+	$scope.loseTemplate.hide();
+};
+
+$scope.showLosePopup = function() {
+	$scope.loseTemplate.show();
+};
+
+$scope.showSuccPopup = function() {
+	$scope.succTemplate.show();
 };
 
 //called when timer is started (from clicking activity button)
@@ -116,12 +142,13 @@ $scope.manualStopTimer = function (){
 	console.log("manualStop");
 	$scope.cancelNotifications();
 	$localstorage.resultIncr($scope.countdown);
+	$localstorage.resetCombo();
+	$scope.showLosePopup();
 	$scope.$broadcast('timer-stop');
 	$scope.timerRunning = false;
-	$scope.workMessage = "You failed your session!";
-	$scope.buttonText = "Reset timer";
-	$scope.buttonStyle = "button-energized";
 	$scope.lastSessionStatus = false;
+	$scope.comboMessage ="";
+	$scope.hasNoCombo = true;
 
 };
 
@@ -129,11 +156,6 @@ $scope.manualStopTimer = function (){
 $scope.activityButtonClicked = function(){
 	if ($scope.timerRunning) {
 		$scope.manualStopTimer();
-	}else if ($scope.buttonText == "Reset timer"){
-		$scope.resetClock();
-		$scope.buttonText = "Start again";
-		$scope.buttonStyle = "button-positive";
-		$scope.isDisabled = false;
 	}else{
 		$scope.startTimer();
 	}
@@ -159,14 +181,16 @@ $scope.$on('timer-stopped', function (event, data){
 		$localstorage.resultIncr($scope.countdown);
 		$scope.lastSessionStatus = true;
 		newPointsJSON = givePoints($scope.countdown);
+		$scope.newPoints = newPointsJSON['points'];
 		updatePagePoints();
-		$scope.popupMessage = "You made it! You earned "+newPointsJSON['points'] + " ";
-		if(newPointsJSON['comboPoints']>0)
-			$scope.comboMessage = newPointsJSON['comboPoints'] + " combo points";
-		$scope.buttonText = "Reset timer";
-		$scope.buttonStyle = "button-energized";
-		$scope.showPopup();
+		$scope.popupMessage = "You made it! You earned ";
+		if(newPointsJSON['comboPoints']>0){
+			console.log("I newPointJSON if");
+			$scope.comboMessage = newPointsJSON['comboPoints'];
+			$scope.hasNoCombo=false;
+		}
 		$scope.$apply();
+		$scope.showSuccPopup();
 	}
 	$scope.timerRunning = false;
 });

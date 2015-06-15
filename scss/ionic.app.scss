@@ -41,6 +41,12 @@ $modal-backdrop-bg-active:        #000 !default;
     width:100%;
 }
 
+
+
+.no-has-header{
+    top: 0px;
+}
+
 /*
 .bar-header and .bar customizations to make header transparent and withouh border
 */
@@ -107,6 +113,11 @@ bar-subfooter-height: 55px;
     margin:20px auto;
     font-size: 85px;
 }
+
+.progress-wrapper.no-margin{
+    margin: 0px;
+}
+
 .progress{
     position: absolute;
     width: 100%;
@@ -125,6 +136,22 @@ bar-subfooter-height: 55px;
 .purple-icon{
 color : #886aea;
 }
+
+.horline {
+    border-bottom: thin solid Grey;
+    margin-top: 50px;
+}
+
+.coin {
+    color: #f6e06a;
+    -webkit-animation:spin 4s linear infinite;
+    -moz-animation:spin 4s linear infinite;
+    animation:spin 4s linear infinite;
+}
+@-moz-keyframes spin { 100% { -moz-transform: rotateY(360deg); } }
+@-webkit-keyframes spin { 100% { -webkit-transform: rotateY(360deg); } }
+@keyframes spin { 100% { -webkit-transform: rotateY(360deg); transform:rotateY(360deg); } }
+
 
 .lineWidth{
 width: 30%;
