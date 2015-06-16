@@ -9,10 +9,14 @@
         <div>
           <div class= "row row-top my-icon">
             <div class= "col">
-              <div  align="right">
+              <div>
                 <div class="progress-wrapper no-margin" ng-controller="ScorePageController as sp">
 
-                  <div class="progress" ng-style="{'font-size': sp.getFontSize()}"> <div class="center2"> {{sp.level}}</div></div>
+                  <div class="progress" > 
+                    <div class="center2" ng-style="{'font-size': sp.getSmallerFont()}">
+                      {{sp.level}}
+                    </div>
+                  </div>
 
                   <div
                   round-progress
@@ -21,7 +25,7 @@
                   color="#45ccce"
                   bgcolor="#eaeaea"
                   radius="40"
-                  stroke="15"
+                  stroke="10"
                   semi="false"
                   rounded="false"
                   clockwise="true"
