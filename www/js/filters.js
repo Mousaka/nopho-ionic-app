@@ -1,74 +1,64 @@
 
 function getLevelFromPoints(LL){
 	return function(points){
-	for(var i=0; i<LL.length; i++){
-		console.log("Loop: "+i);
-		if(points<LL[i])
-			return i;
-	}
-	};
-}
-
-
-	function oldGetLevel(LL) {
-	return function (points) {
-		level = 0;
-		if (points >=0 && points <50)
-			level = 1;
-		else if (points >=LL[2] && points <100)
-			level = 2;
-		else if (points >=LL[3] && points <150)
-			level = 3;
-		else if (points >=LL[4] && points<250)
-			level = 4;
-		else if (points >=LL[5])
-			level = 5;
-
-		return level;
-	};
-}
-
-
-
-angular.module('starter.filters', [])
-
-.constant("LL", [
-	-1,
-	50,
-	150,
-	250,
-	400,
-	])
-
-
-
-.filter('levelCheck', getLevelFromPoints)
-
-
-.factory('levelService', levelService);
-
-function levelService (LL, $filter){
-	var levelService = {};
-	levelService.pointsToNextLevel = function(points){
-		myLevel = $filter('levelCheck')(points);
-		pointsLeft = LL[myLevel] - points;
-		return pointsLeft;
-	};
-
-	levelService.getNextLevelLimit = function(points){
-		myLevel = $filter('levelCheck')(points);
-		pointsNextLimit = LL[myLevel] - LL[myLevel-1];
-		return pointsNextLimit;
-	}
-	levelService.getPointsUpFromStart = function(points){
-		myLevel = $filter('levelCheck')(points);
-		console.log(points+"p - " + LL[myLevel] + " LL + " + myLevel + " my level");
-		pointsUpFromLimit = points - LL[myLevel-1];
-		return pointsUpFromLimit;
+		for(var i=0; i<LL.length; i++)
+			if(points<LL[i])
+				return i;
+		};
 	}
 
-	return levelService;
-}
+	angular.module('starter.filters', [])
+
+	.constant("LL", [
+		0,
+		50,
+		250,
+		400,
+		600,
+		1000,
+		1500,
+		2200,
+		3000,
+		4000,
+		5500,
+		7000,
+		10000,
+		15000,
+		30000,
+		50000,
+		100000,
+		1000000000
+		])
+
+
+
+	.filter('levelCheck', getLevelFromPoints)
+
+
+	.factory('levelService', levelService);
+
+	function levelService (LL, $filter){
+		var levelService = {};
+		levelService.pointsToNextLevel = function(points){
+			myLevel = $filter('levelCheck')(points);
+			pointsLeft = LL[myLevel] - points;
+			return pointsLeft;
+		};
+
+		levelService.getNextLevelLimit = function(points){
+			myLevel = $filter('levelCheck')(points);
+			pointsNextLimit = LL[myLevel] - LL[myLevel-1];
+			return pointsNextLimit;
+		}
+		levelService.getPointsUpFromStart = function(points){
+			myLevel = $filter('levelCheck')(points);
+			console.log(points+"p - " + LL[myLevel] + " LL " + myLevel + " my level");
+			pointsUpFromLimit = points - LL[myLevel-1];
+			return pointsUpFromLimit;
+		}
+
+		return levelService;
+	}
 
 
 
