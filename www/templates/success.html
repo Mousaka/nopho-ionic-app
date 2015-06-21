@@ -13,7 +13,7 @@
                 <div class="progress-wrapper no-margin" ng-controller="ScorePageController as sp">
 
                   <div class="progress" > 
-                    <div class="center2" ng-style="{'font-size': sp.getSmallerFont()}">
+                    <div class="center2" ng-style="{'font-size': '14px'}">
                       {{sp.level}}
                     </div>
                   </div>
@@ -36,7 +36,7 @@
             </div>
           </div>
           <div class= "col" style="text-align: left;">
-            <span class="coin ion-minus-circled" style="display: inline-block"> </span> {{newPoints}}
+            <span class="coin ion-disc" style="display: inline-block"> </span> {{newPoints}}
             <div ng-hide="hasNoCombo">
               <br>
               +<span class="ion-arrow-graph-up-right" style="display: inline-block; color: purple" > </span> {{comboMessage}}

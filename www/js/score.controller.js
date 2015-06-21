@@ -10,10 +10,16 @@
 		};
 	}
 
-	function scorePageController($ionicActionSheet, $ionicPlatform, $scope, $localstorage, $filter, levelService){
+	function scorePageController($ionicActionSheet, $ionicPlatform, $scope, $rootScope, $localstorage, $filter, levelService){
 		var sp = this;		
 
 		$ionicPlatform.ready(function(){
+			console.log("ionic ready");
+			updatePagePoints();
+		});
+
+		$rootScope.$on('update-points', function(){
+			console.log("on Update-points");
 			updatePagePoints();
 		});
 
@@ -39,9 +45,9 @@
 		};
 
 		this.getSmallerFont = function (){
+			console.log("Get smaller font");
 			updatePagePoints();
-			if (this.max > 999 || this.current > 999)
-				return "14"+"px";
+			return "14"+"px";
 		};
 	}
 

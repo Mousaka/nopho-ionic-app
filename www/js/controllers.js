@@ -1,7 +1,7 @@
 
 angular.module('starter.controllers', [])
 
-.controller('FirstpageController', function($ionicActionSheet, $ionicPlatform, $scope, $timeout, 
+.controller('FirstpageController', function($ionicActionSheet, $ionicPlatform, $scope, $rootScope, $timeout, 
 	$localstorage, $cordovaFile, $cordovaLocalNotification, $ionicPopup, $ionicModal) {
 	$ionicPlatform.ready(function(){
 		updatePagePoints();
@@ -183,6 +183,7 @@ $scope.$on('timer-stopped', function (event, data){
 		newPointsJSON = givePoints($scope.countdown);
 		$scope.newPoints = newPointsJSON['points'];
 		updatePagePoints();
+		$rootScope.$broadcast('update-points');
 		$scope.popupMessage = "You made it! You earned ";
 		if(newPointsJSON['comboPoints']>0){
 			console.log("I newPointJSON if");
