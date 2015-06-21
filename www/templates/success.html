@@ -36,16 +36,42 @@
             </div>
           </div>
           <div class= "col">
-            <span class="coin ion-disc" style="display: inline-block"> </span> {{newPoints}}
-            <div ng-hide="hasNoCombo">
-              <br>
-              +<span class="ion-fireball" style="display: inline-block; color: purple" > </span> {{comboMessage}}
+            <div class="row">
+              <div class="col"></div>
+              <div class="col"></div>
+              <div class="col">
+               {{newPoints}}
+             </div>
+           </div>
+           <div class="row">
+            <div class="col">
+              +
             </div>
+            <div class="col">
+              <span class="ion-fireball" style="display: inline-block; color: purple;" > </span>
+            </div>
+            <div class= "col">
+             <div ng-hide="hasNoCombo">
+               {{comboMessage}}
+             </div>
+           </div>
+         </div>
+         <div class="row">
+          <div class="col"></div>
+          <div class="col">
+            <span class="coin ion-disc" style="display: inline-block"> </span>
+          </div>
+          <div class="col">
+            <div class="horline"></div>
+            {{newPoints + comboMessage}}
           </div>
         </div>
-
       </div>
-
     </div>
-  </ion-content>
+
+
+  </div>
+
+</div>
+</ion-content>
 </ion-modal-view>
