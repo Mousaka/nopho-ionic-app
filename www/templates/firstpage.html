@@ -2,10 +2,10 @@
 
 <ion-header-bar align-title="center" class="bar-transparent">
 <div class= "buttons" >
-	<a class="button button-icon icon ion-trophy" ui-sref="score" ng-disabled="isDisabled"></a>
+	<a class="button button-icon icon ion-trophy gold-icon" ui-sref="score" ng-disabled="isDisabled"></a>
 </div>
 
-    <div class="pull-right">    <!-- funkar ej just nu, behålla det så -->
+    <div class="pull-right">    <!-- funkar ej just nu, behålla det så? -->
 	Points: {{points}}<br>
 	Level: {{points|levelCheck}} <br>	
 </div>
@@ -33,7 +33,7 @@
 	min="2"
 	max="24"
 	value="value">
-	
+
 	<timer autostart="false" interval="1000" max-time-unit="'minute'" countdown="1800">
 		{{minutes}}:{{sseconds}}
 	</timer> 
@@ -44,7 +44,7 @@
 
 <ion-footer-bar align-title="center" class="bar-subfooter bar-transparent">
 <div class="centertext">
-	<button class="ion-android-hand button circle {{buttonStyle}}" ng-click="activityButtonClicked()">
+	<button class="button circle {{buttonStyle}}" ng-click="activityButtonClicked()">
 		{{buttonText}}
 	</button>
 </div>
@@ -52,7 +52,7 @@
 <ion-footer-bar align-title="center" class="bar-transparent">
 
 <div class= "buttons"	>
-	<button class="button button-icon icon ion-gear-a" ng-click="showActionSheet()"></button>
+	<button class="button button-icon icon ion-gear-a" ng-click="showActionSheet()" ng-disabled="isDisabled"></button>
 </div>
 
 </ion-footer-bar>

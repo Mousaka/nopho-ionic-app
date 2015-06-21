@@ -131,7 +131,7 @@ $scope.startTimer = function() {
 	$scope.timerRunning = true;
 	$scope.workMessage = "Session active! Keep working for";
 	$scope.buttonText = "Give up?";
-	$scope.buttonStyle = "button-assertive";
+	$scope.buttonStyle = "ion-android-hand button-assertive";
 	$scope.isDisabled = true;
 
 	
