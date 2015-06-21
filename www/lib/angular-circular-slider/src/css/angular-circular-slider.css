@@ -34,20 +34,20 @@ Copyright (c) 2015 Prince John Wesley <princejohnwesley@gmail.com>
   position: absolute;
   border-style: none;
   border-radius: 100%;
-  border: 2px solid rgb(236, 248, 212);
+  /*border: 2px solid rgb(236, 248, 212); */
   text-align: center;
   pointer-events: none;
   line-height: 4em;
   color: white;
-  background-color: yellowgreen;
+  background-color: #45ccce;
   outline: none;
 }
 
 .acs-indicator {
   position: absolute;
   border-radius: 100%;
-  background-color: black;
-  border: 1px solid rgb(177, 177, 177);
+  background-color: #886aea;
+  /*border: 1px solid rgb(177, 177, 177); */
   -moz-box-sizing: border-box;
   box-sizing: border-box;
   pointer-events: none;

@@ -33,6 +33,7 @@
 	min="2"
 	max="24"
 	value="value">
+	
 	<timer autostart="false" interval="1000" max-time-unit="'minute'" countdown="1800">
 		{{minutes}}:{{sseconds}}
 	</timer> 
@@ -43,7 +44,7 @@
 
 <ion-footer-bar align-title="center" class="bar-subfooter bar-transparent">
 <div class="centertext">
-	<button class="ion-clock button circle {{buttonStyle}}" ng-click="activityButtonClicked()">
+	<button class="ion-android-hand button circle {{buttonStyle}}" ng-click="activityButtonClicked()">
 		{{buttonText}}
 	</button>
 </div>
