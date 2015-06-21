@@ -28,7 +28,7 @@
 			sp.points= $localstorage.getPoints();
 			sp.level= $filter('levelCheck')(sp.points);
 			sp.combo= $localstorage.getCombo();
-			sp.sessionCount= $localstorage.getSessionCount();
+			sp.sessionCount= $localstorage.getSuccessCount();
 			sp.pointsLeft = levelService.pointsToNextLevel(sp.points);
 			sp.max = levelService.getNextLevelLimit(sp.points);
 			sp.current = levelService.getPointsUpFromStart(sp.points);
