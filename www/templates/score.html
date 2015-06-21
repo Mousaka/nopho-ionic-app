@@ -10,11 +10,17 @@
 
 <ion-content class="has-scoreHeader" scroll="false" padding="true">
 <div class="centertext">	
-	<h3>   Points {{sp.points}} <i class="ion-disc gold-icon"> </i></h3>
+
+	<h3> Points {{sp.points}} <span class="coin ion-minus-circled purple-icon" style="display: inline-block"> </span> </h3>
+
 	<h4>Current level</h4>
 	<div class="progress-wrapper">
 
-		<div class="progress center2" ng-style="{'font-size': sp.getFontSize()}"> <div class="center2"> {{sp.level}}</div></div>
+		<div class="progress">
+			<div class="center2" ng-style="{'font-size': sp.getFontSize()}">
+				{{sp.level}}
+			</div>
+		</div>
 		
 		<div
 		round-progress
@@ -33,13 +39,13 @@
 </div>
 
 <div>
-	<h4>Points to next level: {{sp.pointsLeft}} </h4>
-	<hr class="lineWidth">
-	<div>	
+	<div class="horline">
+	<h4 >Points to next level: {{sp.pointsLeft}} </h4>
+</div>
+	<div class="horline">	
 		<h4>Combo <br>  
 			<i ng-repeat="n in [] | range:sp.combo" class="ion-android-star purple-icon"> </i> 
 		</h4> 
-		<hr class="lineWidth">
 	</div>
 	
 	<h4>Succeeds: {{sp.sessionCount}} </h4>

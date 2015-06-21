@@ -1,0 +1,51 @@
+      <ion-modal-view class="circle" on-tap="closeSuccPopup()">
+      <ion-header-bar class="bar bar-header bar-transparent" on-tap="closeSuccPopup()">
+      <h1 class="title">Well done</h1>
+    </ion-header-bar>
+    <ion-content class="no-has-header" scroll="false" padding="true">
+    <div class = "centertext">
+      <div class = "center2">
+        {{popupMessage}}
+        <div>
+          <div class= "row row-top my-icon">
+            <div class= "col">
+              <div>
+                <div class="progress-wrapper no-margin" ng-controller="ScorePageController as sp">
+
+                  <div class="progress" > 
+                    <div class="center2" ng-style="{'font-size': sp.getSmallerFont()}">
+                      {{sp.level}}
+                    </div>
+                  </div>
+
+                  <div
+                  round-progress
+                  max="sp.max"
+                  current="sp.current"
+                  color="#45ccce"
+                  bgcolor="#eaeaea"
+                  radius="40"
+                  stroke="10"
+                  semi="false"
+                  rounded="false"
+                  clockwise="true"
+                  iterations="75"
+                  animation="easeInOutQuart">
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class= "col" style="text-align: left;">
+            <span class="coin ion-minus-circled" style="display: inline-block"> </span> {{newPoints}}
+            <div ng-hide="hasNoCombo">
+              <br>
+              +<span class="ion-arrow-graph-up-right" style="display: inline-block; color: purple" > </span> {{comboMessage}}
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </ion-content>
+</ion-modal-view>
