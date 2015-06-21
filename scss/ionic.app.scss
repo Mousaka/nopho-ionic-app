@@ -15,8 +15,10 @@ $royal:                           #886aea !default;
 $dark:                            #444 !default;
 */
 // The path for our ionicons font files, relative to the built CSS in www/css
-$ionicons-font-path: "../lib/ionic/fonts" !default;
 
+$ionicons-font-path: "../lib/ionic/fonts" !default;
+$positive:      #ADFF2F;
+$assertive:    #ef473a;                       
 $modal-inset-mode-break-point: 200px;
 $modal-inset-mode-left:  8%;
 $modal-inset-mode-right:  8%;
@@ -94,6 +96,7 @@ bar-subfooter-height: 55px;
 
 .bar .button{
     min-height: 50px;
+    border-width: 0px;
 }
 
 .bar {
@@ -146,9 +149,9 @@ color : #886aea;
 
 .coin {
     color: #f6e06a;
-    -webkit-animation:spin 4s linear infinite;
-    -moz-animation:spin 4s linear infinite;
-    animation:spin 4s linear infinite;
+    -webkit-animation:spin 2.8s linear infinite;
+    -moz-animation:spin 2.8s linear infinite;
+    animation:spin 2.8s linear infinite;
 }
 @-moz-keyframes spin { 100% { -moz-transform: rotateY(360deg); } }
 @-webkit-keyframes spin { 100% { -webkit-transform: rotateY(360deg); } }
@@ -175,11 +178,19 @@ background-color : GhostWhite;
    
 }
 
+.left{
+    position: absolute;
+    left: 10px;
+}
+
 .bigger-text{
 
     font-size: 18px;
      margin-top: 7px;  
 }
+
+
+
 
 /*
 // Modals
