@@ -1,19 +1,16 @@
 
-
-angular.module('starter.filters', [])
-
-.constant("LL", [
-	-1,
-	0,
-	50,
-	100,
-	150,
-	250,
-	])
+function getLevelFromPoints(LL){
+	return function(points){
+	for(var i=0; i<LL.length; i++){
+		console.log("Loop: "+i);
+		if(points<LL[i])
+			return i;
+	}
+	};
+}
 
 
-
-.filter('levelCheck', function (LL) {
+	function oldGetLevel(LL) {
 	return function (points) {
 		level = 0;
 		if (points >=0 && points <50)
@@ -29,7 +26,24 @@ angular.module('starter.filters', [])
 
 		return level;
 	};
-})
+}
+
+
+
+angular.module('starter.filters', [])
+
+.constant("LL", [
+	-1,
+	50,
+	150,
+	250,
+	400,
+	])
+
+
+
+.filter('levelCheck', getLevelFromPoints)
+
 
 .factory('levelService', levelService);
 
@@ -37,23 +51,25 @@ function levelService (LL, $filter){
 	var levelService = {};
 	levelService.pointsToNextLevel = function(points){
 		myLevel = $filter('levelCheck')(points);
-		pointsLeft = LL[myLevel+1] - points;
+		pointsLeft = LL[myLevel] - points;
 		return pointsLeft;
 	};
 
 	levelService.getNextLevelLimit = function(points){
 		myLevel = $filter('levelCheck')(points);
-		pointsNextLimit = LL[myLevel+1] - LL[myLevel];
+		pointsNextLimit = LL[myLevel] - LL[myLevel-1];
 		return pointsNextLimit;
 	}
 	levelService.getPointsUpFromStart = function(points){
 		myLevel = $filter('levelCheck')(points);
-		pointsUpFromLimit = points - LL[myLevel];
+		console.log(points+"p - " + LL[myLevel] + " LL + " + myLevel + " my level");
+		pointsUpFromLimit = points - LL[myLevel-1];
 		return pointsUpFromLimit;
 	}
 
 	return levelService;
 }
+
 
 
 
