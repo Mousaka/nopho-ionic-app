@@ -20,13 +20,12 @@ var nophoApp = angular.module('starter', ['ionic', 'ngCordova', 'timer', 'angula
     document.addEventListener("home", onHome, false);
        var myService;
 
-   document.addEventListener('deviceready', function() {
+
       var serviceName = 'com.red_folder.phonegap.plugin.backgroundservice.nopho.NophoService';
       var factory = cordova.require('com.red_folder.phonegap.plugin.backgroundservice.BackgroundService')
       myService = factory.create(serviceName);
 
-      getStatus();
-   }, true);
+      go();
 
    function getStatus() {
       myService.getStatus(function(r){displayResult(r)}, function(e){displayError(e)});
@@ -40,6 +39,41 @@ var nophoApp = angular.module('starter', ['ionic', 'ngCordova', 'timer', 'angula
       alert("We have an error");
    }
 
+   function updateHandler(data) {
+   if (data.LatestResult != null) {
+      try {
+         var resultMessage = document.getElementById("resultMessage");
+         resultMessage.innerHTML = data.LatestResult.Message;
+      } catch (err) {
+      }
+   }
+}
+
+function go() {
+   myService.getStatus(function(r){startService(r)}, function(e){displayError(e)});
+}
+
+function startService(data) {
+   if (data.ServiceRunning) {
+      enableTimer(data);
+   } else {
+      myService.startService(function(r){enableTimer(r)}, function(e){displayError(e)});
+   }
+}
+
+function enableTimer(data) {
+   if (data.TimerEnabled) {
+      registerForUpdates(data);
+   } else {
+      myService.enableTimer(60000, function(r){registerForUpdates(r)}, function(e){displayError(e)});
+   }
+}
+
+function registerForUpdates(data) {
+   if (!data.RegisteredForUpdates) {
+      myService.registerForUpdates(function(r){updateHandler(r)}, function(e){handleError(e)});
+   }
+}
 
     $cordovaSocialSharing
     .canShareViaEmail()
