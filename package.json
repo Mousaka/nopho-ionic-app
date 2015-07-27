@@ -20,7 +20,11 @@
   "cordovaPlugins": [
     "org.apache.cordova.device",
     "org.apache.cordova.console",
-    "com.ionic.keyboard"
+    "com.ionic.keyboard",
+    {
+      "locator": "https://github.com/Red-Folder/bgs-core.git",
+      "id": "com.red_folder.phonegap.plugin.backgroundservice"
+    }
   ],
   "cordovaPlatforms": [
     "android"
