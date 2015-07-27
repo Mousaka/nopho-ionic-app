@@ -10,7 +10,7 @@
 		};
 	}
 
-	function scorePageController($ionicActionSheet, $ionicPlatform, $scope, $rootScope, $localstorage, $filter, levelService){
+	function scorePageController($ionicModal, $ionicActionSheet, $ionicPlatform, $scope, $rootScope, $localstorage, $filter, levelService){
 		var sp = this;		
 
 		$ionicPlatform.ready(function(){
@@ -49,6 +49,24 @@
 			updatePagePoints();
 			return "14"+"px";
 		};
+
+		$ionicModal.fromTemplateUrl('templates/info.html', {
+	scope: $scope
+}).then(function(infoTemplate) {
+	sp.infoTemplate = infoTemplate;
+});
+
+
+sp.showInfoPopup = function() {
+	console.log("du har tryckt på hjälp");
+	sp.infoTemplate.show();
+};
+
+sp.closeInfoPopup = function() {
+	console.log("closing popup");
+	sp.infoTemplate.hide();
+};
+
 	}
 
 	angular.module('starter.score.controller', [])
