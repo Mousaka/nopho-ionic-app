@@ -118,6 +118,7 @@ $scope.showSuccPopup = function() {
 	$scope.succTemplate.show();
 };
 
+
 //called when timer is started (from clicking activity button)
 $scope.startTimer = function() {
 	$scope.cancelNotifications();
