@@ -65,7 +65,7 @@ function enableTimer(data) {
    if (data.TimerEnabled) {
       registerForUpdates(data);
    } else {
-      myService.enableTimer(60000, function(r){registerForUpdates(r)}, function(e){displayError(e)});
+      myService.enableTimer(120000, function(r){registerForUpdates(r)}, function(e){displayError(e)});
    }
 }
 
