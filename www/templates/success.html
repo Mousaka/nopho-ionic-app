@@ -1,14 +1,15 @@
       <ion-modal-view class="circle" on-tap="closeSuccPopup()">
       <ion-header-bar class="bar bar-header bar-transparent" on-tap="closeSuccPopup()">
-      <h1 class="title">Well done</h1>
+      <h1 class="title">Session completed, well done!</h1>
     </ion-header-bar>
-    <ion-content class="no-has-header" scroll="false" padding="true">
+    <ion-content class="no-has-header marginRight" scroll="false" padding="true">
     <div class = "centertext">
       <div class = "center2">
         {{popupMessage}}
         <div>
           <div class= "row row-top my-icon">
             <div class= "col">
+              <div class="iconMargin2">
               <div>
                 <div class="progress-wrapper no-margin" ng-controller="ScorePageController as sp">
 
@@ -35,34 +36,37 @@
               </div>
             </div>
           </div>
+          </div>
           <div class= "col">
             <div class="row">
               <div class="col"></div>
-              <div class="col"></div>
+              <div class="col">
+                <span class="ion-ios-stopwatch-outline"></span>
+              </div>
               <div class="col">
                {{newPoints}}
              </div>
            </div>
            <div class="row">
             <div class="col">
-              +
+
             </div>
             <div class="col">
               <span class="ion-fireball" style="display: inline-block; color: purple;" > </span>
             </div>
             <div class= "col">
-             <div ng-hide="hasNoCombo">
-               {{comboMessage}}
-             </div>
+              + {{comboMessage}}
            </div>
          </div>
          <div class="row">
           <div class="col"></div>
           <div class="col">
+            <div class="iconMargin">
             <span class="coin ion-disc" style="display: inline-block"> </span>
           </div>
+           </div>
           <div class="col">
-            <div class="horline"></div>
+            <div class="horline2"></div>
             {{newPoints + comboMessage}}
           </div>
         </div>

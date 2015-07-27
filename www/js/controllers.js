@@ -61,7 +61,7 @@ $timeScale = 60;
 $madeItOnce = false;
 $scope.value = 6;
 if($testMode){
-	//$localstorage.clearData();
+	$localstorage.clearData();
 	$timeScale =1;
 	$scope.value = 2;
 }
@@ -185,8 +185,8 @@ $scope.$on('timer-stopped', function (event, data){
 		$scope.newPoints = newPointsJSON['points'];
 		updatePagePoints();
 		$rootScope.$broadcast('update-points');
-		$scope.popupMessage = "You made it! You earned ";
-		if(newPointsJSON['comboPoints']>0){
+		$scope.popupMessage = "";
+		if(newPointsJSON['comboPoints']>=0){
 			console.log("I newPointJSON if");
 			$scope.comboMessage = newPointsJSON['comboPoints'];
 			$scope.hasNoCombo=false;
