@@ -69,7 +69,7 @@ $scope.timerRunning = false;
 $scope.hasNoCombo=true;
 $scope.workMessage = "Time to start working!";
 $scope.buttonText = "Start session";
-$scope.buttonStyle = "button-positive";
+$scope.buttonStyle = "button-royal";
 $scope.shape = "Circle";
 $scope.comboMessage = "";
 
@@ -101,7 +101,7 @@ $scope.closeSuccPopup = function() {
    	$scope.resetClock();
    	$scope.workMessage = "Time to start working!";
 	$scope.buttonText = "Start session";
-	$scope.buttonStyle = "button-positive";
+	$scope.buttonStyle = "button-royal";
   });
 
 
