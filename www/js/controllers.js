@@ -128,6 +128,7 @@ $scope.startTimer = function() {
 	$scope.pushNotification($scope.countdown);
 	$scope.resetClock();
 	$scope.$broadcast('timer-start');
+	$rootScope.$broadcast('timer-start');
 	$localstorage.storeStartTime();
 	$scope.timerRunning = true;
 	$scope.workMessage = "Session active! Keep working for";
@@ -171,7 +172,6 @@ $scope.resetClock = function() {
 	if ((!$scope.timerRunning))
 		broadcastTimerSet($scope.countdown);
 };
-
 
 //called when time has run out
 $scope.$on('timer-stopped', function (event, data){
