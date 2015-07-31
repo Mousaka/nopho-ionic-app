@@ -61,7 +61,7 @@ $timeScale = 60;
 $madeItOnce = false;
 $scope.value = 6;
 if($testMode){
-	$localstorage.clearData();
+	//$localstorage.clearData();
 	$timeScale =1;
 	$scope.value = 2;
 }
@@ -142,7 +142,7 @@ $scope.startTimer = function() {
 $scope.manualStopTimer = function (){
 	console.log("manualStop");
 	$scope.cancelNotifications();
-	$localstorage.resultIncr($scope.countdown);
+	$scope.timePassed = $localstorage.resultIncr($scope.countdown);
 	$localstorage.resetCombo();
 	$scope.showLosePopup();
 	$scope.$broadcast('timer-stop');
