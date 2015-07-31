@@ -140,12 +140,12 @@ sendDataByMail: function(){
 
     console.log("message: " + message);
 
-       // $cordovaSocialSharing
-        //.shareViaEmail(message, "My nopho data", ["krlu2271@student.su.se"], [], [], [])
-        //.then(function(result) {
-          //}, function(err) {
-            //alert("Email failed!");
-      //  });
+       $cordovaSocialSharing
+        .shareViaEmail(message, "My nopho data", ["krlu2271@student.su.se"], [], [], [])
+        .then(function(result) {
+          }, function(err) {
+            alert("Email failed!");
+        });
 });
 
 }
