@@ -10,69 +10,72 @@
           <div class= "row row-top my-icon">
             <div class= "col">
               <div class="iconMargin2">
-              <div>
-                <div class="progress-wrapper no-margin" ng-controller="ScorePageController as sp">
+                <div>
+                  <div class="progress-wrapper no-margin" ng-controller="ScorePageController as sp">
 
-                  <div class="progress" > 
-                    <div class="center2" ng-style="{'font-size': '14px'}">
-                      {{sp.level}}
+                    <div class="progress" > 
+                      <div class="center2" ng-style="{'font-size': '25px'}">
+                        {{sp.level}}
+                      </div>
                     </div>
-                  </div>
 
-                  <div
-                  round-progress
-                  max="sp.max"
-                  current="sp.current"
-                  color="#45ccce"
-                  bgcolor="#eaeaea"
-                  radius="40"
-                  stroke="10"
-                  semi="false"
-                  rounded="false"
-                  clockwise="true"
-                  iterations="75"
-                  animation="easeInOutQuart">
+                    <div
+                    round-progress
+                    max="sp.max"
+                    current="sp.current"
+                    color="#45ccce"
+                    bgcolor="#eaeaea"
+                    radius="40"
+                    stroke="10"
+                    semi="false"
+                    rounded="false"
+                    clockwise="true"
+                    iterations="75"
+                    animation="easeInOutQuart">
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-          </div>
           <div class= "col">
-            <div class="row">
-              <div class="col"></div>
+            <div class="row">   
               <div class="col">
                 <span class="ion-ios-stopwatch-outline"></span>
               </div>
               <div class="col">
+                <div class="right-align">
                {{newPoints}}
              </div>
+              </div>
            </div>
-           <div class="row">
-            <div class="col">
-
-            </div>
+           <div class="row">     
             <div class="col">
               <span class="ion-fireball" style="display: inline-block; color: purple;" > </span>
             </div>
             <div class= "col">
-              + {{comboMessage}}
-           </div>
-         </div>
-         <div class="row">
-          <div class="col"></div>
-          <div class="col">
-            <div class="iconMargin">
-            <span class="coin ion-disc" style="display: inline-block"> </span>
+              <div class="right-align">
+              +{{comboMessage}}
+            </div>
+             </div>
           </div>
-           </div>
-          <div class="col">
-            <div class="horline2"></div>
-            {{newPoints + comboMessage}}
+          <div class="row">
+            <div class="col">
+              <div class="iconMargin">
+                <span class="coin ion-disc" style="display: inline-block"> </span>
+              </div>
+            </div>
+            <div class="col">
+              <div class="horline2"></div>
+              <div class="right-align">
+              <div class="bigger-text2">
+                {{newPoints + comboMessage}}
+               </div>
+                </div>
+            </div>
           </div>
         </div>
       </div>
     </div>
-
 
   </div>
 

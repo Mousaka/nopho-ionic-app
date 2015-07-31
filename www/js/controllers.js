@@ -61,7 +61,7 @@ $timeScale = 60;
 $madeItOnce = false;
 $scope.value = 6;
 if($testMode){
-	$localstorage.clearData();
+	//$localstorage.clearData();
 	$timeScale =1;
 	$scope.value = 2;
 }
@@ -69,7 +69,7 @@ $scope.timerRunning = false;
 $scope.hasNoCombo=true;
 $scope.workMessage = "Time to start working!";
 $scope.buttonText = "Start session";
-$scope.buttonStyle = "button-positive";
+$scope.buttonStyle = "button-royal";
 $scope.shape = "Circle";
 $scope.comboMessage = "";
 
@@ -101,7 +101,7 @@ $scope.closeSuccPopup = function() {
    	$scope.resetClock();
    	$scope.workMessage = "Time to start working!";
 	$scope.buttonText = "Start session";
-	$scope.buttonStyle = "button-positive";
+	$scope.buttonStyle = "button-royal";
   });
 
 
@@ -143,7 +143,7 @@ $scope.startTimer = function() {
 $scope.manualStopTimer = function (){
 	console.log("manualStop");
 	$scope.cancelNotifications();
-	$localstorage.resultIncr($scope.countdown);
+	$scope.timePassed = $localstorage.resultIncr($scope.countdown);
 	$localstorage.resetCombo();
 	$scope.showLosePopup();
 	$scope.$broadcast('timer-stop');

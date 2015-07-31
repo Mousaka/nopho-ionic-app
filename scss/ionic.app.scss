@@ -17,7 +17,7 @@ $dark:                            #444 !default;
 // The path for our ionicons font files, relative to the built CSS in www/css
 
 $ionicons-font-path: "../lib/ionic/fonts" !default;
-$positive:      #ADFF2F;
+$royal:        #98FB98;
 $assertive:    #ef473a;                       
 $modal-inset-mode-break-point: 200px;
 $modal-inset-mode-left:  8%;
@@ -28,39 +28,39 @@ $modal-backdrop-bg-active:        #000 !default;
 @import "www/lib/ionic/scss/ionic";
 
 .centertext { 
-    text-align: center;
+text-align: center;
 }
 
 .center2 {
-    top: 50%;
-    -webkit-transform: translateY(-50%);
-    -moz-transform: translateY(-50%);
-    -ms-transform: translateY(-50%);
-    -o-transform: translateY(-50%);
-    transform: translateY(-50%);
-    position: absolute !important;
-    margin:0 auto;
-    width:100%;
+top: 50%;
+-webkit-transform: translateY(-50%);
+-moz-transform: translateY(-50%);
+-ms-transform: translateY(-50%);
+-o-transform: translateY(-50%);
+transform: translateY(-50%);
+position: absolute !important;
+margin:0 auto;
+width:100%;
 }
 
 
 
 .no-has-header{
-    top: 0px;
+top: 0px;
 }
 
 /*
 .bar-header and .bar customizations to make header transparent and withouh border
 */
 .bar-header {
-    border: 0px !important;
-    border-bottom-color: transparent !important;
-    background-image: none;
-    border-bottom: none;
+border: 0px !important;
+border-bottom-color: transparent !important;
+background-image: none;
+border-bottom: none;
 }
 
 .scoreHeaderBar{
-    height: 60px;
+height: 60px;
 }
 /*
 Would be better to change footer and headers by changing variables instead of overriding classes here with these:
@@ -73,69 +73,69 @@ $bar-padding-portrait:            5px !default;
 bar-subfooter-height: 55px;
 */
 .bar-subfooter {
-    height: 55px;
-    padding: 0px;
+height: 55px;
+padding: 0px;
 }
 
 .has-subfooter{
-    bottom: 100px;
+bottom: 100px;
 }
 
 .align-bottom {
-    vertical-align: bottom;
+vertical-align: bottom;
 }
 
 .has-scoreHeader {
-    top: 85px;
+top: 85px;
 }
 
 .bar-subheader {
-    margin-top: 30px;
-    height: 50px;
+margin-top: 30px;
+height: 50px;
 }
 
 .bar .button{
-    min-height: 50px;
-    border-width: 0px;
+min-height: 50px;
+border-width: 0px;
 }
 
 .bar {
-    background-size: 100% 0px;
+background-size: 100% 0px;
 }
 .circle {
-	border-radius: 25px;
+border-radius: 25px;
 }
 
 .my-icon,
 .my-icon:before{
-  font-size:28px !important;
+font-size:28px !important;
 }
 
 .progress-wrapper{
-    position: relative;
-    margin:20px auto;
-  
+position: relative;
+margin:20px auto;
+
 }
 
 .progress-wrapper.no-margin{
-    margin: 0px;
+margin: 0px;
 }
 
 .progress{
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    line-height: 6em;
-    text-align: center;
-    color: #886aea;
-    font-weight: 100;
+position: absolute;
+width: 100%;
+height: 100%;
+line-height: 6em;
+text-align: center;
+color: #886aea;
+font-weight: 100;
 }
 
 .right-align{
-    text-align: right;
+text-align: right;
 }
 .scoreText{
-    font-size: 80px;
+font-size: 80px;
 }
 
 .purple-icon{
@@ -143,29 +143,30 @@ color : #886aea;
 }
 
 .horline {
-    border-top: thin solid Grey;
-    
-    margin-bottom: 10px;
+border-top: thin solid Grey;
+
+margin-bottom: 1px;
 }
 
 .horline2 {
-    border-top: thin solid Grey;
-      margin-bottom: 10px;
+border-top: thin solid Grey;
+font-weight: bold;
+margin-bottom: 10px;
 }
 
 .iconMargin {
-    margin-top: 8px;
+margin-top: 8px;
 }
 
 .iconMargin2 {
-    margin-top: 28px;
+margin-top: 28px;
 }
 
 .coin {
-    color: #f6e06a;
-    -webkit-animation:spin 2.8s linear infinite;
-    -moz-animation:spin 2.8s linear infinite;
-    animation:spin 2.8s linear infinite;
+color: #f6e06a;
+-webkit-animation:spin 2.8s linear infinite;
+-moz-animation:spin 2.8s linear infinite;
+animation:spin 2.8s linear infinite;
 }
 @-moz-keyframes spin { 100% { -moz-transform: rotateY(360deg); } }
 @-webkit-keyframes spin { 100% { -webkit-transform: rotateY(360deg); } }
@@ -174,37 +175,44 @@ color : #886aea;
 
 .lineWidth{
 width: 30%;
- min-width: 220px;
- color : GhostWhite;
- border-color : GhostWhite;
+min-width: 220px;
+color : GhostWhite;
+border-color : GhostWhite;
 background-color : GhostWhite;
 }
 
 
 .gold-icon{
-  color :  #D4AF37;
+color :  #D4AF37;
 }
 
 .right {
-    position: absolute;
-    right: 20px;
-   
-   
+position: absolute;
+right: 20px;
+
+
 }
 
 .left{
-    position: absolute;
-    left: 10px;
+position: absolute;
+left: 10px;
 }
 
 .bigger-text{
 
-    font-size: 18px;
-     margin-top: 7px;  
+font-size: 18px;
+margin-top: 7px;  
+}
+
+.bigger-text2{
+
+font-weight: bold;
+font-size: 28px;
+margin-top: 7px;  
 }
 
 .marginRight{
-    margin-right: 20px;
+margin-right: 20px;
 }
 
 

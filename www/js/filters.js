@@ -33,9 +33,24 @@ function getLevelFromPoints(LL){
 
 
 	.filter('levelCheck', getLevelFromPoints)
-
+.filter('secondsToTime', secondsToTime)
 
 	.factory('levelService', levelService);
+
+
+	function secondsToTime(){
+
+    return function(seconds) {
+    	sec = seconds%60;
+    	secTxt="";
+    	if(sec < 10)
+    		secTxt = "0";
+    	secTxt+=sec;
+        text = Math.floor(seconds/60) + ":" + secTxt;
+        	return text;
+    };
+}
+	
 
 	function levelService (LL, $filter){
 		var levelService = {};
