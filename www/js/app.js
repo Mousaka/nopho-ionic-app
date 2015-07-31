@@ -8,8 +8,6 @@ var nophoApp = angular.module('starter', ['ionic', 'ngCordova', 'timer', 'angula
 .run(function($ionicPlatform, $ionicHistory, $ionicPopup, $rootScope, $localstorage, $cordovaSocialSharing, $cordovaLocalNotification) {
   $ionicPlatform.ready(function() {
 
-
-
     //makes the app go fullscreen
     //StatusBar.hide();
     if (ionic.Platform.isAndroid())
@@ -18,62 +16,7 @@ var nophoApp = angular.module('starter', ['ionic', 'ngCordova', 'timer', 'angula
     document.addEventListener("resume", onResume, false);
     document.addEventListener("pause", onPause, false);
     document.addEventListener("home", onHome, false);
-       var myService;
 
-
-      var serviceName = 'com.red_folder.phonegap.plugin.backgroundservice.nopho.NophoService';
-      var factory = cordova.require('com.red_folder.phonegap.plugin.backgroundservice.BackgroundService')
-      myService = factory.create(serviceName);
-
-      go();
-
-   function getStatus() {
-      myService.getStatus(function(r){displayResult(r)}, function(e){displayError(e)});
-   }
-
-   function displayResult(data) {
-      alert("Is service running: " + data.ServiceRunning);
-   }
-
-   function displayError(data) {
-      alert("We have an error");
-   }
-
-   function updateHandler(data) {
-   if (data.LatestResult != null) {
-      try {
-         var resultMessage = document.getElementById("resultMessage");
-         resultMessage.innerHTML = data.LatestResult.Message;
-      } catch (err) {
-      }
-   }
-}
-
-function go() {
-   myService.getStatus(function(r){startService(r)}, function(e){displayError(e)});
-}
-
-function startService(data) {
-   if (data.ServiceRunning) {
-      enableTimer(data);
-   } else {
-      myService.startService(function(r){enableTimer(r)}, function(e){displayError(e)});
-   }
-}
-
-function enableTimer(data) {
-   if (data.TimerEnabled) {
-      registerForUpdates(data);
-   } else {
-      myService.enableTimer(120000, function(r){registerForUpdates(r)}, function(e){displayError(e)});
-   }
-}
-
-function registerForUpdates(data) {
-   if (!data.RegisteredForUpdates) {
-      myService.registerForUpdates(function(r){updateHandler(r)}, function(e){handleError(e)});
-   }
-}
 
     $cordovaSocialSharing
     .canShareViaEmail()
@@ -135,6 +78,9 @@ if(window.cordova && window.cordova.plugins.Keyboard) {
 if(window.StatusBar) {
   StatusBar.styleDefault();
 }
+
+
+
 });
 
 function onResume() {
@@ -154,6 +100,84 @@ function alertDismissed() {
   $localstorage.failIncr();
 }
 
+})
+
+.controller('MainController', function($scope, $ionicPlatform){
+    var myService;
+
+  $ionicPlatform.ready(function(){
+           
+
+      var serviceName = 'com.red_folder.phonegap.plugin.backgroundservice.nopho.NophoService';
+      var factory = cordova.require('com.red_folder.phonegap.plugin.backgroundservice.BackgroundService')
+      myService = factory.create(serviceName);
+
+      go();
+
+
+  });
+
+     function getStatus() {
+      console.log("Gettin status...");
+      myService.getStatus(function(r){updateHandler(r)}, function(e){displayError(e)});
+   }
+
+   function setConfig(goalTimeInMs){
+    var jsonConf = {'goalTime': goalTimeInMs};
+    console.log("Sttings status...");
+    myService.setConfiguration(jsonConf, function(r){getStatus(r)}, function(e){displayError(e)});
+   }
+
+   function displayResult(data) {
+      alert("Is service running: " + data.ServiceRunning);
+   }
+
+   function displayError(data) {
+      alert("We have an error " + data);
+   }
+
+   function updateHandler(data) {
+    console.log("UpdatinHandler..." + data.Configuration.goalTime); //HERE IS GOALTIME
+   if (data.LatestResult != null) {
+      try {
+         var resultMessage = document.getElementById("resultMessage");
+         resultMessage.innerHTML = data.Configuration.goalTime;
+      } catch (err) {
+      }
+   }
+}
+
+function go() {
+   myService.getStatus(function(r){startService(r)}, function(e){displayError(e)});
+}
+
+function startService(data) {
+   if (data.ServiceRunning) {
+      enableTimer(data);
+   } else {
+      myService.startService(function(r){enableTimer(r)}, function(e){displayError(e)});
+   }
+}
+
+function enableTimer(data) {
+   if (data.TimerEnabled) {
+      registerForUpdates(data);
+   } else {
+      myService.enableTimer(120000, function(r){registerForUpdates(r)}, function(e){displayError(e)});
+   }
+}
+
+function registerForUpdates(data) {
+   if (!data.RegisteredForUpdates) {
+      myService.registerForUpdates(function(r){updateHandler(r)}, function(e){handleError(e)});
+   }
+}
+
+
+    $scope.$on('timer-start', function(event, data){      
+      console.log("timer-start data: " + data); 
+      setConfig(data*1000);
+  });
 })
 
 .config(function($stateProvider, $urlRouterProvider) {
