@@ -118,18 +118,14 @@ function alertDismissed() {
   });
 
      function getStatus() {
-      myService.getStatus(function(r){displayResult(r)}, function(e){displayError(e)});
-   }
-
-   function getConfig(){
-      var conf = myService.getConfig();
-      alert(conf.stringify());
+      console.log("Gettin status...");
+      myService.getStatus(function(r){updateHandler(r)}, function(e){displayError(e)});
    }
 
    function setConfig(goalTimeInMs){
     var jsonConf = {'goalTime': goalTimeInMs};
     console.log("Sttings status...");
-    myService.setConfiguration(jsonConf, function(r){updateHandler(r)}, function(e){displayError(e)});
+    myService.setConfiguration(jsonConf, function(r){getStatus(r)}, function(e){displayError(e)});
    }
 
    function displayResult(data) {
@@ -141,10 +137,11 @@ function alertDismissed() {
    }
 
    function updateHandler(data) {
+    console.log("UpdatinHandler..." + data.Configuration.goalTime); //HERE IS GOALTIME
    if (data.LatestResult != null) {
       try {
          var resultMessage = document.getElementById("resultMessage");
-         resultMessage.innerHTML = data.LatestResult.Message;
+         resultMessage.innerHTML = data.Configuration.goalTime;
       } catch (err) {
       }
    }
@@ -177,8 +174,9 @@ function registerForUpdates(data) {
 }
 
 
-    $scope.$on('timer-start', function(){      
-      setConfig(10000);
+    $scope.$on('timer-start', function(event, data){      
+      console.log("timer-start data: " + data); 
+      setConfig(data*1000);
   });
 })
 

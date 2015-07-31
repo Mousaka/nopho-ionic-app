@@ -15,7 +15,7 @@ import android.os.CountDownTimer;
 public class NophoService extends BackgroundService {
 
 	public final static String APP_NAME = "com.ionicframework.nophoapp347342";
-	private int goalTimeInMs;
+	private int goalTimeInMs =0;
 	@Override
 	protected JSONObject doWork() {
 		JSONObject result = new JSONObject();
@@ -32,7 +32,7 @@ public class NophoService extends BackgroundService {
       // We also provide the same message in our JSON Result
 			result.put("Message", msg);
 		} catch (JSONException e) {
-      // In production code, you would have some exception handling here
+       		System.out.println("Json exception in doWork");
 		}
 
 
@@ -61,7 +61,7 @@ public class NophoService extends BackgroundService {
 		ActivityManager manager = (ActivityManager) getSystemService(ACTIVITY_SERVICE);
 		boolean result=false;
 
-		System.out.println("Manager: " + manager.toString());
+		Log.d("NophopService", manager.toString());
 		List<ActivityManager.RunningAppProcessInfo> runningTasks = manager.getRunningAppProcesses();
 
 		for(ActivityManager.RunningAppProcessInfo temp : runningTasks){
@@ -76,12 +76,19 @@ public class NophoService extends BackgroundService {
 
 	@Override
 	protected JSONObject getConfig() {
-		return null;
+		JSONObject tmp = new JSONObject();
+		try{
+		tmp.put("goalTime", goalTimeInMs);
+		}catch (JSONException e) {
+				System.out.println("Json exception in doWork");
+		}
+		return tmp;
 	}
 
 	@Override
 	protected void setConfig(JSONObject config) {
-		System.out.println("Setting goaltime to: "+ config.toString());
+		String msg = "Setting goaltime to: "+ config.toString();
+		Log.d("NophoService", msg);
 		try{
 			if(config.has("goalTime")){
 				goalTimeInMs = config.getInt("goalTime");
