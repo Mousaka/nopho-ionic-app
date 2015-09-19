@@ -53,6 +53,7 @@ angular.module('starter.controllers', [])
 		
 	});
 
+$scope.gamification = false;
 $succSessionsInRow = 0;
 $totalSuccSessions = 0;
 $lastSessionStatus = false;
