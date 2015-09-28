@@ -44,6 +44,7 @@ public class NophoService extends BackgroundService {
 
 			@Override
 			public void onTick(long millisUntilFinished) {
+				System.out.println("TICK " + millisUntilFinished);
 				isForeground("test");
 			}
 
@@ -64,13 +65,19 @@ public class NophoService extends BackgroundService {
 		Log.d("NophopService", manager.toString());
 		List<ActivityManager.RunningAppProcessInfo> runningTasks = manager.getRunningAppProcesses();
 
+		if(!runningTasks.isEmpty()){
 		for(ActivityManager.RunningAppProcessInfo temp : runningTasks){
 			if(temp.importance==ActivityManager.RunningAppProcessInfo.IMPORTANCE_FOREGROUND && temp.processName.equals(APP_NAME)){
 				System.out.println("Process in foreground: " + temp.processName);
 				result=true;
 				break;
+			}else{
+				System.out.println("Process in foreground: 1" + temp.processName);
 			}
 		}
+	}else{
+		System.out.println("Process in foreground: ?");
+	}
 		return result;
 	}
 
@@ -87,12 +94,14 @@ public class NophoService extends BackgroundService {
 
 	@Override
 	protected void setConfig(JSONObject config) {
+		System.out.println("i setConfig");
 		String msg = "Setting goaltime to: "+ config.toString();
 		Log.d("NophoService", msg);
 		try{
 			if(config.has("goalTime")){
 				goalTimeInMs = config.getInt("goalTime");
 				System.out.println("Goaltime is now: "+goalTimeInMs);
+				doWork();
 			}else{
 				System.out.println("No goal time");
 			}

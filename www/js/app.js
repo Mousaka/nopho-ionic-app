@@ -143,6 +143,7 @@ function alertDismissed() {
          var resultMessage = document.getElementById("resultMessage");
          resultMessage.innerHTML = data.Configuration.goalTime;
       } catch (err) {
+        console.log(err);
       }
    }
 }
