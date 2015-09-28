@@ -8,6 +8,11 @@ var nophoApp = angular.module('starter', ['ionic', 'ngCordova', 'timer', 'angula
 .run(function($ionicPlatform, $ionicHistory, $ionicPopup, $rootScope, $localstorage, $cordovaSocialSharing, $cordovaLocalNotification) {
   $ionicPlatform.ready(function() {
 
+//cancels old push notifications when the app starts
+      if(ionic.Platform.isAndroid() || ionic.Platform.isIOS())
+        $cordovaLocalNotification.cancelAll();
+      console.log("Cleared PUSH NOTIFICATIONS");
+
     //makes the app go fullscreen
     //StatusBar.hide();
     if (ionic.Platform.isAndroid())
@@ -102,82 +107,83 @@ function alertDismissed() {
 
 })
 
-.controller('MainController', function($scope, $ionicPlatform){
-    var myService;
+.controller('MainController', function($scope, $ionicPlatform, $cordovaLocalNotification){
+  var myService;
 
   $ionicPlatform.ready(function(){
-           
+    
 
-      var serviceName = 'com.red_folder.phonegap.plugin.backgroundservice.nopho.NophoService';
-      var factory = cordova.require('com.red_folder.phonegap.plugin.backgroundservice.BackgroundService')
-      myService = factory.create(serviceName);
+    var serviceName = 'com.red_folder.phonegap.plugin.backgroundservice.nopho.NophoService';
+    var factory = cordova.require('com.red_folder.phonegap.plugin.backgroundservice.BackgroundService')
+    myService = factory.create(serviceName);
 
-      go();
+    go();
+
 
 
   });
 
-     function getStatus() {
-      console.log("Gettin status...");
-      myService.getStatus(function(r){updateHandler(r)}, function(e){displayError(e)});
-   }
+  function getStatus() {
+    console.log("Gettin status...");
+    myService.getStatus(function(r){updateHandler(r)}, function(e){displayError(e)});
+  }
 
-   function setConfig(goalTimeInMs){
+  function setConfig(goalTimeInMs){
     var jsonConf = {'goalTime': goalTimeInMs};
     console.log("Sttings status...");
     myService.setConfiguration(jsonConf, function(r){getStatus(r)}, function(e){displayError(e)});
-   }
+  }
 
-   function displayResult(data) {
-      alert("Is service running: " + data.ServiceRunning);
-   }
+  function displayResult(data) {
+    alert("Is service running: " + data.ServiceRunning);
+  }
 
-   function displayError(data) {
-      alert("We have an error " + data);
-   }
+  function displayError(data) {
+    alert("We have an error " + data);
+  }
 
-   function updateHandler(data) {
+  function updateHandler(data) {
     console.log("UpdatinHandler..." + data.Configuration.goalTime); //HERE IS GOALTIME
-   if (data.LatestResult != null) {
+    if (data.LatestResult != null) {
       try {
-         var resultMessage = document.getElementById("resultMessage");
-         resultMessage.innerHTML = data.Configuration.goalTime;
-      } catch (err) {
-      }
+       var resultMessage = document.getElementById("resultMessage");
+       resultMessage.innerHTML = data.Configuration.goalTime;
+     } catch (err) {
+     }
    }
-}
+ }
 
-function go() {
+ function go() {
    myService.getStatus(function(r){startService(r)}, function(e){displayError(e)});
-}
+ }
 
-function startService(data) {
+ function startService(data) {
    if (data.ServiceRunning) {
-      enableTimer(data);
-   } else {
-      myService.startService(function(r){enableTimer(r)}, function(e){displayError(e)});
-   }
+    enableTimer(data);
+  } else {
+    myService.startService(function(r){enableTimer(r)}, function(e){displayError(e)});
+  }
 }
 
 function enableTimer(data) {
-   if (data.TimerEnabled) {
-      registerForUpdates(data);
-   } else {
-      myService.enableTimer(120000, function(r){registerForUpdates(r)}, function(e){displayError(e)});
-   }
+ if (data.TimerEnabled) {
+  registerForUpdates(data);
+} else {
+  myService.enableTimer(120000, function(r){registerForUpdates(r)}, function(e){displayError(e)});
+}
 }
 
 function registerForUpdates(data) {
-   if (!data.RegisteredForUpdates) {
-      myService.registerForUpdates(function(r){updateHandler(r)}, function(e){handleError(e)});
-   }
+ if (!data.RegisteredForUpdates) {
+  myService.registerForUpdates(function(r){updateHandler(r)}, function(e){handleError(e)});
+}
 }
 
 
-    $scope.$on('timer-start', function(event, data){      
-      console.log("timer-start data: " + data); 
-      setConfig(data*1000);
-  });
+$scope.$on('timer-start', function(event, data){      
+  console.log("timer-start data: " + data); 
+  setConfig(data*1000);
+});
 })
 
 .config(function($stateProvider, $urlRouterProvider) {
