@@ -146,10 +146,12 @@ function alertDismissed() {
     console.log("UpdatinHandler..." + data.Configuration.goalTime); //HERE IS GOALTIME
     if (data.LatestResult != null) {
       try {
+
        var resultMessage = document.getElementById("resultMessage");
        resultMessage.innerHTML = data.Configuration.goalTime;
      } catch (err) {
      }
+
    }
  }
 
