@@ -273,7 +273,7 @@ $scope.loadFail = function() {
 };
 
 $scope.sendDataByMail = function () {
-	$localstorage.sendDataByMail();
+	$localstorage.sendDataByMail($scope.gamification);
 };
 
 $ionicPlatform.ready(function () {

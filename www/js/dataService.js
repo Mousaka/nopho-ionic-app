@@ -129,13 +129,14 @@ getDataArray: function(){
   return data['results']['stamps'];
 },
 
-sendDataByMail: function(){
+sendDataByMail: function(gamification){
   $ionicPlatform.ready(function() {
     file =$getObject($key);
     message = json2csv(file['results']['stamps']);
     message += "Points: " + (file['score']['points']);
     message += ", level: " + (file['score']['level']);
     message += ", combo: " + (file['score']['combo']);
+    message += ", gamification: " + gamification;
 
     console.log("message: " + message);
 
