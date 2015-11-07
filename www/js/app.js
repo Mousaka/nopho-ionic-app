@@ -130,7 +130,7 @@ function alertDismissed() {
 
   function setConfig(goalTimeInMs){
     var jsonConf = {'goalTime': goalTimeInMs};
-    console.log("Sttings status...");
+    console.log("app Sttings status...");
     myService.setConfiguration(jsonConf, function(r){getStatus(r)}, function(e){displayError(e)});
   }
 
@@ -168,11 +168,12 @@ function alertDismissed() {
 }
 
 function enableTimer(data) {
- if (data.TimerEnabled) {
-  registerForUpdates(data);
-} else {
-  myService.enableTimer(120000, function(r){registerForUpdates(r)}, function(e){displayError(e)});
-}
+   if (data.TimerEnabled) {
+      registerForUpdates(data);
+   } else {
+      myService.enableTimer(60000, function(r){registerForUpdates(r)}, function(e){displayError(e)});
+   }
+
 }
 
 function registerForUpdates(data) {
@@ -182,10 +183,12 @@ function registerForUpdates(data) {
 }
 
 
-$scope.$on('timer-start', function(event, data){      
-  console.log("timer-start data: " + data); 
-  setConfig(data*1000);
-});
+    $scope.$on('timer-start', function(event, data){      
+      console.log("timer-start data: " + data); 
+      setConfig(data*1000);
+      setInterval(function(){ getStatus(); }, 20000);
+  });
+
 })
 
 .config(function($stateProvider, $urlRouterProvider) {
