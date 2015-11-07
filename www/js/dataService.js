@@ -136,7 +136,6 @@ sendDataByMail: function(){
     message += "Points: " + (file['score']['points']);
     message += ", level: " + (file['score']['level']);
     message += ", combo: " + (file['score']['combo']);
-    message += ", achievements: " + (file['score']['achivements']);
 
     console.log("message: " + message);
 
@@ -165,7 +164,7 @@ function json2csv(objArray)
         line += array[i][index];
     }
 
-    str += line + '\r\n';
+    str += line + '\n';
   }
   return ""+str;
 
