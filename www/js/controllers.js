@@ -9,7 +9,6 @@ angular.module('starter.controllers', [])
 		$scope.cancelNotifications = function () {
 			if(ionic.Platform.isAndroid() || ionic.Platform.isIOS())
 				$cordovaLocalNotification.cancelAll();
-			console.log("Cleared PUSH NOTIFICATIONS");
 		};
 
 		$scope.pushFailNotification = function () {
@@ -24,18 +23,14 @@ angular.module('starter.controllers', [])
 						customProperty: 'custom value'
 					}
 				}).then(function (result) {
-					console.log("Created new fail pushnotification!");
 				});
 			}
 		};
 
 		$scope.pushNotification = function(timeGoal){
-			console.log("About to push notifciation.. android? ios? -> " +  ionic.Platform.isAndroid() + ", " + ionic.Platform.isIOS());
 			if(ionic.Platform.isIOS() || ionic.Platform.isAndroid()){
-				console.log("In pushNotification");
 				now = new Date().getTime(); 
 				timeGoalPoint = new Date(now + 500 + timeGoal * 1000);
-				console.log("Notification will scheduled at: " + timeGoalPoint + " cord: " + $cordovaLocalNotification);
 				$cordovaLocalNotification.add({
 					id: 1,
 					title: 'Session completed',
@@ -46,7 +41,6 @@ angular.module('starter.controllers', [])
 						customProperty: 'custom value'
 					}
 				}).then(function (result) {
-					console.log("Created new pushnotification!");
 				});
 			}
 		}
@@ -92,12 +86,10 @@ $ionicModal.fromTemplateUrl('templates/lose.html', {
 
 
 $scope.closeSuccPopup = function() {
-	console.log("closing popup");
 	$scope.succTemplate.hide();
 };
 
   $scope.$on('modal.hidden', function() {
-   	console.log("Modal hidden!!");
    	$scope.isDisabled = false;
    	$scope.resetClock();
    	$scope.workMessage = "Time to start working!";
@@ -107,7 +99,6 @@ $scope.closeSuccPopup = function() {
 
 
 $scope.closeLosePopup = function() {
-	console.log("closing popup");
 	$scope.loseTemplate.hide();
 };
 
@@ -125,7 +116,6 @@ $scope.startTimer = function() {
 	$scope.cancelNotifications();
 	$madeItOnce = false;
 	$testMode ? alert(JSON.stringify($localstorage.getData('userData'))) : "";
-	console.log("start"); 
 	$scope.pushNotification($scope.countdown);
 	$scope.resetClock();
 //	$scope.$broadcast('timer-start', $scope.countdown); 
@@ -142,7 +132,6 @@ $scope.startTimer = function() {
 
 //called when the timer is stopped manually, i.e session failed
 $scope.manualStopTimer = function (){
-	console.log("manualStop");
 	$scope.cancelNotifications();
 	$scope.timePassed = $localstorage.resultIncr($scope.countdown);
 	$localstorage.resetCombo();
@@ -178,7 +167,6 @@ $scope.resetClock = function() {
 $scope.$on('timer-stopped', function (event, data){
 	//console.log("timer stopped, before if");
 	if (data.seconds==0 && data.minutes==0 && !$madeItOnce){
-		console.log("timer stopped, in if");
 		$madeItOnce = true;
 		$localstorage.resultIncr($scope.countdown);
 		$scope.lastSessionStatus = true;
@@ -188,7 +176,6 @@ $scope.$on('timer-stopped', function (event, data){
 		$rootScope.$broadcast('update-points');
 		$scope.popupMessage = "";
 		if(newPointsJSON['comboPoints']>=0){
-			console.log("I newPointJSON if");
 			$scope.comboMessage = newPointsJSON['comboPoints'];
 			$scope.hasNoCombo=false;
 		}
@@ -204,7 +191,7 @@ givePoints = function(timeGoal){
 	}else{
 		time = timeGoal/60;
 	}
-//	console.log("Time to updatePointsLevelCombo:-> " + time);
+//	("Time to updatePointsLevelCombo:-> " + time);
 return $localstorage.updatePointsLevelCombo(time);
 
 };
@@ -237,7 +224,6 @@ $scope.showActionSheet = function() {
 }
 
 $scope.$on('cordovaResumeEvent', function(event, data){
-	console.log("cought resume event");
 	$scope.random = Math.random();
 	if($scope.timerRunning){
 		$time = $scope.countdown - $localstorage.getTimeDiff();
@@ -250,7 +236,6 @@ $scope.$on('cordovaResumeEvent', function(event, data){
 
 //This event is sent on onUserLeaveHint event from Java part
 $scope.$on('home-event', function(event, data){
-	console.log("!! Cought home event");
 	if($scope.timerRunning){
 		$scope.manualStopTimer();
 		$scope.pushFailNotification();
@@ -259,7 +244,6 @@ $scope.$on('home-event', function(event, data){
 });
 
 $scope.$on('cordovaPauseEvent', function(event, data){
-	console.log("Pause event cought");
 });
 
 $scope.onSlide = function(value){

@@ -41,21 +41,23 @@ public class NophoService extends BackgroundService {
 
 	public void startSession(int goalTimeInMs){
 		CountDownTimer countDownTimer = new CountDownTimer(goalTimeInMs, 2 * 1000) {
-
 			@Override
 			public void onTick(long millisUntilFinished) {
-				System.out.println("TICK " + millisUntilFinished);
+				Log.d("NophoService","TICK " + millisUntilFinished);
 				isForeground("test");
+				initialiseLatestResult();
 			}
 
 			@Override
 			public void onFinish() {
         // Do something, maybe?
-
+				System.out.println("FINISH");
+				Log.d("NophoService", "FINNISH");
 			//	this.start();
 			}
 		};
 		countDownTimer.start();
+		System.out.println("TICK time to tick");
 	}
 
 	public boolean isForeground(String myPackage) {
@@ -112,7 +114,13 @@ public class NophoService extends BackgroundService {
 
 	@Override
 	protected JSONObject initialiseLatestResult() {
-		return null;
+				JSONObject tmp = new JSONObject();
+		try{
+		tmp.put("goalTime", goalTimeInMs);
+		}catch (JSONException e) {
+				System.out.println("Json exception in doWork");
+		}
+		return tmp;
 	}
 
 
