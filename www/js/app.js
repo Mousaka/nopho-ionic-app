@@ -157,11 +157,7 @@ function alertDismissed() {
 
  function go() {
    myService.getStatus(function(r){startService(r)}, function(e){displayError(e)});
-<<<<<<< HEAD
-};
-=======
  }
->>>>>>> f5d8d11b8e0db5e59593a0d00fe05fecb16e891d
 
  function startService(data) {
    if (data.ServiceRunning) {
