@@ -3,15 +3,16 @@
 // angular.module is a global place for creating, registering and retrieving Angular modules
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
-var nophoApp = angular.module('starter', ['ionic', 'ngCordova', 'timer', 'angular.circular-slider', 'angular-svg-round-progress', 'starter.dataService', 'starter.controllers', 'starter.score.controller', 'starter.filters','angular.directives-round-progress'])
+var nophoApp = angular.module('starter', ['ionic', 'ngCordova', 'ngCordova.plugins.file', 'timer', 'angular.circular-slider', 'angular-svg-round-progress', 'starter.dataService', 'starter.controllers', 'starter.score.controller', 'starter.filters','angular.directives-round-progress'])
 
-.run(function($ionicPlatform, $ionicHistory, $ionicPopup, $rootScope, $localstorage, $cordovaSocialSharing, $cordovaLocalNotification) {
+.run(function($ionicPlatform, $ionicHistory, $ionicPopup, $rootScope, $cordovaFile, $localstorage, $cordovaSocialSharing, $cordovaLocalNotification) {
   $ionicPlatform.ready(function() {
 
+
 //cancels old push notifications when the app starts
-      if(ionic.Platform.isAndroid() || ionic.Platform.isIOS())
-        $cordovaLocalNotification.cancelAll();
-      console.log("Cleared PUSH NOTIFICATIONS");
+if(ionic.Platform.isAndroid() || ionic.Platform.isIOS())
+  $cordovaLocalNotification.cancelAll();
+console.log("Cleared PUSH NOTIFICATIONS");
 
     //makes the app go fullscreen
     //StatusBar.hide();
@@ -22,6 +23,13 @@ var nophoApp = angular.module('starter', ['ionic', 'ngCordova', 'timer', 'angula
     document.addEventListener("pause", onPause, false);
     document.addEventListener("home", onHome, false);
 
+    $cordovaFile.getFreeDiskSpace()
+    .then(function (success) {
+     console.log("SuccessFile");
+   }, function (error) {
+          // error
+          console.log("FailFile");
+        });
 
     $cordovaSocialSharing
     .canShareViaEmail()
@@ -111,7 +119,7 @@ function alertDismissed() {
   var myService;
 
   $ionicPlatform.ready(function(){
-    
+
 
     var serviceName = 'com.red_folder.phonegap.plugin.backgroundservice.nopho.NophoService';
     var factory = cordova.require('com.red_folder.phonegap.plugin.backgroundservice.BackgroundService')
@@ -168,11 +176,11 @@ function alertDismissed() {
 }
 
 function enableTimer(data) {
-   if (data.TimerEnabled) {
-      registerForUpdates(data);
-   } else {
-      myService.enableTimer(60000, function(r){registerForUpdates(r)}, function(e){displayError(e)});
-   }
+ if (data.TimerEnabled) {
+  registerForUpdates(data);
+} else {
+  myService.enableTimer(60000, function(r){registerForUpdates(r)}, function(e){displayError(e)});
+}
 
 }
 
@@ -183,11 +191,11 @@ function registerForUpdates(data) {
 }
 
 
-    $scope.$on('timer-start', function(event, data){      
-      console.log("timer-start data: " + data); 
-      setConfig(data*1000);
-      setInterval(function(){ getStatus(); }, 20000);
-  });
+$scope.$on('timer-start', function(event, data){      
+  console.log("timer-start data: " + data); 
+  setConfig(data*1000);
+  setInterval(function(){ getStatus(); }, 20000);
+});
 
 })
 

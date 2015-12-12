@@ -257,6 +257,7 @@ $scope.loadFail = function() {
 };
 
 $scope.sendDataByMail = function () {
+	$localstorage.storeFile($scope.gamification);
 	$localstorage.sendDataByMail($scope.gamification);
 };
 

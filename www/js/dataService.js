@@ -1,6 +1,6 @@
-angular.module('starter.dataService', [])
+angular.module('starter.dataService', ['ngCordova.plugins.file'])
 
-.factory('$localstorage', ['$window', '$filter', '$cordovaSocialSharing', '$ionicPlatform', function($window, $filter, $cordovaSocialSharing, $ionicPlatform) {
+.factory('$localstorage', ['$window', '$filter', '$cordovaSocialSharing', '$cordovaFile', '$ionicPlatform', function($window, $filter, $cordovaSocialSharing, $cordovaFile, $ionicPlatform) {
 	$key = 'userData';
   $scoreKey = 'score';
   $timeStartedKey = 'startTime';
@@ -128,7 +128,7 @@ getDataArray: function(){
   data = $getObject($key);
   return data['results']['stamps'];
 },
-
+  
 sendDataByMail: function(gamification){
   $ionicPlatform.ready(function() {
     file =$getObject($key);
@@ -148,6 +148,18 @@ sendDataByMail: function(gamification){
         });
 });
 
+},
+
+storeFile: function(gamification){
+  $ionicPlatform.ready(function() {
+
+    $cordovaFile.getFreeDiskSpace()
+      .then(function (success) {
+         alert("WEEY! " + success);
+      }, function (error) {
+         alert("Boo!");
+      });
+  });
 }
 
 }
