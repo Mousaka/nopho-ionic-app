@@ -7,12 +7,14 @@ angular.module('starter.dataService', ['ngCordova.plugins.file'])
   $defaultJSON = '{"results": {"sessionCount": 0, "successCount":0,"failCount": 0, "stamps": []}, "score": {"points": 0, "level": 1, "combo": 0, "achievements": []}}';
 
   $getObject = function(key) {
+ //   var json = readFromFile();
     return JSON.parse($window.localStorage[key] || $defaultJSON);
   };
 
   $setObject = function(key, value) {
  //   console.log("Storing " + value + " in " + key);
  $window.localStorage[key] = JSON.stringify(value);
+// writeToFile($window.localStorage[$key], $cordovaFile, $ionicPlatform);
 };
 
 $getStartTime = function(){
@@ -30,6 +32,38 @@ $setScore = function(newScore){
   $setObject($key, data);
 };
 
+readFromFile = function(){
+  $ionicPlatform.ready(function() {
+    var file ="new_file.txt";
+    $cordovaFile.readAsData(cordova.file.dataDirectory, file)
+    .then(function (success) {
+       alert("Read file: " + success);
+       return success;
+      }, function (error) {
+        alert("Could not read file");
+        return "";
+      });
+  });
+};
+
+writeToFile = function(data){ 
+  $ionicPlatform.ready(function() {
+    alert("in function + "  +cordova.file.dataDirectory);
+    $cordovaFile.createFile(cordova.file.dataDirectory, "new_file.txt", false)
+    .then(function (success) {
+      alert("WEEY! " + success);
+    }, function (error) {
+     alert("file already exist. No problem");
+   });
+      // WRITE
+      $cordovaFile.writeFile(cordova.file.dataDirectory, "new_file.txt", data, true)
+      .then(function (success) {
+        alert("Wrote to file! " + success);
+      }, function (error) {
+       alert("could not write to file");
+     });
+    });
+};
 
 return {
 
@@ -158,38 +192,7 @@ storeFile: function(gamification){
 }
 }]);
 
-function readFromFile($cordovaFile, $ionicPlatform){
-  $ionicPlatform.ready(function() {
-    var file ="new_file.txt";
-    $cordovaFile.readAsText(cordova.file.dataDirectory, file)
-    .then(function (success) {
-       alert("Read file: " + success);
-       return success;
-      }, function (error) {
-        alert("Could not read file");
-        return "";
-      });
-  });
-}
 
-function writeToFile(data, $cordovaFile, $ionicPlatform){ 
-  $ionicPlatform.ready(function() {
-    alert("in function + "  +cordova.file.dataDirectory);
-    $cordovaFile.createFile(cordova.file.dataDirectory, "new_file.txt", false)
-    .then(function (success) {
-      alert("WEEY! " + success);
-    }, function (error) {
-     alert("file already exist. No problem");
-   });
-      // WRITE
-      $cordovaFile.writeFile(cordova.file.dataDirectory, "new_file.txt", data, true)
-      .then(function (success) {
-        alert("Wrote to file! " + success);
-      }, function (error) {
-       alert("could not write to file");
-     });
-    });
-}
 function json2csv(objArray)
 {
   var array = typeof objArray != 'object' ? JSON.parse(objArray) : objArray;
