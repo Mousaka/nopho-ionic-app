@@ -128,7 +128,7 @@ getDataArray: function(){
   data = $getObject($key);
   return data['results']['stamps'];
 },
-  
+
 sendDataByMail: function(gamification){
   $ionicPlatform.ready(function() {
     file =$getObject($key);
@@ -140,31 +140,56 @@ sendDataByMail: function(gamification){
 
     console.log("message: " + message);
 
-       $cordovaSocialSharing
-        .shareViaEmail(message, "My nopho data", ["krlu2271@student.su.se"], [], [], [])
-        .then(function(result) {
-          }, function(err) {
-            alert("Email failed!");
-        });
-});
+    $cordovaSocialSharing
+    .shareViaEmail(message, "My nopho data", ["krlu2271@student.su.se"], [], [], [])
+    .then(function(result) {
+    }, function(err) {
+      alert("Email failed!");
+    });
+  });
 
 },
 
 storeFile: function(gamification){
-  $ionicPlatform.ready(function() {
-
-    $cordovaFile.getFreeDiskSpace()
-      .then(function (success) {
-         alert("WEEY! " + success);
-      }, function (error) {
-         alert("Boo!");
-      });
-  });
+  writeToFile("Text in teh file", $cordovaFile, $ionicPlatform);
+  readFromFile($cordovaFile, $ionicPlatform);
 }
 
 }
 }]);
 
+function readFromFile($cordovaFile, $ionicPlatform){
+  $ionicPlatform.ready(function() {
+    var file ="new_file.txt";
+    $cordovaFile.readAsText(cordova.file.dataDirectory, file)
+    .then(function (success) {
+       alert("Read file: " + success);
+       return success;
+      }, function (error) {
+        alert("Could not read file");
+        return "";
+      });
+  });
+}
+
+function writeToFile(data, $cordovaFile, $ionicPlatform){ 
+  $ionicPlatform.ready(function() {
+    alert("in function + "  +cordova.file.dataDirectory);
+    $cordovaFile.createFile(cordova.file.dataDirectory, "new_file.txt", false)
+    .then(function (success) {
+      alert("WEEY! " + success);
+    }, function (error) {
+     alert("file already exist. No problem");
+   });
+      // WRITE
+      $cordovaFile.writeFile(cordova.file.dataDirectory, "new_file.txt", data, true)
+      .then(function (success) {
+        alert("Wrote to file! " + success);
+      }, function (error) {
+       alert("could not write to file");
+     });
+    });
+}
 function json2csv(objArray)
 {
   var array = typeof objArray != 'object' ? JSON.parse(objArray) : objArray;
